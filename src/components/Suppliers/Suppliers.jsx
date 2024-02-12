@@ -4,7 +4,7 @@ export default function Suppliers() {
     return (
         <div className='flex flex-col '>
             <h2 className='text-2xl font-bold '>Suppliers by region</h2>
-            <div className="grid grid-cols-5 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4">
                 {suppliers.map((supplier, index) => (
                     <div key={index} className="flex gap-2 items-center ">
                         <div className="w-12">

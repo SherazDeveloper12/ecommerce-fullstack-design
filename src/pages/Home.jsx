@@ -35,13 +35,13 @@ dispatch(resetOrdersStatus());
    
   return (
     <div className='flex flex-col gap-5 pt-5  '>
-      <div className=' flex flex-col gap-5 py-5 max-w-7xl mx-auto'>
+      <div className=' flex flex-col gap-5 py-5 max-w-2xs md:max-w-7xl mx-auto'>
       <HomeHero />
-      <DealsOffer />
-      {showcaseData.map((showcase, index) =>(
+      {/* <DealsOffer /> */}
+      {/* {showcaseData.map((showcase, index) =>(
         <ShowcaseGroup key={index} title={showcase.title} products={showcase.products} backgroundImg={showcase.backgroundImg} />
-     ))}
-      <ItemQuote />
+     ))} */}
+      {/* <ItemQuote /> */}
       <RecommendedItems />
       <ExtraServices />
       <Suppliers />

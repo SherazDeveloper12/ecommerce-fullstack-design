@@ -11,7 +11,7 @@ export default function InvoicePdf() {
 
   
   return (
-    <div className='h-[100vh] bg-red-200'>
+    <div className='h-screen bg-red-200'>
     <PDFViewer style={{ width: '100%', height: '100%' }}>
       <InvoicePdfDocument order={order} />
     </PDFViewer>

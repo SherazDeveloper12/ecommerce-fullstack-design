@@ -20,6 +20,8 @@ export const adminSlice = createSlice({
     initialState: {
         pendingRevenue: 0,
         liveUsers: 0,
+        liveUsersCount: 0,
+        liveUsersCountlast60min: 0,
         users: [],
         status: "idle",
         error: null,
@@ -27,6 +29,12 @@ export const adminSlice = createSlice({
     reducers: {
         setLiveUsers: (state, action) => {
             state.liveUsers = action.payload;
+        },
+        setLiveUsersCount: (state, action) => {
+            state.liveUsersCount = action.payload;
+        },
+        setLiveUsersCountlast60min: (state, action) => {
+            state.liveUsersCountlast60min = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -46,5 +54,5 @@ export const adminSlice = createSlice({
     },
 });
 
-export const { setLiveUsers } = adminSlice.actions;
+export const { setLiveUsers, setLiveUsersCount, setLiveUsersCountlast60min } = adminSlice.actions;
 export default adminSlice.reducer;

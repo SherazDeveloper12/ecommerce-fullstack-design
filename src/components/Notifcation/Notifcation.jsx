@@ -22,7 +22,7 @@ export default function Notifcation() {
  },[])
 
   return (
-    <div className='absolute top-14 right-18 bg-white border border-gray-300 rounded shadow p-4 w-90 '>
+    <div className='absolute  bg-white border border-gray-300 rounded shadow p-4 w-65 md:w-90 '>
         <h2 className='text-lg font-semibold mb-2'>Notifications</h2>
          {
             notifications.length === 0 && <div className='bg-gray-100 p-2'>You have no notifications yet.</div>

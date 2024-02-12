@@ -40,7 +40,7 @@ export default function DealsOffer() {
     ]
 
   return (
-    <div className='flex justify-center shadow-md bg-white border border-gray-300 border-collapse rounded-xl overflow-hidden '>
+    <div className='flex justify-center shadow-md bg-white border border-gray-300 border-collapse rounded-xl overflow-hidden flex-wrap'>
         <div className='flex-1  border border-gray-300  flex justify-center items-center font-bold '>
             <CountDownTimer />
         </div>

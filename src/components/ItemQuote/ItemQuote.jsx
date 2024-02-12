@@ -2,8 +2,8 @@ import React from 'react'
 import itemquote from '../../assets/Image/backgrounds/itemquote.png'
 export default function ItemQuote() {
     return (
-        <div className='relative w-full  shadow-lg bg-cover bg-center flex rounded-lg justify-center gap-2 p-4' style={{ backgroundImage: `url(${itemquote})` }}>
-            <div className='flex flex-col gap-4 p-4 pr-64'>
+        <div className='relative md:w-full  shadow-lg bg-cover bg-center flex rounded-lg justify-between gap-2 p-4 flex-wrap' style={{ backgroundImage: `url(${itemquote})` }}>
+            <div className='flex flex-col gap-4 p-4 flex-wrap '>
                 <h2 className='text-xl md:text-2xl lg:text-3xl font-bold  text-white '>An easy way to send requests to all suppliers</h2>
                 <p className=' md:text-lg lg:text-xl text-white '> type your request here Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus a enim tempora? </p>
             </div>

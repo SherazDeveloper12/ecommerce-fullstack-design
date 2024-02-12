@@ -66,8 +66,8 @@ export default function Footer() {
     ];
     return (
         <div className='bg-white  pt-10 '>
-            <div className='max-w-7xl mx-auto flex justify-between'>
-                <div className='flex-1 flex flex-col gap-5'>
+            <div className='max-w-2xs md:max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-4 '>
+                <div className='flex-1 flex flex-col gap-5 '>
                     <div className="flex items-center">
                         <img src={logo} alt="Logo" className="h-10 w-10 inline-block mr-2" />
                         <h1 className="text-[#8CB7F5] text-2xl font-bold">Brand</h1>
@@ -75,7 +75,7 @@ export default function Footer() {
                     <p className='text-gray-500 font-semibold pr-25'>Best information about the company gies here but now lorem ipsum is</p>
                     <SocialIcon />
                 </div>
-                <div className='flex-2 flex justify-between flex-row gap-8'>
+                <div className='flex-2 hidden  md:flex justify-between flex-row gap-8'>
                    { Links.map((section) => (
                     <div key={section.heading} className='mb-6'>
                         <h3 className='text-lg font-semibold mb-4'>{section.heading}</h3>
@@ -89,7 +89,7 @@ export default function Footer() {
                     </div>
                    ))}
                 </div>
-                <div className='flex-1  flex flex-col items-end '>
+                <div className='flex-1  flex  md:flex-col md:items-end '>
                     <h3 className='text-lg font-semibold mb-4 mr-14'>Get app</h3>
                     <div>
                         <img src={googleplay} alt="Get App" className='cursor-pointer'/>

@@ -6,7 +6,7 @@ export default function ExtraServices() {
   return (
     <div className='flex gap-3 flex-col'>
       <h2 className='text-2xl font-bold '>Extra Services</h2>
-      <div className='grid grid-cols-4 gap-2 '>
+      <div className='grid grid-cols-1 md:grid-cols-4 gap-2 '>
         {extraServices.map((service, index) => (
           <div key={index} className='bg-white flex flex-col rounded-lg overflow-hidden shadow-lg border border-gray-300' id={index}>
             <div className='flex-2 flex flex-col w-full relative ' >

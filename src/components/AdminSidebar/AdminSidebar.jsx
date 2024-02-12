@@ -21,7 +21,7 @@ export default function AdminSidebar() {
 
     }
     
-    const [isHovered , setIsHovered] = useState(false);
+    const [isHovered , setIsHovered] = useState(true);
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     }
@@ -29,17 +29,15 @@ export default function AdminSidebar() {
         <>
          <motion.div
         
-            initial={{ width: 60,  }}
-            whileHover={ {  width: 150,  } }
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-            transition={{ duration: 0.5 }}
+            initial={{  width: 150,  }}
+            
+            
             className='bg-white sticky top-0 min-h-screen h-full'>
             {
                 Links.map((link, index) => (
-                    <div key={index} className={`py-2 px-4 hover:bg-gray-200 cursor-pointer flex items-center gap-2 overflow-hidden ${isActive === link.path ? "bg-gray-300" : ""}`}
+                    <div key={index} className={`py-2 px-4  font-semibold  hover:bg-gray-200 cursor-pointer flex items-center gap-2 overflow-hidden ${isActive === link.path ? "bg-gray-300" : ""}`}
                      onClick={() => navigate(link.path)}>
-                        <div className='text-gray-500'>
+                        <div className='text-amber-500'>
                             {link.icon}
                         </div>
                         <AnimatePresence>

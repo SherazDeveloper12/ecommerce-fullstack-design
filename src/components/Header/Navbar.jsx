@@ -5,6 +5,7 @@ export default function Navbar() {
     return (
         <div className=' border border-blue-500 rounded-xl  relative rounded-xl flex items-center overflow-hidden'>
             <input
+            disabled
                 type="text"
                 placeholder="Search..."
                 className="flex-1 py-1 px-4 pl-10 border-r border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
