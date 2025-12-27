@@ -16,6 +16,24 @@ import tabletImg from '../assets/Image/tech/5.png'
 import tvImg from '../assets/Image/tech/6.png'
 import bluetoothSpeakerImg from '../assets/Image/tech/7.png'
 import smartWatchTechImg from '../assets/Image/tech/8.png'
+import extraservice1 from '../assets/extraservice1.png'
+import extraservice2 from '../assets/extraservice2.png'
+import extraservice3 from '../assets/extraservice3.png'
+import extraservice4 from '../assets/extraservice4.png'
+import icon1 from '../assets/icon1.png'
+import icon2 from '../assets/icon2.png'
+import icon3 from '../assets/icon3.png'
+import icon4 from '../assets/icon4.png'
+import ae from '../assets/ae.png'
+import au from '../assets/au.png'
+import cn from '../assets/cn.png'
+import de from '../assets/de.png'
+import fr from '../assets/fr.png'
+import it from '../assets/it.png'
+import gb from '../assets/gb.png'
+import us from '../assets/us.png'
+import ru from '../assets/ru.png'
+import dk from '../assets/dk.png'
 
 export const showcaseStuff = [
     {
@@ -47,4 +65,134 @@ export const showcaseStuff = [
             
     ]
     }
+]
+
+export const products = [
+    {
+        title: "soft chairs",
+        price: '19',
+        img: outdoorChairImg,
+    },
+    {
+        title: "Sofa",
+        price: '99',
+        img: sofaImg,
+    },
+    {
+        title: "Kitchen Dish Set",
+        price: '29',
+        img: kitchenDishImg,
+    },
+    {
+        title: "Smart Watch",
+        price: '49',
+        img: smartWatchImg,
+    },
+    {
+        title: "Kitchen Mixer",
+        price: '39',
+        img: kitchenMixerImg,
+    },
+    {
+        title: "Blender",
+        price: '59',
+        img: blenderImg,
+    },
+    {
+        title: "Home Appliance",
+        price: '199',
+        img: homeApplianceImg,
+    },
+    {
+        title: "Coffee Maker",
+        price: '89',
+        img: coffeeMakerImg,
+    },
+    {
+        title: "Smartphone",
+        price: '699',
+        img: smartphoneImg,
+    },
+    {
+        title: "Laptop",
+        price: '999',
+        img: laptopImg,
+    },
+
+]
+
+export const extraServices = [
+    {
+        title: "Source from Industry Hubs",
+        img: extraservice1,
+        icon: icon1,
+    },
+    {
+        title: "Customize Your Products",
+        img: extraservice2,
+        icon: icon2,
+    },
+    {
+        title: "Fast, reliable shipping by ocean or air",
+        img: extraservice3,
+        icon: icon3,
+    },
+    {
+        title: "Product monitoring and inspection",
+        img: extraservice4,
+        icon: icon4,
+    },
+]
+
+export const suppliers = [
+    {
+        name: "Arabic Emirates",
+        location: "ae",
+        img: ae,
+    },
+    {
+        name: "Australia",
+        location: "au",
+        img: au,
+    },
+    {
+        name: "China",
+        location: "cn",
+        img: cn,
+    },
+    {
+        name: "Germany",
+        location: "de",
+        img: de,
+    },
+    {
+        name: "France",
+        location: "fr",
+        img: fr,
+    },
+    {
+        name: "Italy",
+        location: "it",
+        img: it,
+    },
+    {
+        name: "United Kingdom",
+        location: "gb",
+        img: gb,
+    },
+    {
+        name: "United States",  
+        location: "us",
+        img: us,
+    },
+    {
+        name: "Russia",
+        location: "ru",
+        img: ru,
+    },
+    {
+        name: "Denmark",
+        location: "dk",
+        img: dk,
+    },
 ]
