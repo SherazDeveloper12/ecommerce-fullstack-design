@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from '../pages/Home.jsx';
+import Products from '../pages/Products.jsx';
 import CoreLayout from '../layouts/CoreLayout.jsx';
 
 export default function Navigation() {
@@ -11,7 +12,12 @@ export default function Navigation() {
                 {
             path: "/",
             element: <Home/>
-        },]
+        },
+        {
+            path: "/products",
+            element: <Products/>
+        }        
+        ]
         }
         
     ]);

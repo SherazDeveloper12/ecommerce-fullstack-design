@@ -10,7 +10,7 @@ import Suppliers from '../components/Suppliers/Suppliers'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 export default function Home() {
   return (
-    <div className='flex flex-col gap-5 py-5 '>
+    <div className='flex flex-col gap-5 pt-5  '>
       <div className=' flex flex-col gap-5 py-5 max-w-7xl mx-auto'>
       <HomeHero />
       <DealsOffer />
