@@ -102,7 +102,9 @@ export default function Footer() {
                 <div>
                 <select name="language" id="language" className="  text-gray-600  px-3 py-4.5 focus:outline-none" >
                     <option value="en" className='flex items-center p-5'>
-                        <p>English</p></option>
+                        <p>English</p>
+                        <img src={us} alt="US" className='ml-2 w-5 h-5'/>
+                        </option>
                     <option value="es">
                         <p>Italy</p></option>
                     <option value="fr" className='flex items-center p-5'>

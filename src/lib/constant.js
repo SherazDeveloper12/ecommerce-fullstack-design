@@ -196,7 +196,7 @@ export const products = [
         description: "Lenovo IdeaPad 3 Laptop, 15.6\" HD Display, AMD Ryzen 5 3500U Processor, 8GB RAM, 256GB SSD, Windows 10 Home (Renewed). Excellent condition, fully tested and functional.",
         freeShipping: false,
         category: "Electronics",
-        rating: 4,
+        rating: 2,
         orders: 112,
         brand: "Lenovo",
         condition: "Used",

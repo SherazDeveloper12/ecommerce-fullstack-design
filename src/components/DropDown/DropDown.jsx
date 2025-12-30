@@ -1,7 +1,24 @@
 import React from 'react'
 import { ChevronRight, Star } from 'lucide-react'
 import Stars from '../Stars/Stars';
+import { useDispatch } from 'react-redux';
+import { setFilters } from '../../store/slices/product.js';
 export default function DropDownRadio(props) {
+    const dispatch = useDispatch();
+    const RadioOnChangeHandler = (name) => {
+      
+        dispatch(setFilters({type: props.heading, value: name}));
+    }
+    const checkboxchangehandler = (name, checked) => {
+        const payload = {type: props.heading, value: name, checked: checked};
+        console.log("payload", payload);
+    dispatch(setFilters(payload));
+    }
+    const RatingCheckBoxHandler = (rate, checked) => {
+        const payload = {type: props.heading, value: rate, checked: checked};
+        dispatch(setFilters(payload));
+    }
+
     const [isOpen, setIsOpen] = React.useState(true);
     const Rating = [5, 4, 3, 2, 1];
     return (
@@ -27,7 +44,7 @@ export default function DropDownRadio(props) {
                 <div className={isOpen ? ' flex flex-col py-2 gap-2 text-gray-500 font-semibold ' : 'hidden'}>
                     {props.RadioName.map((name, index) => (
                         <div key={index} className='flex items-center gap-2'>
-                            <input type='radio' id={name} name={props.heading} value={name} defaultChecked={name === 'Any'} onChange={props.onChange} className='cursor-pointer' />
+                            <input type='radio' id={name} name={props.heading} value={name} defaultChecked={name === 'Any'} onChange={() => {RadioOnChangeHandler(name)}} className='cursor-pointer' />
                             <label htmlFor={name} className='cursor-pointer'>{name}</label>
                         </div>
                     ))}
@@ -52,7 +69,7 @@ export default function DropDownRadio(props) {
                 <div className={isOpen ? ' flex flex-col py-2 gap-2 text-gray-500 font-semibold ' : 'hidden'}>
                     {props.CheckboxName.map((name, index) => (
                         <div key={index} className='flex items-center gap-2'>
-                            <input type='Checkbox' id={name} name={props.heading} value={name} onChange={props.onChange} className='cursor-pointer' />
+                            <input type='Checkbox' id={name} name={props.heading} value={name} onChange={(e) => checkboxchangehandler(name, e.target.checked)} className='cursor-pointer' />
                             <label htmlFor={name} className='cursor-pointer'>{name}</label>
                         </div>
                     ))}
@@ -65,7 +82,7 @@ export default function DropDownRadio(props) {
                     {Rating.map((rate, index) => (
 
                         <div className='flex items-center gap-2'>
-                            <input type='Checkbox' id={`${rate}-Stars`} value={`${rate}-Stars`} className='cursor-pointer' />
+                            <input type='Checkbox' id={`${rate}-Stars`} value={`${rate}-Stars`} className='cursor-pointer' onChange={(e) => RatingCheckBoxHandler(rate , e.target.checked)} />
                             <label htmlFor={`${rate}-Stars`} className='cursor-pointer '>
                                 <Stars rating={rate} />
                             </label>
