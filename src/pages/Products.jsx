@@ -6,7 +6,7 @@ import DropDownRadio from '../components/DropDown/DropDown'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 import Stars from '../components/Stars/Stars'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProducts, setFilters } from '../store/slices/product'
+import { fetchProducts, setFilters, clearFilters } from '../store/slices/product'
 export default function Products() {
     const [isOpen, setIsOpen] = React.useState(false);
     const dispatch = useDispatch();
@@ -67,9 +67,12 @@ export default function Products() {
         });
     }
     const handlecancelfilterclick = (filter) => {
-       const payload = {type: filter.type, value: filter.value, checked: false};
-       console.log("cancel payload", payload);
-       dispatch(setFilters(payload));
+        const payload = { type: filter.type, value: filter.value, checked: false };
+        console.log("cancel payload", payload);
+        dispatch(setFilters(payload));
+    }
+    const handleClearAllFilters = () => {
+        dispatch(clearFilters());
     }
 
     return (
@@ -108,20 +111,22 @@ export default function Products() {
                             </div>
                         </div>
                     </div>
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 items-center flex-wrap'>
                         {filters.map((filter, index) => (
                             <div key={index} className='flex gap-2 bg-white border border-blue-500  rounded-lg px-2 py-1 items-center'>
-                                {filter.type}:
+                                
                                 {Array.isArray(filter.value) ? filter.value.map((val, i) => (
-                                    <div key={i} className='flex justify-between gap-2  items-center  font-semibold'><span>{val}{i !== filter.value.length - 1 ? ',' : ''}</span> 
-                                    <X size={16} className='cursor-pointer text-blue-500'  onClick={() => handlecancelfilterclick(filter)} />
-                                    </div>
+                                    <div className='flex gap-4 items-center '>
+                                    <div className='flex justify-between gap-2 items-center font-semibold'><span>{val}</span>  <X size={16} className='cursor-pointer text-blue-500' onClick={() => handlecancelfilterclick(filter)} /></div></div>
                                 )) : <div className='flex justify-between gap-2 items-center font-semibold'><span>{filter.value}</span>  <X size={16} className='cursor-pointer text-blue-500' onClick={() => handlecancelfilterclick(filter)} /></div>}
                             </div>
                         ))}
+                        {filters.length > 0 && <p className='cursor-pointer text-blue-500 font-semibold' onClick={handleClearAllFilters}>Clear all filters</p>}
                     </div>
+
+
                     {isOpen ?
-                        <div className='grid grid-cols-3 gap-4 bg-white '>
+                        <div className='grid grid-cols-3 gap-4  '>
                             {DisplayProducts.map((product, index) => (
                                 <div key={index} className='flex flex-col gap-2 bg-white rounded-lg border border-gray-300 shadow-md p-4' id={index}>
                                     <div className='flex-4'>
@@ -129,8 +134,8 @@ export default function Products() {
                                     </div>
                                     <div className='flex-1 border-t border-gray-200 pt-2 flex flex-col gap-1 relative'>
                                         <div className='flex justify-center items-center rounded-lg border border-blue-600 p-2 absolute top-4 right-4 cursor-pointer'>
-                                        <Heart color='blue' />
-                                    </div>
+                                            <Heart color='blue' />
+                                        </div>
                                         <div className='flex gap-4'>
                                             <p className='font-semibold'>${product.price}.00</p>
                                             <p className='text-gray-500 line-through'>$1128.00</p>
@@ -144,36 +149,37 @@ export default function Products() {
                         :
                         <>
 
-                            {DisplayProducts.map((product, index) => (<div className='flex gap-4 bg-white rounded-lg border border-gray-300 shadow-md' id={index}>
-                                <div className='flex-1 flex justify-center items-center'>
-                                    <img src={product.img} alt={product.title} />
-                                </div>
-                                <div className='flex-3 flex flex-col gap-3 p-4 relative'>
-                                    <h1>{product.heading}</h1>
-                                    <div>
-                                        <div className='flex gap-4'>
-                                            <p className='font-semibold'>${product.price}.00</p>
-                                            <p className='text-gray-500 line-through'>$1128.00</p>
+                            {DisplayProducts.map((product, index) => (
+                                <div className='flex gap-4 bg-white rounded-lg border border-gray-300 shadow-md' id={index}>
+                                    <div className='flex-1 flex justify-center items-center'>
+                                        <img src={product.img} alt={product.title} />
+                                    </div>
+                                    <div className='flex-3 flex flex-col gap-3 p-4 relative bg-white'>
+                                        <h1>{product.heading}</h1>
+                                        <div>
+                                            <div className='flex gap-4'>
+                                                <p className='font-semibold'>${product.price}.00</p>
+                                                <p className='text-gray-500 line-through'>$1128.00</p>
+                                            </div>
+                                            <div className='flex gap-2'>
+                                                <Stars rating={product.rating} />
+                                                <span className='text-[#dee2e7] flex gap-2 justify-center items-center'>
+                                                    <Circle fill='#dee2e7' stroke='0' size={10} />
+                                                    <p className='font-semibold text-gray-400'>{product.orders} Orders</p>
+                                                    <Circle fill='#dee2e7' stroke='0' size={10} />
+                                                </span>
+                                                {product.freeShipping ? <p className='font-semibold text-green-400'>Free Shipping</p> : ''}
+                                            </div>
                                         </div>
-                                        <div className='flex gap-2'>
-                                            <Stars rating={product.rating} />
-                                            <span className='text-[#dee2e7] flex gap-2 justify-center items-center'>
-                                                <Circle fill='#dee2e7' stroke='0' size={10} />
-                                                <p className='font-semibold text-gray-400'>{product.orders} Orders</p>
-                                                <Circle fill='#dee2e7' stroke='0' size={10} />
-                                            </span>
-                                            {product.freeShipping ? <p className='font-semibold text-green-400'>Free Shipping</p> : ''}
+                                        <div>
+                                            <p className='text-gray-400 pr-32'>{product.description}</p>
+                                        </div>
+                                        <a href="#" className='text-blue-400 font-semibold'>View Details</a>
+                                        <div className='flex justify-center items-center rounded-lg border border-blue-600 p-2 absolute top-4 right-4 cursor-pointer'>
+                                            <Heart color='blue' />
                                         </div>
                                     </div>
-                                    <div>
-                                        <p className='text-gray-400 pr-32'>{product.description}</p>
-                                    </div>
-                                    <a href="#" className='text-blue-400 font-semibold'>View Details</a>
-                                    <div className='flex justify-center items-center rounded-lg border border-blue-600 p-2 absolute top-4 right-4 cursor-pointer'>
-                                        <Heart color='blue' />
-                                    </div>
-                                </div>
-                            </div>))}
+                                </div>))}
                         </>
                     }
 

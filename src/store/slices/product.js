@@ -98,6 +98,9 @@ export const ProductSlice = createSlice({
             }
         }
         
+    },
+    clearFilters: (state) => {
+        state.Filters = [];
     }
   },
     extraReducers: (builder) => {
@@ -115,4 +118,4 @@ export const ProductSlice = createSlice({
     }
 });
 
-export const { setFilters } = ProductSlice.actions;
+export const { setFilters, clearFilters } = ProductSlice.actions;

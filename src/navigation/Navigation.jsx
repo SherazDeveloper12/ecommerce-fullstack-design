@@ -16,7 +16,8 @@ export default function Navigation() {
         {
             path: "/products",
             element: <Products/>
-        }        
+        }        ,
+        
         ]
         }
         
