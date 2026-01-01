@@ -101,6 +101,11 @@ export const ProductSlice = createSlice({
     },
     clearFilters: (state) => {
         state.Filters = [];
+    },
+    addSelectedProduct: (state, action) => {
+        const selectedProduct = action.payload;
+        const res = state.Products.find(product => product.uid === selectedProduct.uid);
+        state.SelectedProduct = res;
     }
   },
     extraReducers: (builder) => {
@@ -118,4 +123,4 @@ export const ProductSlice = createSlice({
     }
 });
 
-export const { setFilters, clearFilters } = ProductSlice.actions;
+export const { setFilters, clearFilters,addSelectedProduct } = ProductSlice.actions;

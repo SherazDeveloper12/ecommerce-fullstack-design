@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from '../pages/Home.jsx';
 import Products from '../pages/Products.jsx';
 import CoreLayout from '../layouts/CoreLayout.jsx';
-
+import Product from '../pages/Product.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -16,8 +16,11 @@ export default function Navigation() {
         {
             path: "/products",
             element: <Products/>
-        }        ,
-        
+        },
+        {
+            path:`/products/:id`,
+            element: <Product/>
+        }
         ]
         }
         

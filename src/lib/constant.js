@@ -97,7 +97,7 @@ export const showcaseStuff = [
 
 export const products = [
     {
-        uid: 1,
+        uid: "1",
         title: 'Iphone 8 Plus',
         heading: 'Iphone 8 Plus 64GB Factory Unlocked',
         price: '299',
@@ -112,7 +112,7 @@ export const products = [
         features: ["Metallic", "Glass"],
     },
     {
-        uid: 2,
+        uid: "2",
         title: 'Ipad Pro',
         heading: 'Apple iPad Pro 11-inch (2nd Generation)',
         price: '799',
@@ -125,10 +125,9 @@ export const products = [
         brand: "Apple",
         condition: "Used",
         features: ["Metallic", "Glass"],
-
     },
     {
-        uid: 3,
+        uid: "3",
         title: 'oneplus nord',
         heading: 'OnePlus Nord N200 5G',
         price: '249',   
@@ -143,7 +142,7 @@ export const products = [
         features: ["Plastic", "Glass"],
     },
     {
-        uid: 4,
+        uid: "4",
         title: 'Iphone 12',
         heading: 'Apple iPhone 12 Pro Max',
         price: '999',
@@ -158,7 +157,7 @@ export const products = [
         features: ["Metallic", "Glass"],
     },
     {
-        uid: 5,
+        uid: "5",
         title: 'Gaming Headset',
         heading: 'HyperX Cloud II Gaming Headset',
         price: '89',
@@ -173,7 +172,7 @@ export const products = [
         features: ["Plastic", "Metallic"],
     },
     {
-        uid: 6,
+        uid: "6",
         title: 'Canon EOS M50',
         heading: 'Canon EOS M50 Mirrorless Camera',
         price: '579',
@@ -188,7 +187,7 @@ export const products = [
         features: ["Plastic", "Metallic", "Glass"],
     },
     {
-        uid: 7,
+        uid: "7",
         title: 'lenovo laptop',
         heading: 'Lenovo IdeaPad 3 Laptop',
         price: '449',
@@ -203,7 +202,7 @@ export const products = [
         features: ["Plastic", "Metallic"],
     },
     {
-        uid: 8,
+        uid: "8",
         title: 'Apple Watch',
         heading: 'Apple Watch Series 6',
         price: '399',
@@ -218,7 +217,7 @@ export const products = [
         features: ["Metallic", "Glass"],
     },
     {
-        uid: 9,
+        uid: "9",
         title: 'Apple Headphones',
         heading: 'Apple AirPods Pro',
         price: '199',
@@ -233,7 +232,7 @@ export const products = [
         features: ["Plastic", "Metallic"],
     },
     {
-        uid: 10,
+        uid: "10",
         title: 'Electric Kettle',
         heading: 'Hamilton Beach Electric Kettle',
         price: '29',
@@ -248,7 +247,7 @@ export const products = [
         features: ["Metallic", "Plastic"],
     },
     {
-        uid: 11,
+        uid: "11",
         title: 'Modern Sofa',
         heading: 'Modern Sofa for Living Room',
         price: '499',
@@ -263,7 +262,7 @@ export const products = [
         features: ["Fabric", "Wood"],
     },
     {
-        uid: 12,
+        uid: "12",
         title: 'Minimalist Chair',
         heading: 'Minimalist Chair for Home Office',
         price: '149',
@@ -278,7 +277,7 @@ export const products = [
         features: ["Plastic", "Metallic"],
     },
     {
-        uid: 13,
+        uid: "13",
         title: 'Clay Pot Set',
         heading: 'Handmade Clay Pot Set for Kitchen',
         price: '79',
@@ -293,7 +292,7 @@ export const products = [
         features: ["Clay", "Ceramic"],
     },
     {
-        uid: 14,
+        uid: "14",
         title: 'Artificial Plant',
         heading: 'Realistic Artificial Plant for Home Decor',
         price: '39',
@@ -308,7 +307,7 @@ export const products = [
         features: ["Plastic", "Fabric"],
     },
     {
-        uid: 15,
+        uid: "15",
         title: 'Soft Metress',
         heading: 'Comfortable Soft Mattress for Better Sleep',
         price: '299',
@@ -323,7 +322,7 @@ export const products = [
         features: ["Foam", "Fabric"],
     },
     {
-        uid: 16,
+        uid: "16",
         title: 'Luxury Lamp',
         heading: 'Luxury Lamp for Elegant Home Lighting',
         price: '129',
@@ -338,7 +337,7 @@ export const products = [
         features: ["Metallic", "Glass"],
     },
     {
-        uid: 17,
+        uid: "17",
         title: 'Comfortable Rug',
         heading: 'Comfortable Rug for Living Room',
         price: '199',
@@ -353,7 +352,7 @@ export const products = [
         features: ["Fabric", "Rubber"],
     },
     {
-        uid: 18,
+        uid: "18",
         title: 'jucie Maker',
         heading: 'Electric Juice Maker for Fresh Drinks',
         price: '59',
@@ -368,7 +367,7 @@ export const products = [
         features: ["Plastic", "Metallic"],
     },
     {
-        uid: 19,
+        uid: "19",
         title: 'Fruit juice Set',
         heading: 'Fruit Juice Set for Healthy Living',
         price: '29',
@@ -383,7 +382,7 @@ export const products = [
         features: ["Plastic", "Glass"],
     },
     {
-        uid: 20,
+        uid: "20",
         title: 'Waching Machine',
         heading: 'High-Efficiency Washing Machine for Home',
         price: '499',
@@ -398,7 +397,7 @@ export const products = [
         features: ["Metallic", "Plastic"],
     },
     {
-        uid: 21,
+        uid: "21",
         title: 'Casual T-Shirt',
         heading: 'Comfortable Casual T-Shirt for Everyday Wear',
         price: '19',
@@ -413,7 +412,7 @@ export const products = [
         features: ["Cotton", "Fabric"],
     },
     {
-        uid: 22,
+        uid: "22",
         title: 'Polo Shirt',
         heading: 'Stylish Polo Shirt for Men',
         price: '29',
@@ -428,7 +427,7 @@ export const products = [
         features: ["Cotton", "Fabric"],
     },
     {
-        uid: 23,
+        uid: "23",
         title: 'Wool Jacket',
         heading: 'Warm Wool Jacket for Winter',
         price: '99',
@@ -443,7 +442,7 @@ export const products = [
         features: ["Wool", "Fabric"],
     },
     {
-        uid: 24,
+        uid: "24",
         title: 'Denim Nickers',
         heading: 'Classic Denim Nickers for Men',
         price: '49',
@@ -458,7 +457,7 @@ export const products = [
         features: ["Denim", "Fabric"],
     },
     {
-        uid: 25,
+        uid: "25",
         title: 'Denim Bag',
         heading: 'Stylish Denim Bag for Women',
         price: '39',
@@ -473,7 +472,7 @@ export const products = [
         features: ["Denim", "Fabric"],
     },
     {
-        uid: 26,
+        uid: "26",
         title: 'Leather Wallet',
         heading: 'Genuine Leather Wallet for Men',
         price: '59',
@@ -488,7 +487,7 @@ export const products = [
         features: ["Leather", "Metallic"],
     },
     {
-        uid: 27,
+        uid: "27",
         title: 'Blue Waskit',
         heading: 'Elegant Blue Waskit for men',
         price: '79',
@@ -503,7 +502,6 @@ export const products = [
         features: ["Fabric", "Metallic"],
     },
 ]
-
 export const extraServices = [
     {
         title: "Source from Industry Hubs",

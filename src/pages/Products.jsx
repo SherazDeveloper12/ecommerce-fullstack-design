@@ -6,8 +6,12 @@ import DropDownRadio from '../components/DropDown/DropDown'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 import Stars from '../components/Stars/Stars'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProducts, setFilters, clearFilters } from '../store/slices/product'
+import { addSelectedProduct, setFilters, clearFilters } from '../store/slices/product'
+import { useNavigate } from 'react-router'
+import { HandHelping } from 'lucide'
+
 export default function Products() {
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = React.useState(false);
     const dispatch = useDispatch();
     const links = [
@@ -28,9 +32,7 @@ export default function Products() {
             route: '/modern-tech'
         },
     ]
-    useEffect(() => {
-        dispatch(fetchProducts());
-    }, []);
+    
     const products = useSelector((state) => state.products.Products);
     let DisplayProducts = products;
     const filters = useSelector((state) => state.products.Filters);
@@ -74,7 +76,11 @@ export default function Products() {
     const handleClearAllFilters = () => {
         dispatch(clearFilters());
     }
-
+    const handleproductclick = (product) => {
+        dispatch(addSelectedProduct(product));
+        console.log("Selected product uid:", product.uid);
+        navigate(`/products/${product.uid}`);
+    }
     return (
         <div className=''>
             <div className='flex max-w-7xl mx-auto gap-4 py-4'>
@@ -114,10 +120,10 @@ export default function Products() {
                     <div className='flex gap-4 items-center flex-wrap'>
                         {filters.map((filter, index) => (
                             <div key={index} className='flex gap-2 bg-white border border-blue-500  rounded-lg px-2 py-1 items-center'>
-                                
+
                                 {Array.isArray(filter.value) ? filter.value.map((val, i) => (
                                     <div className='flex gap-4 items-center '>
-                                    <div className='flex justify-between gap-2 items-center font-semibold'><span>{val}</span>  <X size={16} className='cursor-pointer text-blue-500' onClick={() => handlecancelfilterclick(filter)} /></div></div>
+                                        <div className='flex justify-between gap-2 items-center font-semibold'><span>{val}</span>  <X size={16} className='cursor-pointer text-blue-500' onClick={() => handlecancelfilterclick(filter)} /></div></div>
                                 )) : <div className='flex justify-between gap-2 items-center font-semibold'><span>{filter.value}</span>  <X size={16} className='cursor-pointer text-blue-500' onClick={() => handlecancelfilterclick(filter)} /></div>}
                             </div>
                         ))}
@@ -128,7 +134,8 @@ export default function Products() {
                     {isOpen ?
                         <div className='grid grid-cols-3 gap-4  '>
                             {DisplayProducts.map((product, index) => (
-                                <div key={index} className='flex flex-col gap-2 bg-white rounded-lg border border-gray-300 shadow-md p-4' id={index}>
+                                <div key={index} className='cursor-pointer flex flex-col gap-2 bg-white rounded-lg border border-gray-300 shadow-md p-4' id={index} 
+                                onClick={() => handleproductclick(product)}>
                                     <div className='flex-4'>
                                         <img src={product.img} alt={product.title} className='mx-auto' />
                                     </div>
@@ -150,7 +157,8 @@ export default function Products() {
                         <>
 
                             {DisplayProducts.map((product, index) => (
-                                <div className='flex gap-4 bg-white rounded-lg border border-gray-300 shadow-md' id={index}>
+                                <div className='flex gap-4 bg-white rounded-lg border border-gray-300 shadow-md cursor-pointer' id={index} 
+                                onClick={() => handleproductclick(product)}>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <img src={product.img} alt={product.title} />
                                     </div>
