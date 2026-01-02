@@ -1,12 +1,13 @@
 import { ChevronRight, ShieldCheck, Globe, Check, Circle, } from 'lucide-react';
 import React, { useEffect } from 'react'
 import Stars from '../components/Stars/Stars';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import flag from '../assets/au.png';
 import SuggestedProducts from '../components/SuggestedProducts/SuggestedProducts';
 import { useParams } from 'react-router';
+import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
 export default function Product() {
-  
+
     const param = useParams();
     const uid = param.id;
     const products = useSelector((state) => state.products.Products);
@@ -24,8 +25,8 @@ export default function Product() {
                 <ChevronRight size={16} />
                 {SelectedProduct.title}
             </div>
-            <div className='flex bg-white border border-gray-200 rounded-lg shadow-md p-4 gap-8'>
-                <div className=' flex flex-col gap-4'>
+            <div className=' flex bg-white border border-gray-200 rounded-lg shadow-md p-4 gap-8'>
+                <div className='flex-1 flex flex-col gap-4'>
                     <div className=' rounded-lg overflow-hidden border border-gray-200'>
                         <img src={SelectedProduct.img} alt={SelectedProduct.title} className='max-h-96 mx-auto p-4' />
                     </div>
@@ -45,7 +46,7 @@ export default function Product() {
 
                     </div>
                 </div>
-                <div className='flex flex-col gap-3'>
+                <div className='flex-2 flex flex-col gap-3'>
                     <div className='flex gap-1 items-center text-green-500 font-semibold'><Check /> <p>In stock</p></div>
                     <h1 className='text-3xl font-bold'>{SelectedProduct.heading} | {SelectedProduct.category}</h1>
                     <div className='flex gap-2'>
@@ -108,7 +109,7 @@ export default function Product() {
                     </div>
 
                 </div>
-                <div>
+                <div className='flex-1'>
                     <div className='rounded-lg border border-gray-200 p-3 flex flex-col gap-2 '>
                         <div className='flex gap-3 justify-center items-center pb-4 border-b border-gray-200'>
                             <div className='size-12 bg-blue-200 p-2 rounded-lg font-semibold text-2xl flex justify-center items-center text-blue-600 '>R </div>
@@ -148,12 +149,13 @@ export default function Product() {
 
             </div>
             <div className='flex gap-2'>
-                <div className='bg-white border border-gray-200 rounded-lg shadow-md p-4'>
+                <div className='bg-white border border-gray-200  rounded-lg shadow-md p-4'>
                     <p>{SelectedProduct.description} <br></br>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis ipsam perspiciatis inventore officiis? Voluptas vel repudiandae atque, quod reiciendis consequatur odio dicta distinctio eaque, at expedita sapiente repellendus a fugiat ratione ducimus inventore accusamus<br></br> odit, quia aperiam soluta dolore ipsum. Facere deserunt corrupti odio eius veniam esse exercitationem tempora voluptas voluptate dolorum similique voluptatum excepturi quisquam sed distinctio quidem cupiditate aperiam, soluta labore eum consectetur repudiandae? Maxime, id! Similique facere minima soluta a est pariatur amet rerum ullam id. {SelectedProduct.description}us quo rerum voluptates? Quod voluptatibus reprehenderit velit earum eaque ratione ipsa dignissimos, aliquid sapiente deleniti vel? Ullam cum et a deserunt natus numquam alias dolore accusamus eveniet eius unde tempora, est reiciendis molestiae quia, explicabo quod in non, optio dolores cu{SelectedProduct.description}uos cumque voluptatum sapiente, ex nam atque, voluptate doloremque excepturi <br></br>qui dolor necessitatibus, eos voluptatem similique quae placeat! Earum quisquam consectetur facere id explicabo consequatur sunt, eum blanditiis? Quibusdam soluta, libero incidunt exerc{SelectedProduct.description}um, aperiam reiciendis? Corporis ad ex odit porro, autem, assumenda nisi numquam aspernatur quo aliquid eius dolorem, provident dolores voluptatem ducimus deserunt quod ipsum odio architecto itaque? Delectus est at dolor?</p>
                 </div>
-                <SuggestedProducts />
+                <div className=''><SuggestedProducts /></div>
             </div>
+            <div><RelatedProducts category={SelectedProduct.category} /></div>
         </div>
     )
 }

@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { use } from 'react'
 import ActionButtons from "./ActionButtons"
 import Navbar from "./Navbar"
 import logo from '../../assets/logo.png'
+import { useNavigate } from 'react-router';
 
 
 export default function Header() {
   const Links = [
-    { name: "All Category", route: "/" },
-    { name: "Hot Offers", route: "/your-orders" },
-    { name: "Gift Box", route: "/find-dhobi" },
-    { name: "Projects", route: "/become-dhobi" },
-    { name: "Menu Items", route: "/become-rider" },
-    { name: "Help", route: "/become-rider" },
+    { name: "Home", route: "/" },
+    { name: "Explore Market", route: "/products" },
+    { name: "Explore Suppliers", route: "/suppliers" },
+    { name: "About US", route: "/about" },
+    { name: 'Sales', route: '/sales' },
+    { name: "Help", route: "/help" },
   ];
-
+ const navigate = useNavigate();
   return (
     <div className='bg-white text-black  sticky top-0 z-50 border-b border-gray-200'>
       <div className='flex justify-between p-3 items-center max-w-7xl mx-auto '>
@@ -30,7 +31,7 @@ export default function Header() {
       <div className='flex justify-between items-center  max-w-7xl mx-auto px-3 py-1 '>
         <div>
           {Links.map((link) => (
-            <li key={link.name} className='inline-block mx-4 text-textSecondary hover:text-textColor cursor-pointer transition duration-300 ease-in-out '>
+            <li key={link.name} className='inline-block mx-4 text-textSecondary hover:text-textColor cursor-pointer transition duration-300 ease-in-out ' onClick={()=>navigate(link.route)}>
               {link.name}
             </li>
           ))}

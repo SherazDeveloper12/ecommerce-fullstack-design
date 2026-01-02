@@ -19,7 +19,7 @@ export const ProductSlice = createSlice({
   initialState: {
     Products: [],
     Filters: [],
-    SelectedProduct : null,
+   
     status: "idle",
     error: null,
     },

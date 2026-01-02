@@ -9,6 +9,7 @@ export default function CoreLayout() {
             <main className=""><Outlet/></main>
             <footer><Footer />
             </footer>
+           
         </div>
     );
 }

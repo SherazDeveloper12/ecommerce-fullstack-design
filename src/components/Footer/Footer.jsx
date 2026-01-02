@@ -62,7 +62,7 @@ export default function Footer() {
             {name: "Settings", route: "/settings"},
             {name: "My Orders", route: "/my-orders"},
             {name: "My Wishlist", route: "/my-wishlist"}
-        ] },
+        ] }
     ];
     return (
         <div className='bg-white  pt-10 '>
