@@ -8,47 +8,62 @@ import About from '../pages/About.jsx';
 import Sale from '../pages/Sale.jsx';
 import Help from '../pages/Help.jsx';
 import Suppliers from '../pages/Suppliers.jsx';
+import Dashboard from '../pages/Admin/Dashboard.jsx';
+import AdminLayout from '../layouts/AdminLayout.jsx';
+import Admin from '../pages/Admin/Admin.jsx';
+import AdminProducts from '../pages/Admin/AdminProducts.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
-            element: <CoreLayout/>,
+            element: <CoreLayout />,
             children: [
                 {
-            path: "/",
-            element: <Home/>
+                    path: "/",
+                    element: <Home />
+                },
+                {
+                    path: "/products",
+                    element: <Products />
+                },
+                {
+                    path: `/products/:id`,
+                    element: <Product />
+                },
+                {
+                    path: "/about",
+                    element: <About />
+                },
+                {
+                    path: "/sales",
+                    element: <Sale />
+                },
+                {
+                    path: "/help",
+                    element: <Help />
+                },
+                
+            ],
         },
+         {
+                    path: "/admin",
+                    element: <Admin />
+                },
         {
-            path: "/products",
-            element: <Products/>
-        },
-        {
-            path:`/products/:id`,
-            element: <Product/>
-        },
-        {
-            path: "/about",
-            element: <About/>
-        },
-        {
-            path: "/sales",
-            element: <Sale/>
-        },
-        {
-            path: "/help",
-            element: <Help/>
-        },
-        {
-            path: "/suppliers",
-            element: <Suppliers/>
-        },
-        {
-            path: "",
+            element: <AdminLayout />,
+            children: [
+                {
+                    path: "/admin/dashboard",
+                    element: <Dashboard />
+                },
+                {
+                    path: "/admin/products",
+                    element: <AdminProducts />
+                }
+            ]
         }
-        ]
-        }
-        
+
     ]);
-  return (
-   <RouterProvider router={router} />
-  )
+    return (
+        <RouterProvider router={router} />
+    )
 }

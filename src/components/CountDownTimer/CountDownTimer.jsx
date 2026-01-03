@@ -1,7 +1,7 @@
 import React , {useEffect, useState} from 'react'
 
 export default function CountDownTimer() {
-   const CountDownTarget = new Date('2025-12-26T23:59:59')
+   const CountDownTarget = new Date('2026-01-26T23:59:59')
    const getTimeRemaining = (CountDownTarget) => {
     const totaltimeleft = CountDownTarget - new Date();
     const seconds = Math.floor((totaltimeleft / 1000) % 60);

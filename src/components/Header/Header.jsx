@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router';
 export default function Header() {
   const Links = [
     { name: "Home", route: "/" },
-    { name: "Explore Market", route: "/products" },
-    { name: "Explore Suppliers", route: "/suppliers" },
-    { name: "About US", route: "/about" },
+    { name: "Products", route: "/products" },
+    {name: "Admin", route: "/admin" },
+    { name: "About us", route: "/about" },
     { name: 'Sales', route: '/sales' },
     { name: "Help", route: "/help" },
   ];

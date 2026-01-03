@@ -8,8 +8,7 @@ import Stars from '../components/Stars/Stars'
 import { useDispatch, useSelector } from 'react-redux'
 import { addSelectedProduct, setFilters, clearFilters } from '../store/slices/product'
 import { useNavigate } from 'react-router'
-import { HandHelping } from 'lucide'
-
+import { animate, motion } from 'framer-motion'
 export default function Products() {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = React.useState(false);
@@ -35,6 +34,7 @@ export default function Products() {
 
     const products = useSelector((state) => state.products.Products);
     let DisplayProducts = products;
+    console.log('All Products:', DisplayProducts);
     const filters = useSelector((state) => state.products.Filters);
     if (filters.length > 0) {
         console.log('Filters applied:', filters);
@@ -133,7 +133,12 @@ export default function Products() {
                     {isOpen ?
                         <div className='grid grid-cols-3 gap-4  '>
                             {DisplayProducts.map((product, index) => (
-                                <div key={index} className='cursor-pointer flex flex-col gap-2 bg-white rounded-lg border border-gray-300 shadow-md p-4' id={index}
+                                <motion.div 
+                                whileHover={{
+                                    scale: 1.02,
+                                    transition: { duration: 0.3 },
+                                }}
+                                key={index} className='cursor-pointer flex flex-col gap-2 bg-white rounded-lg border border-gray-300 hover:shadow-md p-4' id={index}
                                     onClick={() => handleproductclick(product)}>
                                     <div className='flex-4'>
                                         <img src={product.img} alt={product.title} className='mx-auto' />
@@ -150,13 +155,17 @@ export default function Products() {
                                         <h1 className='font-semibold text-gray-500 '>{product.heading}</h1>
                                         <h1 className='font-semibold text-gray-500 '>Category - {product.category}</h1>
                                     </div>
-                                </div>))}
+                                </motion.div>))}
                         </div>
                         :
                         <>
 
                             {DisplayProducts.map((product, index) => (
-                                <div className='flex gap-4 bg-white rounded-lg border border-gray-300 shadow-md cursor-pointer' id={index}
+                                 <motion.div 
+                                whileHover={{
+                                    scale: 1.02,
+                                    transition: { duration: 0.3 },
+                                }} className='flex gap-4 bg-white rounded-lg border border-gray-300 cursor-pointer' id={index}
                                     onClick={() => handleproductclick(product)}>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <img src={product.img} alt={product.title} />
@@ -186,7 +195,7 @@ export default function Products() {
                                             <Heart color='blue' />
                                         </div>
                                     </div>
-                                </div>))}
+                                </motion.div >))}
                         </>
                     }
 
