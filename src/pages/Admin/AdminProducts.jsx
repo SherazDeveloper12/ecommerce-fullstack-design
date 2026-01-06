@@ -3,6 +3,7 @@ import SelectionWithAddNew from '../../components/Selection/Selection';
 import Selection from '../../components/Selection/Selection';
 import RadioInput from '../../components/Radio/RadioInput';
 import { useState } from 'react';
+import ImageUploader from '../../components/ImageUploader/ImageUploader';
 export default function AdminProducts() {
   const categories = ['electronics', 'fashion', 'home-appliances', 'books', 'sports'];
   const brands = ['Apple', 'Samsung', 'Nike', 'Adidas', 'Sony'];
@@ -37,7 +38,7 @@ export default function AdminProducts() {
       <h2 className='text-2xl text-gray-500 font-semibold '>Products</h2>
       <div className='border border-gray-300 rounded-lg p-4 flex gap-4 w-full'>
         <div className='flex-1'> 
-          <input type="file"  className="w-full border border-gray-300 rounded p-1" />
+          <ImageUploader />
         </div>
         <div className='flex-1'>
           <label htmlFor="ProductTitle" className='font-semibold'>Enter Product Title:</label>
