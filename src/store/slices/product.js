@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Filter } from "lucide-react";
 import { products } from "../../lib/constant";
-import { act } from "react";
+import axios from 'axios';
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
@@ -14,6 +15,25 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const createProduct =  createAsyncThunk(
+    "products/createProduct",
+    async (newProduct) => {
+      try {
+        console.log('Creating product:', newProduct);
+            const response = await axios.post(`${BASE_URL}/products/create`, newProduct , {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+          products.push(newProduct);
+          console.log('Product created successfully:', response.data);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating product:', error);
+            return error.data.message;
+        }
+    }
+  );
 export const ProductSlice = createSlice({
   name: "products",
   initialState: {

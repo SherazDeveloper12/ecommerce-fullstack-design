@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export default function Selection({ options, name, value }) {
-    const [selectedValue, setSelectedValue] = React.useState(`${options[0]}`);
-    value(selectedValue);
+export default function Selection({ options, name, value , setValue }) {
+    const [selectedValue, setSelectedValue] = React.useState(`${value}`);
+    useEffect(() => {
+        setSelectedValue(value);
+    }, [value]);
     return (
         <div className='w-full'>
             <label
@@ -14,8 +16,8 @@ export default function Selection({ options, name, value }) {
             <select
                 id="selectionlabel"
                 className="bg-white border border-gray-300 rounded p-1 w-full"
-
-                onChange={(e) => setSelectedValue(e.target.value)}
+                value={selectedValue}
+                onChange={(e) => { setSelectedValue(e.target.value); setValue(e.target.value); }}
             >
                 {
                     options.map((option, index) => (

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../store/slices/product";
 
 
 
 export default function useProductForm() {
-    const [category, setcategory] = useState('');
-    const [brand, setbrand] = useState('');
+    const [category, setcategory] = useState('electronics');
+    const [brand, setbrand] = useState('Apple');
     const [condition, setcondition] = useState('');
     const [freeShipping, setfreeShipping] = useState(true);
     const [newArrivals, setnewArrivals] = useState(false);
@@ -14,11 +16,12 @@ export default function useProductForm() {
     const [quantity, setquantity] = useState(1);
     const [description, setdescription] = useState('');
     const [images, setimages] = useState([]);
+    const dispatch = useDispatch();
     const product = {
         title: title,
         heading: heading,
         price: price,
-        images: images,
+        img: images,
         freeShipping: freeShipping,
         newArrivals: newArrivals,
         quantity: quantity,
@@ -27,6 +30,20 @@ export default function useProductForm() {
         brand: brand,
         condition: condition,
     };
+   const handleAddProductClick = (product) => {
+        dispatch(createProduct(product));
+        setbrand('Apple');
+        setcategory('electronics');
+        setcondition('');
+        setfreeShipping(true);
+        setnewArrivals(false);
+        settitle('');
+        setheading('');
+        setprice(0);
+        setquantity(1);
+        setdescription('');
+        setimages([]);
+    }
     return {
         category,
         setcategory,
@@ -51,5 +68,6 @@ export default function useProductForm() {
         images,
         setimages,
         product,
+        handleAddProductClick
     }
 };
