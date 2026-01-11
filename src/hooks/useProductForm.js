@@ -7,7 +7,7 @@ import { createProduct } from "../store/slices/product";
 export default function useProductForm() {
     const [category, setcategory] = useState('electronics');
     const [brand, setbrand] = useState('Apple');
-    const [condition, setcondition] = useState('');
+    const [condition, setcondition] = useState('New');
     const [freeShipping, setfreeShipping] = useState(true);
     const [newArrivals, setnewArrivals] = useState(false);
     const [title, settitle] = useState('');
@@ -34,7 +34,7 @@ export default function useProductForm() {
         dispatch(createProduct(product));
         setbrand('Apple');
         setcategory('electronics');
-        setcondition('');
+        setcondition('New');
         setfreeShipping(true);
         setnewArrivals(false);
         settitle('');

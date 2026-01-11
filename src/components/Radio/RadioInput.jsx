@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export default function RadioInput({ options, name, value }) {
-    const [selectedValue, setSelectedValue] = React.useState(options[0] || '');
-    value(selectedValue);
+export default function RadioInput({ options, name, setValue, value }) {
+    const [selectedValue, setSelectedValue] = React.useState(value);
+    useEffect(() => {
+        setSelectedValue(value);
+    }, [value]);
+
     return (
         <div>
             <div className='font-semibold flex gap-1'>
@@ -14,8 +17,8 @@ export default function RadioInput({ options, name, value }) {
             <div className='flex gap-2 items-center '>
                 {options.map((option, index) => (
                     <>
-                        <input type="radio" className="size-4" id={option} defaultChecked={index === 0} name="radio"
-                            onChange={() => setSelectedValue(option)} />
+                        <input type="radio" className="size-4" id={option} checked={option === value} name="radio"
+                            onChange={() => { setSelectedValue(option); setValue(option); }} />
                         <label htmlFor={option} >{option}</label>
                     </>
                 ))}

@@ -84,7 +84,7 @@ export default function AdminProducts() {
           </div>
           <Selection options={categories} name="category" setValue={(value) => setcategory(value)} value={category} />
           <Selection options={brands} name="Brand" setValue={(value) => setbrand(value)} value={brand} />
-          <RadioInput options={["New", "Used", "Refurbished"]} name="Condition" value={(value) => setcondition(value)} />
+          <RadioInput options={["New", "Used", "Refurbished"]} name="Condition" setValue={(value) => setcondition(value)}  value={condition} />
           <button className='bg-blue-500 text-white rounded px-4 py-2 mt-4 hover:bg-blue-600' onClick={() => handleAddProductClick(product)}>Add Product</button>
         </div>
       </div>
