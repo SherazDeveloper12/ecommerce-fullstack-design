@@ -40,7 +40,7 @@ export default function AdminProducts() {
       <h2 className='text-2xl text-gray-500 font-semibold '>Products</h2>
       <div className='border border-gray-300 rounded-lg p-4 flex gap-4 w-full'>
         <div className='flex-1'>
-          <ImageUploader value={(value) => setimages(prevImages => [...prevImages, value])} />
+          <ImageUploader value={images[images.length - 1]} setValue={(value) => setimages(prevImages => [...prevImages, value])} />
           <div>
             <p className='font-semibold mt-2'>Uploaded Images:</p>
             <div className='flex gap-2 mt-1 flex-wrap '>
