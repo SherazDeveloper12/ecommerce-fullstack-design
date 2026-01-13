@@ -6,7 +6,7 @@ import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import { X } from 'lucide-react';
 export default function AdminProducts() {
   const categories = ['electronics', 'fashion', 'home-appliances', 'books', 'sports'];
-  const brands = ['Apple', 'Samsung', 'Nike', 'Adidas', 'Sony'];
+  const brands = ['Apple', 'Samsung', 'OnePlus', 'HyperX', 'Sony'];
 
   const { category,
     setcategory,

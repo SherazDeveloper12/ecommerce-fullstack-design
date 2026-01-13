@@ -9,13 +9,14 @@ import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
 export default function Product() {
 
     const param = useParams();
-    const uid = param.id;
+    const _id = param.id;
     const products = useSelector((state) => state.products.Products);
-    console.log('Products in Product page:', products);
-    const SelectedProduct = products.find(prod => prod.uid === uid);
+    const SelectedProduct = products.find(prod => prod._id === _id);
+    console.log('Selected Product:', SelectedProduct);
+    const [showcaseimage, setshowcaseimage] = React.useState(SelectedProduct.img[0]);
 
     return (
-        <div className='max-w-7xl m-auto flex flex-col gap-8 p-4'>
+        <div className='max-w-7xl m-auto flex flex-col gap-4 p-4'>
             <div className='text-gray-400 text-lg flex gap-2 items-center justify-start'>
                 <p>Home</p>
                 <ChevronRight size={16} />
@@ -28,34 +29,34 @@ export default function Product() {
             <div className=' flex bg-white border border-gray-200 rounded-lg shadow-md p-4 gap-8'>
                 <div className='flex-1 flex flex-col gap-4'>
                     <div className=' rounded-lg overflow-hidden border border-gray-200'>
-                        <img src={SelectedProduct.img} alt={SelectedProduct.title} className='max-h-96 mx-auto p-4' />
+                        <img src={showcaseimage} alt={SelectedProduct.title} className='max-h-96 mx-auto p-4' />
                     </div>
                     <div className='flex gap-4'>
-                        <div className='rounded-lg overflow-hidden border border-gray-200'>
-                            <img src={SelectedProduct.img} alt={SelectedProduct.title} className='max-h-14  ' />
-                        </div>
-                        <div className='rounded-lg overflow-hidden hue-rotate-30 brightness-75 border  border-gray-200'>
-                            <img src={SelectedProduct.img} alt={SelectedProduct.title} className='max-h-14  ' />
-                        </div>
-                        <div className='rounded-lg overflow-hidden hue-rotate-30  border  border-gray-200'>
-                            <img src={SelectedProduct.img} alt={SelectedProduct.title} className='max-h-14  ' />
-                        </div>
-                        <div className='rounded-lg overflow-hidden saturate-50 border  border-gray-200'>
-                            <img src={SelectedProduct.img} alt={SelectedProduct.title} className='max-h-14  ' />
-                        </div>
-
+                        {SelectedProduct.img.map((img, index) => (
+                            <div key={index} onClick={() => setshowcaseimage(img)} className={`rounded-lg overflow-hidden border ${showcaseimage === img ? 'border-blue-600' : 'border-gray-200'} cursor-pointer`}>
+                                <img src={img} alt={SelectedProduct.title} className='max-h-14  ' />
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className='flex-2 flex flex-col gap-3'>
-                    <div className='flex gap-1 items-center text-green-500 font-semibold'><Check /> <p>In stock</p></div>
+                    <div className='flex gap-1 items-center text-green-500 font-semibold'>
+                        <Check />
+                        <p>In stock</p>
+                        {SelectedProduct.quantity - SelectedProduct.orders <= 10 ? <><Circle fill='#dee2e7' stroke='0' size={10} /> <p className='font-semibold text-red-400'> Only {SelectedProduct.quantity - SelectedProduct.orders} left in stock </p></> : ''}
+                        {SelectedProduct.quantity - SelectedProduct.orders > 10 ? <><Circle fill='#dee2e7' stroke='0' size={10} /> <p className='font-semibold text-gray-400'> {SelectedProduct.quantity - SelectedProduct.orders} / {SelectedProduct.quantity} </p> </> : ''}
+                    </div>
                     <h1 className='text-3xl font-bold'>{SelectedProduct.heading} | {SelectedProduct.category}</h1>
                     <div className='flex gap-2'>
-                        <Stars rating={SelectedProduct.rating} />
+                        {SelectedProduct.rating === 0 || SelectedProduct.rating === undefined ? <p className='text-gray-400'>No ratings yet</p> : <Stars rating={SelectedProduct.rating} />}
                         <span className='text-[#dee2e7] flex gap-2 justify-center items-center'>
                             <Circle fill='#dee2e7' stroke='0' size={10} />
-                            <p className='font-semibold text-gray-400'>{SelectedProduct.orders} Orders</p>
+                            {SelectedProduct.orders === 0 || SelectedProduct.orders === undefined ? <p className='text-gray-400'>No ratings yet</p> :
+                                <p className='font-semibold text-gray-400'>{SelectedProduct.orders} Orders</p>
+                            }
                             <Circle fill='#dee2e7' stroke='0' size={10} />
                         </span>
+
                         {SelectedProduct.freeShipping ? <p className='font-semibold text-green-400'>Free Shipping</p> : ''}
                     </div>
                     <div className='bg-red-100 p-4 flex divide-x divide-gray-400'>
@@ -84,7 +85,7 @@ export default function Product() {
                         </div>
                         <div className='flex font-semibold gap-8 items-center'>
                             <p className='text-gray-500 flex-1'>Material: </p>
-                            <p className='flex-2'>{SelectedProduct.features.map(feature => (<span key={feature}>{feature}, </span>))}</p>
+                            <p className='flex-2'> Metalic, Glass</p>
                         </div>
                         <div className='flex font-semibold gap-8 items-center'>
                             <p className='text-gray-500 flex-1'>Category:</p>
@@ -109,7 +110,7 @@ export default function Product() {
                     </div>
 
                 </div>
-                <div className='flex-1'>
+                {/* <div className='flex-1'>
                     <div className='rounded-lg border border-gray-200 p-3 flex flex-col gap-2 '>
                         <div className='flex gap-3 justify-center items-center pb-4 border-b border-gray-200'>
                             <div className='size-12 bg-blue-200 p-2 rounded-lg font-semibold text-2xl flex justify-center items-center text-blue-600 '>R </div>
@@ -145,7 +146,7 @@ export default function Product() {
                             <button className=' text-blue-600 w-full py-2 px-8  rounded-lg bg-white border border-gray-200 hover:bg-gray-300 transition'>View Profile</button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
             <div className='flex gap-2'>

@@ -1,14 +1,14 @@
-import React, { use, useEffect } from 'react'
-import mobile from '../assets/11.png'
+
+import React from 'react'
 import { Star, Circle, Heart, Square, RectangleHorizontal, X } from 'lucide-react'
 import DropDown from '../components/DropDown/DropDown'
-import DropDownRadio from '../components/DropDown/DropDown'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 import Stars from '../components/Stars/Stars'
 import { useDispatch, useSelector } from 'react-redux'
 import { addSelectedProduct, setFilters, clearFilters } from '../store/slices/product'
 import { useNavigate } from 'react-router'
 import { animate, motion } from 'framer-motion'
+
 export default function Products() {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = React.useState(false);
@@ -78,7 +78,7 @@ export default function Products() {
     }
     const handleproductclick = (product) => {
         dispatch(addSelectedProduct(product));
-        navigate(`/products/${product.uid}`);
+        navigate(`/products/${product._id}`);
     }
     return (
         <div className=''>
@@ -116,7 +116,7 @@ export default function Products() {
                             </div>
                         </div>
                     </div>
-                    <div className='flex gap-4 items-center flex-wrap'>
+                    <div className='flex  gap-4 items-center flex-wrap'>
                         {filters.map((filter, index) => (
                             <div key={index} className='flex gap-2 bg-white border border-blue-500  rounded-lg px-2 py-1 items-center'>
 
@@ -131,15 +131,17 @@ export default function Products() {
 
 
                     {isOpen ?
-                        <div className='grid grid-cols-3 gap-4  '>
+                        <div className='grid grid-cols-3 gap-4 overflow-hidden p-1'>
                             {DisplayProducts.map((product, index) => (
-                                <motion.div 
-                                whileHover={{
-                                    scale: 1.02,
-                                    transition: { duration: 0.3 },
-                                }}
-                                key={index} className='cursor-pointer flex flex-col gap-2 bg-white rounded-lg border border-gray-300 hover:shadow-md p-4' id={index}
+                                <motion.div
+                                    whileHover={{
+                                        scale: 1.02,
+                                        transition: { duration: 0.3 },
+                                    }}
+                                    key={index}
+                                    className='cursor-pointer flex flex-col gap-2 bg-white rounded-lg border overflow-hidden border-gray-300 hover:shadow-md p-4 relative' id={index}
                                     onClick={() => handleproductclick(product)}>
+                                    {product.NewArrival && <NewArrival  />}
                                     <div className='flex-4'>
                                         <img src={product.img} alt={product.title} className='mx-auto' />
                                     </div>
@@ -161,12 +163,14 @@ export default function Products() {
                         <>
 
                             {DisplayProducts.map((product, index) => (
-                                 <motion.div 
-                                whileHover={{
-                                    scale: 1.02,
-                                    transition: { duration: 0.3 },
-                                }} className='flex gap-4 bg-white rounded-lg border border-gray-300 cursor-pointer' id={index}
+                                <motion.div
+                                    whileHover={{
+                                        scale: 1.02,
+                                        transition: { duration: 0.3 },
+                                    }} 
+                                    className='flex gap-4 bg-white rounded-lg border border-gray-300 cursor-pointer relative overflow-hidden' id={index}
                                     onClick={() => handleproductclick(product)}>
+                                        {product.NewArrival && <NewArrival className=" text-xs -left-8 top-4 " />}
                                     <div className='flex-1 flex justify-center items-center'>
                                         <img src={product.img} alt={product.title} />
                                     </div>
@@ -208,3 +212,11 @@ export default function Products() {
 
 
 
+function NewArrival({ className }) {
+    return (
+        <div
+            className={`absolute -rotate-45 bg-red-500 text-white font-semibold px-8 py-1 text-sm shadow-lg ${className ? className : 'top-6.5 -left-8'}`}>
+            New Arrival
+        </div>
+    )
+}
