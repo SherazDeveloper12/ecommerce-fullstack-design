@@ -23,7 +23,7 @@ export default function useProductForm() {
         price: price,
         img: images,
         freeShipping: freeShipping,
-        newArrivals: newArrivals,
+        newArrival: newArrivals,
         quantity: quantity,
         description: description,
         category: category,
@@ -31,6 +31,7 @@ export default function useProductForm() {
         condition: condition,
     };
    const handleAddProductClick = (product) => {
+        console.log('Adding product:', product);
         dispatch(createProduct(product));
         setbrand('Apple');
         setcategory('electronics');

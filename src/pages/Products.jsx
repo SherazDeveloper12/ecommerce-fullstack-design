@@ -1,18 +1,35 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Star, Circle, Heart, Square, RectangleHorizontal, X } from 'lucide-react'
 import DropDown from '../components/DropDown/DropDown'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 import Stars from '../components/Stars/Stars'
 import { useDispatch, useSelector } from 'react-redux'
-import { addSelectedProduct, setFilters, clearFilters } from '../store/slices/product'
+import { addSelectedProduct, setFilters, clearFilters, fetchProducts, realtimeconnection } from '../store/slices/product'
 import { useNavigate } from 'react-router'
-import { animate, motion } from 'framer-motion'
+import {  motion } from 'framer-motion'
+
 
 export default function Products() {
+const BASE_URL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = React.useState(false);
     const dispatch = useDispatch();
+      useEffect(() => {
+            const eventsource = new EventSource(`${BASE_URL}/products/stream`);
+            
+            eventsource.onmessage = function (event) {
+                const parsedData = JSON.parse(event.data);
+                console.log('Received data from SSE:', parsedData);
+                // You can dispatch an action to update the Redux store here
+                
+           dispatch(realtimeconnection(parsedData));
+             
+            }
+            return () => {
+        eventsource.close();  // Connection band karo
+    };
+        }, []);
     const links = [
         {
             name: 'Mobile accessory',
@@ -34,6 +51,7 @@ export default function Products() {
 
     const products = useSelector((state) => state.products.Products);
     let DisplayProducts = products;
+    
     console.log('All Products:', DisplayProducts);
     const filters = useSelector((state) => state.products.Filters);
     if (filters.length > 0) {
@@ -141,9 +159,9 @@ export default function Products() {
                                     key={index}
                                     className='cursor-pointer flex flex-col gap-2 bg-white rounded-lg border overflow-hidden border-gray-300 hover:shadow-md p-4 relative' id={index}
                                     onClick={() => handleproductclick(product)}>
-                                    {product.NewArrival && <NewArrival  />}
+                                    {product.newArrival && <NewArrival  />}
                                     <div className='flex-4'>
-                                        <img src={product.img} alt={product.title} className='mx-auto' />
+                                        <img src={product.img[Math.floor(Math.random()*(product.img.length))]} alt={product.title} className='mx-auto' />
                                     </div>
                                     <div className='flex-1 border-t border-gray-200 pt-2 flex flex-col gap-1 relative'>
                                         <div className='flex justify-center items-center rounded-lg border border-blue-600 p-2 absolute top-4 right-4 cursor-pointer'>
@@ -170,9 +188,9 @@ export default function Products() {
                                     }} 
                                     className='flex gap-4 bg-white rounded-lg border border-gray-300 cursor-pointer relative overflow-hidden' id={index}
                                     onClick={() => handleproductclick(product)}>
-                                        {product.NewArrival && <NewArrival className=" text-xs -left-8 top-4 " />}
+                                        {product.newArrival && <NewArrival className=" text-xs -left-8 top-4 " />}
                                     <div className='flex-1 flex justify-center items-center'>
-                                        <img src={product.img} alt={product.title} />
+                                        <img src={product.img[Math.floor(Math.random()*(product.img.length))]} alt={product.title} />
                                     </div>
                                     <div className='flex-3 flex flex-col gap-3 p-4 relative bg-white'>
                                         <h1>{product.heading}</h1>
@@ -192,7 +210,8 @@ export default function Products() {
                                             </div>
                                         </div>
                                         <div>
-                                            <p className='text-gray-400 pr-32'>{product.description}</p>
+                                            
+                                            <p className='text-gray-400 pr-32'>{product.description.slice(0,134)}</p>
                                         </div>
                                         <a href="#" className='text-blue-400 font-semibold'>View Details</a>
                                         <div className='flex justify-center items-center rounded-lg border border-blue-600 p-2 absolute top-4 right-4 cursor-pointer'>

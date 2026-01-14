@@ -13,16 +13,16 @@ import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLet
 
 import { useSelector } from 'react-redux'
 export default function Home() {
-  const products =  useSelector((state) => state.products.Products);
+  const Products =  useSelector((state) => state.products.Products);
   const showcaseData = [
     {
       title: 'Electronics',
-      products: products.filter(product => product.category === 'Tech'),
+      products: Products.filter(product => product.category === 'Tech'),
       backgroundImg: interiorbg,
     },
     {
       title: 'Living Room',
-      products: products.filter(product => product.category === 'Interior'),
+      products: Products.filter(product => product.category === 'Interior'),
       backgroundImg: Techbg,
     },
     

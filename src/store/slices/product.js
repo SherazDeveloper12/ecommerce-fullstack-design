@@ -1,17 +1,24 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk , createAction} from "@reduxjs/toolkit";
 import { products } from "../../lib/constant";
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+export const realtimeconnection = createAction(
+    "products/realtimeconnection");
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     try {
+        console.log('Fetching products from API...');
         const response = await axios.get(`${BASE_URL}/products/`);
+        console.log('Response from api for fetchProducts:', response);
         return response.data;
+        
     } catch (error) {
-        return error.message;
+        console.error('Error fetching products:', error);
+        
+        return error.data.message;
     }
   }
 );
@@ -135,11 +142,21 @@ export const ProductSlice = createSlice({
         });
         builder.addCase(fetchProducts.fulfilled, (state, action) => {
             state.status = "succeeded";
+            console.log('Fetched products:', action.payload);
             state.Products = action.payload;
         });
         builder.addCase(fetchProducts.rejected, (state, action) => {
             state.status = "failed";
+            console.error('sherazi Error fetching products:', action.error.message);
             state.error = action.error.message;
+        });
+        builder.addCase(realtimeconnection, (state, action) => {
+            console.log('Realtime product added:', action.payload);
+            state.Products.push(action.payload);
+        });
+        builder.addCase(createProduct.fulfilled, (state, action) => {
+            console.log('Product created and added to state:', action.payload);
+            state.Products.push(action.payload);
         });
     }
 });
