@@ -11,6 +11,7 @@ import Suppliers from '../pages/Suppliers.jsx';
 import Dashboard from '../pages/Admin/Dashboard.jsx';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 import Admin from '../pages/Admin/Admin.jsx';
+import AddProducts from '../pages/Admin/AddProducts.jsx';
 import AdminProducts from '../pages/Admin/AdminProducts.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
@@ -54,6 +55,10 @@ export default function Navigation() {
                 {
                     path: "/admin/dashboard",
                     element: <Dashboard />
+                },
+                {
+                    path: "/admin/add-products",
+                    element: <AddProducts />
                 },
                 {
                     path: "/admin/products",

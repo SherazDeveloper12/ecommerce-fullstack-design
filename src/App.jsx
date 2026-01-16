@@ -9,29 +9,24 @@ import Navigation from './navigation/Navigation.jsx'
 
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 function App() {
-    const status = useSelector((state) => state.products.status);
-
+  const status = useSelector((state) => state.products.status);
     const dispatch = useDispatch();
-
     useEffect(() => {
-        
         dispatch(fetchProducts());
         console.log("Products fetched");
-
-
     }, []);
-    if (status === 'loading') {
-        return <div className='flex justify-center items-center text-2xl font-extrabold'> Loading . . . </div>
-    }
-    else {
-        return (
-            <>
-                <Navigation />
-            </>
-        )
-    }
+    return (
+ ((status === 'loading') ?
+        <div className='flex justify-center items-center text-2xl font-extrabold'> Loading . . . </div>
+        :
 
+        <>
+            <Navigation />
+        </>
+    )
+)
 }
 
 export default App

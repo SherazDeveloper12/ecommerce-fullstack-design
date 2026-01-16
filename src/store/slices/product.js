@@ -22,7 +22,19 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
-
+export const deleteProduct = createAsyncThunk(
+    "products/deleteProduct",
+    async (productId) => {
+        try {
+            console.log('Deleting product with ID:', productId);
+            const response = await axios.delete(`${BASE_URL}/products/delete/${productId}`);
+            console.log('Response from API for deleteProduct:', response);
+            return productId;
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            return error.data.message;
+        }
+    });
 export const createProduct =  createAsyncThunk(
     "products/createProduct",
     async (newProduct) => {
@@ -47,7 +59,6 @@ export const ProductSlice = createSlice({
   initialState: {
     Products: [],
     Filters: [],
-   
     status: "idle",
     error: null,
     },
@@ -158,6 +169,16 @@ export const ProductSlice = createSlice({
             console.log('Product created and added to state:', action.payload);
             state.Products.push(action.payload);
         });
+        builder.addCase(deleteProduct.fulfilled, (state, action) => {
+            console.log('Product deleted with ID:', action.payload);
+            state.Products = state.Products.filter(product => product._id !== action.payload);
+            
+        });
+        builder.addCase(deleteProduct.rejected, (state, action) => {
+            console.error('Error deleting product:', action.error.message);
+            state.error = action.error.message;
+        });
+        
     }
 });
 
