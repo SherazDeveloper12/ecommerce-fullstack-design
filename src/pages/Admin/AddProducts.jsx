@@ -3,10 +3,12 @@ import Selection from '../../components/Selection/Selection';
 import RadioInput from '../../components/Radio/RadioInput';
 import useProductForm from '../../hooks/useProductForm';
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
+
 import { X } from 'lucide-react';
+import { brands , categories} from '../../lib/constant';
 export default function AddProducts() {
-  const categories = ['electronics', 'fashion', 'home-appliances', 'books', 'sports'];
-  const brands = ['Apple', 'Samsung', 'OnePlus', 'HyperX', 'Sony'];
+
+
 
   const { category,
     setcategory,

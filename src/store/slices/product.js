@@ -163,11 +163,11 @@ export const ProductSlice = createSlice({
         });
         builder.addCase(realtimeconnection, (state, action) => {
             console.log('Realtime product added:', action.payload);
-            state.Products.push(action.payload);
+            state.Products.unshift(action.payload);
         });
         builder.addCase(createProduct.fulfilled, (state, action) => {
             console.log('Product created and added to state:', action.payload);
-            state.Products.push(action.payload);
+            state.Products.unshift(action.payload);
         });
         builder.addCase(deleteProduct.fulfilled, (state, action) => {
             console.log('Product deleted with ID:', action.payload);

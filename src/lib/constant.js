@@ -61,6 +61,7 @@ import Cloth4 from '../assets/Products/Cloth4.jpg'
 import Cloth5 from '../assets/Products/Cloth5.jpg'
 import Cloth6 from '../assets/Products/Cloth6.jpg'
 import Cloth7 from '../assets/Products/Cloth7.jpg'
+import { colgroup } from 'motion/react-m'
 
 
 export const showcaseStuff = [
@@ -93,6 +94,28 @@ export const showcaseStuff = [
             
     ]
     }
+]
+
+export const brands = [
+    "Apple",
+    "Samsung",
+    "Sony",
+    "OnePlus",
+    "HyperX",
+    "HP",
+    "Lenovo",
+    "Asus",
+    "Microsoft",
+]
+
+export const categories = [
+    "Mobile Phones",
+    "Laptops",
+    "Tablets",
+    "Headphones",
+    "Cameras",
+    "Interior",
+    "Cloth",
 ]
 
 export const products = [

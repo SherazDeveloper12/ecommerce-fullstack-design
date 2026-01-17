@@ -16,6 +16,19 @@ function App() {
     useEffect(() => {
         dispatch(fetchProducts());
         console.log("Products fetched");
+         const eventsource = new EventSource(`${BASE_URL}/products/stream`);
+               
+               eventsource.onmessage = function (event) {
+                   const parsedData = JSON.parse(event.data);
+                   console.log('Received data from SSE:', parsedData);
+                   // You can dispatch an action to update the Redux store here
+                   
+              dispatch(realtimeconnection(parsedData));
+                
+               }
+               return () => {
+           eventsource.close();  // Connection band karo
+       };
     }, []);
     return (
  ((status === 'loading') ?

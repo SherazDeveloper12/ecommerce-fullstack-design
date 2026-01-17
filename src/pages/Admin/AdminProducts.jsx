@@ -2,7 +2,8 @@ import React from 'react'
 import useAdminProductsPage from '../../hooks/useAdminProductsPage';
 
 export default function AdminProducts() {
-  const { products ,handledelete, status} = useAdminProductsPage()
+  const { products ,handledelete, status, } = useAdminProductsPage()
+  
   return (
     <div className='p-2 flex flex-col gap-2 w-full'>
       <h2 className='text-2xl text-gray-500 font-semibold '>Products</h2>
@@ -16,6 +17,7 @@ export default function AdminProducts() {
             <tr>
               <th className='border-b p-2'>Images </th>
               <th className='border-b p-2'>Title</th>
+              <th className='border-b p-2'>Stock</th>
               <th className='border-b p-2'>Price</th>
               <th className='border-b p-2'>Category</th>
               <th className='border-b p-2'>Brand</th>
@@ -24,7 +26,7 @@ export default function AdminProducts() {
           </thead>
           <tbody>
             {products.map((product) => (
-              <tr key={product.id} >
+              <tr key={product._id} >
                 <td className='border-b p-2 flex justify-start items-center gap-2 overflow-x-auto'>
                   {product.img.map((image, index) => (
                   <div key={index} className='w-16 h-16 p-2 border border-gray-400 rounded-md'>
@@ -39,6 +41,7 @@ export default function AdminProducts() {
                   }
                 </td>
                 <td className='border-b p-2'>{product.title}</td>
+                <td className='border-b p-2'>{product.quantity}</td>
                 <td className='border-b p-2'>${product.price}</td>
                 <td className='border-b p-2'>{product.category}</td>
                 <td className='border-b p-2'>{product.brand}</td>
