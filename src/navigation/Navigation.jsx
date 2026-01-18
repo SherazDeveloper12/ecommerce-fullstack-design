@@ -61,6 +61,10 @@ export default function Navigation() {
                     element: <AddProducts />
                 },
                 {
+                    path: "/admin/edit-product/:id",
+                    element: <AddProducts />
+                },
+                {
                     path: "/admin/products",
                     element: <AdminProducts />
                 }

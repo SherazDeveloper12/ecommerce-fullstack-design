@@ -2,7 +2,7 @@ import React from 'react'
 import useAdminProductsPage from '../../hooks/useAdminProductsPage';
 
 export default function AdminProducts() {
-  const { products ,handledelete, status, } = useAdminProductsPage()
+  const { products ,handledelete, status,handleedit } = useAdminProductsPage()
   
   return (
     <div className='p-2 flex flex-col gap-2 w-full'>
@@ -46,7 +46,10 @@ export default function AdminProducts() {
                 <td className='border-b p-2'>{product.category}</td>
                 <td className='border-b p-2'>{product.brand}</td>
                 <td className='border-b p-2'>
-                  <button className='bg-blue-500 text-white px-2 py-1 rounded mr-2 cursor-pointer'>Edit</button>
+                  <button 
+                  className='bg-blue-500 text-white px-2 py-1 rounded mr-2 cursor-pointer'
+                  onClick={()=>handleedit(product._id)}
+                  >Edit</button>
                   <button
                   onClick={()=>handledelete(product._id)}
                   className='bg-red-500 text-white px-2 py-1 rounded cursor-pointer'>Delete</button>

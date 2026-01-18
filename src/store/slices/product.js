@@ -22,6 +22,24 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+export const updateProduct = createAsyncThunk(
+    "products/updateProduct",
+    async (updatedProduct) => {
+        try {
+            console.log('Updating product:', updatedProduct._id);
+            
+            const response = await axios.put(`${BASE_URL}/products/update/${updatedProduct._id}`, updatedProduct , {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Product updated successfully:', response.data);
+            return response.data;
+        } catch (error) {
+            console.error('Error updating product:', error);
+            return error.data.message;
+        }
+    });
 export const deleteProduct = createAsyncThunk(
     "products/deleteProduct",
     async (productId) => {

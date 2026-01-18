@@ -7,8 +7,8 @@ import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import { X } from 'lucide-react';
 import { brands , categories} from '../../lib/constant';
 export default function AddProducts() {
-
-
+  
+  
 
   const { category,
     setcategory,
@@ -33,7 +33,9 @@ export default function AddProducts() {
     images,
     setimages,
     product,
-    handleAddProductClick
+    handleAddProductClick,
+    editMode,
+    handleUpdateProductClick
   } = useProductForm();
 
 
@@ -87,7 +89,7 @@ export default function AddProducts() {
           <Selection options={categories} name="category" setValue={(value) => setcategory(value)} value={category} />
           <Selection options={brands} name="Brand" setValue={(value) => setbrand(value)} value={brand} />
           <RadioInput options={["New", "Used", "Refurbished"]} name="Condition" setValue={(value) => setcondition(value)}  value={condition} />
-          <button className='bg-blue-500 text-white rounded px-4 py-2 mt-4 hover:bg-blue-600' onClick={() => handleAddProductClick(product)}>Add Product</button>
+          <button className='bg-blue-500 text-white rounded px-4 py-2 mt-4 hover:bg-blue-600' onClick={editMode ? () => {handleUpdateProductClick(product)} :  () => handleAddProductClick(product)}>{editMode ? "Update Product" : "Add Product"}</button>
         </div>
       </div>
     </div>
