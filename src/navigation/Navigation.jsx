@@ -13,6 +13,10 @@ import AdminLayout from '../layouts/AdminLayout.jsx';
 import Admin from '../pages/Admin/Admin.jsx';
 import AddProducts from '../pages/Admin/AddProducts.jsx';
 import AdminProducts from '../pages/Admin/AdminProducts.jsx';
+import SignUp from '../pages/Auth/SignUp.jsx';
+import Forget from '../pages/Auth/Forget.jsx';
+import Login from '../pages/Auth/Login.jsx';
+import AuthLayout from '../layouts/AuthLayout.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -67,6 +71,23 @@ export default function Navigation() {
                 {
                     path: "/admin/products",
                     element: <AdminProducts />
+                }
+            ]
+        },
+        {
+            element: <AuthLayout />,
+            children: [
+                {
+                    path: "/signup",
+                    element: <SignUp />
+                },
+                {
+                    path: '/login',
+                    element: <Login />
+                },
+                {
+                    path: '/forget-password',
+                    element: <Forget />
                 }
             ]
         }
