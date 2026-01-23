@@ -1,22 +1,36 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../store/slices/auth';
+import { Toaster, toast } from 'sonner'
 
 export default function Login() {
- 
+    const dispatch = useDispatch();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-
+    const {user, status,error} = useSelector((state) => state.auth);
+ useEffect(() => {
+        
+        if (status === 'succeeded') {
+            toast.success(`Welcome back! ${user.username}`);
+        }
+        else if (status === 'loading') {
+            toast('Logging in...');
+        }
+else if (status === 'failed') {
+            toast.error(`${error}`);
+        }
+    }, [status]);
     const handleSubmit = (e) => {
         e.preventDefault();
         const userData = {
-           
             email,
             password
         };
-        console.log('User Data:', userData);
-        // Handle sign-up logic here
+        dispatch(loginUser(userData));
     }
   return (
     <div className='flex flex-col justify-center items-center h-full gap-4'>
+        <Toaster position="top-right" richColors />
         <h2 className='font-bold text-4xl text-blue-400'>Log In</h2>
         <p className='font-semibold text-gray-500 text-2xl'>Please enter your log in details</p>
         <div className= 'text-left  text-gray-600'>Don't have an account? <a href="/signup" className="text-blue-400 hover:underline">Sign Up</a></div>
