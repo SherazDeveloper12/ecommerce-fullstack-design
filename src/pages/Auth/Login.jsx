@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useEffectEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../store/slices/auth';
 import { Toaster, toast } from 'sonner'
@@ -7,19 +7,21 @@ export default function Login() {
     const dispatch = useDispatch();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const {user, status,error} = useSelector((state) => state.auth);
- useEffect(() => {
-        
+
+    const { user, status, error } = useSelector((state) => state.auth);
+    useEffect(() => {
         if (status === 'succeeded') {
-            toast.success(`Welcome back! ${user.username}`);
+            toast.dismiss();
+            toast.success('Logged in successfully!');
         }
         else if (status === 'loading') {
-            toast('Logging in...');
+            toast.loading('Logging in...');
         }
-else if (status === 'failed') {
+        else if (status === 'failed') {
+            toast.dismiss();
             toast.error(`${error}`);
         }
-    }, [status]);
+    }, [status, error]);
     const handleSubmit = (e) => {
         e.preventDefault();
         const userData = {
@@ -27,20 +29,22 @@ else if (status === 'failed') {
             password
         };
         dispatch(loginUser(userData));
-    }
-  return (
-    <div className='flex flex-col justify-center items-center h-full gap-4'>
-        <Toaster position="top-right" richColors />
-        <h2 className='font-bold text-4xl text-blue-400'>Log In</h2>
-        <p className='font-semibold text-gray-500 text-2xl'>Please enter your log in details</p>
-        <div className= 'text-left  text-gray-600'>Don't have an account? <a href="/signup" className="text-blue-400 hover:underline">Sign Up</a></div>
-        <form  onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4 w-80'>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' className='p-2 border border-gray-300 rounded focus:outline-blue-400 '/>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className='p-2 border border-gray-300 rounded focus:outline-blue-400 '/>
-                    <span className='text-gray-600'>Forget your password? <a href="/forget-password" className="text-blue-400 hover:underline">Forget Password</a></span>
 
-            <button type='submit' className='bg-blue-400 text-white p-2 rounded hover:bg-blue-500 transition cursor-pointer'>Log In</button>
-        </form>
-    </div>
-  )
+
+    }
+    return (
+        <div className='flex flex-col justify-center items-center h-full gap-4'>
+            <Toaster position="top-right" richColors />
+            <h2 className='font-bold text-4xl text-blue-400'>Log In</h2>
+            <p className='font-semibold text-gray-500 text-2xl'>Please enter your log in details</p>
+            <div className='text-left  text-gray-600'>Don't have an account? <a href="/signup" className="text-blue-400 hover:underline">Sign Up</a></div>
+            <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4 w-80'>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' className='p-2 border border-gray-300 rounded focus:outline-blue-400 ' />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className='p-2 border border-gray-300 rounded focus:outline-blue-400 ' />
+                <span className='text-gray-600'>Forget your password? <a href="/forget-password" className="text-blue-400 hover:underline">Forget Password</a></span>
+
+                <button type='submit' className='bg-blue-400 text-white p-2 rounded hover:bg-blue-500 transition cursor-pointer'>Log In</button>
+            </form>
+        </div>
+    )
 }

@@ -6,10 +6,13 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData) => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/register`, userData);
-        return response.data;
+      const response = await axios.post(`${BASE_URL}/auth/register`, userData);
+      return response.data;
     } catch (error) {
-         throw error.response.data;
+       if (error.response) {
+        throw error.response.data; 
+      }
+     throw error;
     }
   }
 );
@@ -18,29 +21,30 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials) => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/login`, credentials);
-        return response.data;
+      const response = await axios.post(`${BASE_URL}/auth/login`, credentials);
+      return response.data;
     }
     catch (error) {
-        
-        throw error.response.data;
+      
+      if (error.response) {
+        throw error.response.data; }
+     throw error;
     }
-    }
+  }
 );
 
 export const currentUser = createAsyncThunk(
   "auth/currentUser",
   async (token) => {
     try {
-        const response = await axios.get(`${BASE_URL}/auth/profile`, {
-            headers: {
-                Authorization: `${token}`,
-            },
-        });
-        console.log('Current user response data:', response.data);
-        return response.data;
+      const response = await axios.get(`${BASE_URL}/auth/profile`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return response.data;
     } catch (error) {
-        throw error.response.data;
+      throw error.response.data;
     }
   }
 );
@@ -59,7 +63,7 @@ export const AuthSlice = createSlice({
       state.token = null;
       localStorage.removeItem("authToken");
     },
-   fetchToken: (state, action) => {
+    fetchToken: (state, action) => {
       state.token = localStorage.getItem("authToken");
     }
   },

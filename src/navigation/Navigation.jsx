@@ -17,6 +17,7 @@ import SignUp from '../pages/Auth/SignUp.jsx';
 import Forget from '../pages/Auth/Forget.jsx';
 import Login from '../pages/Auth/Login.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -46,13 +47,18 @@ export default function Navigation() {
                     path: "/help",
                     element: <Help />
                 },
-                
+
             ],
         },
-         {
+        {
+            element: <ProtectedRoute />,
+            children: [
+                {
                     path: "/admin",
                     element: <Admin />
                 },
+            ]
+        },
         {
             element: <AdminLayout />,
             children: [

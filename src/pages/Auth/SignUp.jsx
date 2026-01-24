@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../store/slices/auth';
 import { Toaster, toast } from 'sonner'
 export default function SignUp() {
-    const {status,error} = useSelector((state) => state.auth);
+    const { status, error } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     useEffect(() => {
-        console.log('Registration status:', status);
         if (status === 'succeeded') {
-            toast.success('Registration successful! Please log in.');
+            toast.dismiss();
+            toast.success('Registration successful!');
         }
         else if (status === 'loading') {
             toast('Registering user...');
         }
-else if (status === 'failed') {
+        else if (status === 'failed') {
+            toast.dismiss();
             toast.error(`${error}`);
         }
     }, [status]);

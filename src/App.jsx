@@ -16,9 +16,7 @@ function App() {
   const status = useSelector((state) => state.products.status);
   const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(currentUser(token));
-    }, [token]);
+    
     useEffect(() => {
         dispatch(fetchToken());
         dispatch(fetchProducts());
