@@ -18,6 +18,7 @@ import Forget from '../pages/Auth/Forget.jsx';
 import Login from '../pages/Auth/Login.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
+import PublicRoute from './PublicRoute.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -81,22 +82,28 @@ export default function Navigation() {
             ]
         },
         {
-            element: <AuthLayout />,
+            element: <PublicRoute />,
             children: [
                 {
-                    path: "/signup",
-                    element: <SignUp />
-                },
-                {
-                    path: '/login',
-                    element: <Login />
-                },
-                {
-                    path: '/forget-password',
-                    element: <Forget />
+                    element: <AuthLayout />,
+                    children: [
+                        {
+                            path: "/signup",
+                            element: <SignUp />
+                        },
+                        {
+                            path: '/login',
+                            element: <Login />
+                        },
+                        {
+                            path: '/forget-password',
+                            element: <Forget />
+                        }
+                    ]
                 }
             ]
-        }
+        },
+
 
     ]);
     return (

@@ -1,17 +1,45 @@
-import { Bell, List, User, ShoppingCart, Heart } from "lucide-react";
+import { Bell, List, User, ShoppingCart, Heart, LogOut } from "lucide-react";
 
 import { useState, ReactElement } from "react";
 
 import Sidebar from "./Sidebar";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/slices/auth";
+import { useNavigate } from "react-router";
 
 export default function ActionButtons() {
-
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  const [userIsOpen , setUserIsOpen] = useState(false);
+  const navigate = useNavigate();
   return (
 
     <div className="flex items-center gap-5">
-      <div className="flex flex-col text-sm  items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out "><User size={18}/>
+      <div onClick={()=>setUserIsOpen(!userIsOpen)}
+       className="flex flex-col text-sm  items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out relative "><User size={18}/>
         <p>User</p>
+    
+        {userIsOpen && 
+        <div className="absolute top-12 right-5 bg-white border border-gray-200 shadow-lg rounded-md p-4 w-40 z-50">
+          <ul>
+            {
+              user ? <>
+<li onClick={() => { dispatch(logout()); }}
+             className="py-2 px-4 hover:bg-gray-100 cursor-pointer">Logout</li>
+              </> :<>
+              <li onClick={() => { navigate('/login')}} 
+             className="py-2 px-4 hover:bg-gray-100 cursor-pointer">Sign in</li>
+             <li onClick={() => { navigate('/signup')}} 
+             className="py-2 px-4 hover:bg-gray-100 cursor-pointer">Sign up</li>
+              </>
+            }
+            
+            
+          </ul>
+        </div>
+        }
+
       </div>
       <div className="flex flex-col text-sm items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out "><Bell size={18}/>
         <p>Notifications</p>

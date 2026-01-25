@@ -1,13 +1,15 @@
-import { ChevronRight, ShieldCheck, Globe, Check, Circle, } from 'lucide-react';
-import React, { useEffect } from 'react'
+import { ChevronRight, ShieldCheck, Globe, Check, Circle, Plus, Minus, } from 'lucide-react';
+import React, { useEffect, useState } from 'react'
 import Stars from '../components/Stars/Stars';
 import { useSelector } from 'react-redux';
 import flag from '../assets/au.png';
 import SuggestedProducts from '../components/SuggestedProducts/SuggestedProducts';
 import { useParams } from 'react-router';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
+import QuantityInput from '../components/QuantityInput/QuantityInput';
+import useProduct from '../hooks/useProduct';
 export default function Product() {
-
+    const { quantity, setQuantity } = useProduct();
     const param = useParams();
     const _id = param.id;
     const products = useSelector((state) => state.products.Products);
@@ -59,20 +61,23 @@ export default function Product() {
 
                         {SelectedProduct.freeShipping ? <p className='font-semibold text-green-400'>Free Shipping</p> : ''}
                     </div>
-                    <div className='bg-red-100 p-4 flex divide-x divide-gray-400'>
-                        <div className='p-2 flex-1'>
-                            <h2 className='text-red-600 font-bold text-xl'>$ {SelectedProduct.price}.00</h2>
-                            <p className='text-gray-400 font-semibold'>50-100 pcs</p>
-                        </div>
-                        <div className='p-2 flex-1'>
-                            <h2 className='text-black font-bold text-xl'>$ {SelectedProduct.price - 10}.00</h2>
-                            <p className='text-gray-400 font-semibold'>100-700 pcs</p>
-                        </div>
-                        <div className='p-2 flex-1'>
-                            <h2 className='text-black font-bold text-xl'>$ {SelectedProduct.price - 20}.00</h2>
-                            <p className='text-gray-400 font-semibold'>700+ pcs</p>
-                        </div>
+                    <div className='bg-red-100 p-4 flex gap-4 rounded-lg'>
+                        <h2 className='text-2xl font-semibold'>Price:</h2>
+                        <h2 className='text-2xl font-bold line-through text-red-700'>RS {SelectedProduct.price + parseInt(SelectedProduct.price/3) }</h2>
+                        <h2 className='text-3xl font-extrabold '>RS {SelectedProduct.price}</h2>
+                        
 
+                    </div>
+                    <div className='flex  gap-4 flex-col justify-center items-center w-full '>
+                        <div className='flex items-center gap-4  w-full'>
+                            <QuantityInput />
+                            <button className='bg-white-600 text-blue-600 font-semibold w-full py-3 px-8 border-2 border-gray-300 rounded-lg hover:bg-blue-700 hover:text-white hover:border-blue-700 cursor-pointer transition '>Add to Cart</button>
+
+                        </div>
+                        <div className='flex items-center gap-4  w-full'>
+                            <button className='bg-blue-600 font-semibold   text-white w-full py-3 px-8 cursor-pointer rounded-lg border-2 border-blue-600 hover:bg-blue-700 hover:border-blue-700 transition '>Buy Now</button>
+                            <button className='bg-green-400 text-white font-semibold w-full py-3 px-8 border-2 cursor-pointer border-green-400 rounded-lg hover:bg-green-700 hover:text-white hover:border-green-700 transition '>Contact</button>
+                        </div>
                     </div>
                     <div className='flex font-semibold gap-8 items-center border-b border-gray-300 pb-4'>
                         <p className='text-gray-500 flex-1'>Price:</p>

@@ -64,7 +64,10 @@ export const AuthSlice = createSlice({
       localStorage.removeItem("authToken");
     },
     fetchToken: (state, action) => {
-      state.token = localStorage.getItem("authToken");
+      
+      const token = localStorage.getItem("authToken");
+      state.token = token;
+      
     }
   },
   extraReducers: (builder) => {
@@ -101,10 +104,12 @@ export const AuthSlice = createSlice({
     });
     builder.addCase(currentUser.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.user = action.payload;
+      
+      state.user = action.payload.user;
     });
     builder.addCase(currentUser.rejected, (state, action) => {
       state.error = action.error.message;
+      console.log('Current user error message:', action.error.message);
       state.status = "failed";
     });
   }
