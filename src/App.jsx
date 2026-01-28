@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { fetchProducts, realtimeconnection, } from '../src/store/slices/product.js'
+import { fetchProducts, fetchProductsLocally, realtimeconnection, } from '../src/store/slices/product.js'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
@@ -13,14 +13,16 @@ import { current } from '@reduxjs/toolkit'
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function App() {
-    const status = useSelector((state) => state.products.status);
+    const {products, status} = useSelector((state) => state.products);
     const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchToken());
         dispatch(fetchProducts());
-
+        dispatch(fetchProductsLocally());
+        
+        
         const eventsource = new EventSource(`${BASE_URL}/products/stream`);
 
         eventsource.onmessage = function (event) {
@@ -35,14 +37,17 @@ function App() {
             eventsource.close();  // Connection band karo
         };
     }, []);
-    if (token) {
+   
         useEffect(() => {
-            dispatch(currentUser(token));
+            if (token){
+                dispatch(currentUser(token));
+            }
+            
         }, [token]);
-    }
+   
 
     return (
-        ((status === 'loading') ?
+        (( status === 'loading') ?
             <div className='flex justify-center items-center text-2xl font-extrabold'> Loading . . . </div>
             :
 

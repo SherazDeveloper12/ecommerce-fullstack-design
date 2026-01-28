@@ -3,13 +3,15 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Cart from '../components/Cart/Cart';
-import useCart from '../hooks/useCart';
+import { CartContext } from '../context/CartContext';
+import { useState } from 'react';
 export default function CoreLayout() {
-    const {isOpen} = useCart();
+    const [cartIsOpen, setCartIsOpen] = useState(false);
     return (
+        <CartContext.Provider value={{cartIsOpen, setCartIsOpen}}>
         <div>
-            {isOpen && <sidebar className="">
-                    <Cart />
+            {cartIsOpen && <sidebar className="">
+                    <Cart setCartIsOpen={setCartIsOpen} />
                 </sidebar>}
             
             <div className=' min-h-screen flex flex-col relative '>
@@ -21,5 +23,6 @@ export default function CoreLayout() {
                 </footer>
             </div>
         </div>
+        </CartContext.Provider>
     );
 }

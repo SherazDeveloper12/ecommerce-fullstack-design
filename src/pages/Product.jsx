@@ -1,22 +1,29 @@
 import { ChevronRight, ShieldCheck, Globe, Check, Circle, Plus, Minus, } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import Stars from '../components/Stars/Stars';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import flag from '../assets/au.png';
 import SuggestedProducts from '../components/SuggestedProducts/SuggestedProducts';
 import { useParams } from 'react-router';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
 import QuantityInput from '../components/QuantityInput/QuantityInput';
 import useProduct from '../hooks/useProduct';
+import { addItemToCart } from '../store/slices/cart';
 export default function Product() {
+    const dispatch = useDispatch();
     const { quantity, setQuantity } = useProduct();
     const param = useParams();
     const _id = param.id;
     const products = useSelector((state) => state.products.Products);
     const SelectedProduct = products.find(prod => prod._id === _id);
-    console.log('Selected Product:', SelectedProduct);
     const [showcaseimage, setshowcaseimage] = React.useState(SelectedProduct.img[0]);
-
+    const handleAddcart = (_id) => {
+        const data  = {
+            _id: _id,
+            quantity: quantity
+        }
+        dispatch(addItemToCart(data));
+    }
     return (
         <div className='max-w-7xl m-auto flex flex-col gap-4 p-4'>
             <div className='text-gray-400 text-lg flex gap-2 items-center justify-start'>
@@ -71,7 +78,9 @@ export default function Product() {
                     <div className='flex  gap-4 flex-col justify-center items-center w-full '>
                         <div className='flex items-center gap-4  w-full'>
                             <QuantityInput />
-                            <button className='bg-white-600 text-blue-600 font-semibold w-full py-3 px-8 border-2 border-gray-300 rounded-lg hover:bg-blue-700 hover:text-white hover:border-blue-700 cursor-pointer transition '>Add to Cart</button>
+                            <button
+                            onClick={()=>handleAddcart(SelectedProduct._id)}
+                            className='bg-white-600 text-blue-600 font-semibold w-full py-3 px-8 border-2 border-gray-300 rounded-lg hover:bg-blue-700 hover:text-white hover:border-blue-700 cursor-pointer transition '>Add to Cart</button>
 
                         </div>
                         <div className='flex items-center gap-4  w-full'>
@@ -115,43 +124,7 @@ export default function Product() {
                     </div>
 
                 </div>
-                {/* <div className='flex-1'>
-                    <div className='rounded-lg border border-gray-200 p-3 flex flex-col gap-2 '>
-                        <div className='flex gap-3 justify-center items-center pb-4 border-b border-gray-200'>
-                            <div className='size-12 bg-blue-200 p-2 rounded-lg font-semibold text-2xl flex justify-center items-center text-blue-600 '>R </div>
-                            <div>
-                                <p>Supplier</p>
-                                <p>Guanjoi Trading LLC</p>
-                            </div>
-                        </div>
-                        <div>
-                            <ul className='text-gray-400 flex flex-col gap-4'>
-                                <li className='flex gap-2 justify-between items-center'>
-                                    <span>
-                                        <img src={flag} alt={SelectedProduct.title} className='w-8 h-6 rounded-sm ' />
-                                    </span>
-                                    <span className='font-semibold'>Location: Australia</span>
-                                </li>
-                                <li className='flex gap-2 justify-between items-center'>
-                                    <span>
-                                        <ShieldCheck size={24} X />
-                                    </span>
-                                    <span className='font-semibold'>Verified Seller</span>
-                                </li>
-                                <li className='flex gap-2 justify-between items-center'>
-                                    <span>
-                                        <Globe size={24} />
-                                    </span>
-                                    <span className='font-semibold'>Worldwide shipping</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className='flex flex-col justify-center gap-2 w-full'>
-                            <button className='bg-blue-600 text-white w-full py-2 px-8  rounded-lg hover:bg-blue-700 transition'>Send Query</button>
-                            <button className=' text-blue-600 w-full py-2 px-8  rounded-lg bg-white border border-gray-200 hover:bg-gray-300 transition'>View Profile</button>
-                        </div>
-                    </div>
-                </div> */}
+             
 
             </div>
             <div className='flex gap-2'>
