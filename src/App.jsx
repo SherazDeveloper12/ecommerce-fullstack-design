@@ -5,20 +5,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import Navigation from './navigation/Navigation.jsx'
 import { currentUser, fetchToken } from './store/slices/auth.js'
+import { fetchCartFromStorage } from './store/slices/cart.js'
 
 
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function App() {
-    const {Products, status} = useSelector((state) => state.products);
-    console.log("Status as inital console log in App.jsx:", status);
+    const {status} = useSelector((state) => state.auth);
     const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     useEffect(() => {
            dispatch(fetchToken());
            dispatch(fetchProductsLocally());
            dispatch(fetchProducts());
+           dispatch(fetchCartFromStorage());
        } , []);
     useEffect(() => {
         
@@ -43,7 +44,7 @@ function App() {
 
 
     return (
-        ((status === 'loading' || Products.length === 0) ?
+        ((status === 'loading') ?
             <div className='flex justify-center items-center text-2xl font-extrabold'> Loading . . . </div>
             :
 

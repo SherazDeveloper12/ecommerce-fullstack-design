@@ -19,6 +19,7 @@ import Login from '../pages/Auth/Login.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import PublicRoute from './PublicRoute.jsx';
+import Checkout from '../pages/Checkout.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -48,9 +49,13 @@ export default function Navigation() {
                     path: "/help",
                     element: <Help />
                 },
-
+                
             ],
         },
+        {
+                    path: "/checkout",
+                    element: <Checkout />
+                },
         {
             element: <ProtectedRoute />,
             children: [

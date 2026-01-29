@@ -10,9 +10,9 @@ export const fetchProducts = createAsyncThunk(
     "products/fetchProducts",
     async () => {
         try {
-            console.log('Fetching products from API...');
+            
             const response = await axios.get(`${BASE_URL}/products/`);
-            console.log('Response from api for fetchProducts:', response);
+            
             return response.data;
 
         } catch (error) {
@@ -86,8 +86,7 @@ export const ProductSlice = createSlice({
             const localProducts = localStorage.getItem('products');
             
             if (localProducts) {
-                state.Products = JSON.parse(localProducts);
-               
+                state.Products = JSON.parse(localProducts);               
             }
             state.status = "succeeded";
         },
@@ -183,7 +182,7 @@ export const ProductSlice = createSlice({
             state.status = "succeeded";
             localStorage.setItem('products', JSON.stringify(action.payload));
             state.Products = action.payload;
-            console.log('Products loaded from API:', state.Products);
+           
         });
         builder.addCase(fetchProducts.rejected, (state, action) => {
             state.status = "failed";

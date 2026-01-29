@@ -1,5 +1,5 @@
 import { ChevronRight, ShieldCheck, Globe, Check, Circle, Plus, Minus, } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
 import Stars from '../components/Stars/Stars';
 import { useDispatch, useSelector } from 'react-redux';
 import SuggestedProducts from '../components/SuggestedProducts/SuggestedProducts';
@@ -8,25 +8,41 @@ import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
 import QuantityInput from '../components/QuantityInput/QuantityInput';
 import useProduct from '../hooks/useProduct';
 import { addItemToCart } from '../store/slices/cart';
+import {QuantityContext, CartContext} from '../context/Context';
 export default function Product() {
     const dispatch = useDispatch();
-    const { quantity, setQuantity } = useProduct();
+    const { setCartIsOpen} = useContext(CartContext);
+    const { quantity, setQuantity } = useProduct(1);
     const param = useParams();
     const _id = param.id;
     
-    const products = useSelector((state) => state.products.Products);
-    console.log('Products in Product page:', products);
-    const SelectedProduct = products.find(prod => prod._id === _id);
-    console.log('SelectedProduct', SelectedProduct);
-    const [showcaseimage, setshowcaseimage] = React.useState(SelectedProduct.img[0]);
-    const handleAddcart = (_id) => {
+    const {status, Products} = useSelector((state) => state.products);
+     const SelectedProduct = Products.find(prod => prod._id === _id);
+     
+    const [showcaseimage, setshowcaseimage] = React.useState();
+    useEffect(() => {
+        if (SelectedProduct) {
+            setshowcaseimage(SelectedProduct.img[0]);
+        }
+    }, [SelectedProduct])
+    const handleAddcart = (SelectedProduct) => {
         const data  = {
-            _id: _id,
+            product: SelectedProduct,
             quantity: quantity
         }
+        console.log('Adding to cart:', data);
         dispatch(addItemToCart(data));
+        setCartIsOpen(true);
+
     }
+   if(status === "loading" || status === "idle" || !SelectedProduct) {
+        return <div className='flex justify-center items-center h-screen'>
+            <p className='text-gray-500 text-lg'>Loading...</p>
+        </div>
+    }
+   
     return (
+        <QuantityContext.Provider value={{ quantity, setQuantity }}>
         <div className='max-w-7xl m-auto flex flex-col gap-4 p-4'>
             <div className='text-gray-400 text-lg flex gap-2 items-center justify-start'>
                 <p>Home</p>
@@ -81,7 +97,7 @@ export default function Product() {
                         <div className='flex items-center gap-4  w-full'>
                             <QuantityInput />
                             <button
-                            onClick={()=>handleAddcart(SelectedProduct._id)}
+                            onClick={()=>handleAddcart(SelectedProduct)}
                             className='bg-white-600 text-blue-600 font-semibold w-full py-3 px-8 border-2 border-gray-300 rounded-lg hover:bg-blue-700 hover:text-white hover:border-blue-700 cursor-pointer transition '>Add to Cart</button>
 
                         </div>
@@ -138,5 +154,6 @@ export default function Product() {
             </div>
             <div><RelatedProducts category={SelectedProduct.category} /></div>
         </div>
+        </QuantityContext.Provider>
     )
 }

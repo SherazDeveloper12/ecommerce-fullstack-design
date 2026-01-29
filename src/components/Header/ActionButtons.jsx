@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/auth";
 import { useNavigate } from "react-router";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../context/Context";
 
 export default function ActionButtons() {
   const dispatch = useDispatch();

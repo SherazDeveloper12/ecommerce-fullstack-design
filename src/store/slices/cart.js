@@ -2,63 +2,41 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
 export const CartSlice = createSlice({
-  name: "cart",
-  initialState: {
-    items: [],
-    totalQuantity: 0,
-    totalAmount: 0,
+    name: "cart",
+    initialState: {
+        items: [],
+        totalQuantity: 0,
+        totalAmount: 0,
     },
     reducers: {
         fetchCartFromStorage: (state) => {
-        const storedItems = localStorage.getItem('cartItems');
-        if(storedItems) {
-            state.items = JSON.parse(storedItems);
-            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
-            state.totalAmount = state.items.reduce((total, item) => total + item.totalPrice, 0);
-        }
-    },
-    addItemToCart: (state, action) => {
-        const newItem = action.payload;
-        const existingItem = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).find(item => item.id === newItem.id) : null;
-        if(!existingItem) {
-            state.items.push({
-                id: newItem.id,
-                title: newItem.title,
-                price: newItem.price,
-                quantity: 1,
-                totalPrice: newItem.price,
-            });
-        }   
-        else {
-            existingItem.quantity++;
-            existingItem.totalPrice += newItem.price;
-        }
-        state.totalQuantity++;
-        state.totalAmount += newItem.price;
-        localStorage.setItem('cartItems', JSON.stringify(state.items));
-    },
-    removeItemFromCart: (state, action) => {
-        const id = action.payload;
-        const existingItem = state.items.find(item => item.id === id);
-        if(existingItem) {
-            state.totalQuantity--;
-            state.totalAmount -= existingItem.price;
-            if(existingItem.quantity === 1) {
-                state.items = state.items.filter(item => item.id !== id);
+            const storedItems = localStorage.getItem('cartItems');
+            if (storedItems) {
+                state.items = JSON.parse(storedItems);
             }
-            else {
-                existingItem.quantity--;
-                existingItem.totalPrice -= existingItem.price;
+        },
+        addItemToCart: (state, action) => {
+            const newItem = action.payload;
+            console.log("items" , state.items)
+            const existingItem = state.items.find(item => item.product._id === newItem.product._id);
+            if (!existingItem) {
+           state.items.unshift(newItem);
             }
+            localStorage.setItem("cartItems", JSON.stringify(state.items));
+            
+        },
+        removeItemFromCart: (state, action) => {
+            const id = action.payload;
+            const filteredItems = state.items.filter(item => item.product._id !== id);
+            state.items = filteredItems;
             localStorage.setItem('cartItems', JSON.stringify(state.items));
+        },
+        clearCart: (state) => {
+            state.items = [];
+            state.totalQuantity = 0;
+            state.totalAmount = 0;
+            localStorage.removeItem('cartItems');
         }
-    },
-    clearCart: (state) => {
-        state.items = [];
-        state.totalQuantity = 0;
-        state.totalAmount = 0;
-        localStorage.removeItem('cartItems');
-    }
     }
 });
 
