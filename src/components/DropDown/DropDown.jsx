@@ -128,7 +128,7 @@ export default function DropDownRadio(props) {
 
                         {Rating.map((rate, index) => (
 
-                            <div className='flex items-center gap-2'>
+                            <div key={index} className='flex items-center gap-2'>
                                 <input type='Checkbox' id={`${rate}-Stars`} value={`${rate}-Stars`} className='cursor-pointer' onChange={(e) => RatingCheckBoxHandler(rate, e.target.checked)} />
                                 <label htmlFor={`${rate}-Stars`} className='cursor-pointer '>
                                     <Stars rating={rate} />

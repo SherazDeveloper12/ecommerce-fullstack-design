@@ -82,12 +82,14 @@ export const ProductSlice = createSlice({
     },
     reducers: {
         fetchProductsLocally: (state) => {
+            state.status = "loading";
             const localProducts = localStorage.getItem('products');
+            
             if (localProducts) {
                 state.Products = JSON.parse(localProducts);
-                state.status = "succeeded";
+               
             }
-            
+            state.status = "succeeded";
         },
         setFilters: (state, action) => {
             if (action.payload.type === 'Condition') {
@@ -181,15 +183,15 @@ export const ProductSlice = createSlice({
             state.status = "succeeded";
             localStorage.setItem('products', JSON.stringify(action.payload));
             state.Products = action.payload;
+            console.log('Products loaded from API:', state.Products);
         });
         builder.addCase(fetchProducts.rejected, (state, action) => {
             state.status = "failed";
-            console.error('sherazi Error fetching products:', action.error.message);
             state.error = action.error.message;
         });
         builder.addCase(realtimeconnection, (state, action) => {
-            localStorage.setItem('products', JSON.stringify([action.payload, ...state.Products]));
-            state.Products.unshift(action.payload);
+            // localStorage.setItem('products', JSON.stringify([action.payload, ...state.Products]));
+            // state.Products.unshift(action.payload);
         });
         builder.addCase(createProduct.fulfilled, (state, action) => {
             localStorage.setItem('products', JSON.stringify([action.payload, ...state.Products]));

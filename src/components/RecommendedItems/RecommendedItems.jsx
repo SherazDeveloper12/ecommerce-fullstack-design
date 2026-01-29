@@ -9,7 +9,8 @@ export default function RecommendedItems() {
         <div className='grid grid-cols-5 gap-8'>
             {/* Example recommended items */}
             {products.map((product, index) => (
-                <div className='bg-white flex flex-col rounded-lg shadow hover:shadow-lg transition h-80 w-60'>
+                <div
+                 key={index} className='bg-white flex flex-col rounded-lg shadow hover:shadow-lg transition h-80 w-60'>
                 <div className='flex-3 flex justify-center items-center '>
                     <img src={product.img} alt={product.name} className='h-40 w-40' />
                 </div>

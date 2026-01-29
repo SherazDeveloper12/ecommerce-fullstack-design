@@ -2,7 +2,6 @@ import { ChevronRight, ShieldCheck, Globe, Check, Circle, Plus, Minus, } from 'l
 import React, { useEffect, useState } from 'react'
 import Stars from '../components/Stars/Stars';
 import { useDispatch, useSelector } from 'react-redux';
-import flag from '../assets/au.png';
 import SuggestedProducts from '../components/SuggestedProducts/SuggestedProducts';
 import { useParams } from 'react-router';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
@@ -14,8 +13,11 @@ export default function Product() {
     const { quantity, setQuantity } = useProduct();
     const param = useParams();
     const _id = param.id;
+    
     const products = useSelector((state) => state.products.Products);
+    console.log('Products in Product page:', products);
     const SelectedProduct = products.find(prod => prod._id === _id);
+    console.log('SelectedProduct', SelectedProduct);
     const [showcaseimage, setshowcaseimage] = React.useState(SelectedProduct.img[0]);
     const handleAddcart = (_id) => {
         const data  = {
