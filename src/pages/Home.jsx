@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HomeHero from '../components/HomeHero/HomeHero'
 import DealsOffer from '../components/DealsOffer/DealsOffer'
 
@@ -11,8 +11,13 @@ import ExtraServices from '../components/ExtraServices/ExtraServices'
 import Suppliers from '../components/Suppliers/Suppliers'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetOrdersStatus } from '../store/slices/order'
 export default function Home() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+dispatch(resetOrdersStatus());
+  }, []);
   const Products =  useSelector((state) => state.products.Products);
   const showcaseData = [
     {
