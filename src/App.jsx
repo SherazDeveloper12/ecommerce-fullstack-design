@@ -6,6 +6,7 @@ import './App.css'
 import Navigation from './navigation/Navigation.jsx'
 import { currentUser, fetchToken } from './store/slices/auth.js'
 import { fetchCartFromStorage } from './store/slices/cart.js'
+import { fetchOrders } from './store/slices/order.js'
 
 
 
@@ -20,6 +21,7 @@ function App() {
            dispatch(fetchProductsLocally());
            dispatch(fetchProducts());
            dispatch(fetchCartFromStorage());
+           dispatch(fetchOrders());
        } , []);
     useEffect(() => {
         

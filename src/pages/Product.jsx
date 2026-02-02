@@ -3,19 +3,20 @@ import React, { use, useContext, useEffect, useState } from 'react'
 import Stars from '../components/Stars/Stars';
 import { useDispatch, useSelector } from 'react-redux';
 import SuggestedProducts from '../components/SuggestedProducts/SuggestedProducts';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import RelatedProducts from '../components/RelatedProducts/RelatedProducts';
 import QuantityInput from '../components/QuantityInput/QuantityInput';
 import useProduct from '../hooks/useProduct';
 import { addItemToCart } from '../store/slices/cart';
 import {QuantityContext, CartContext} from '../context/Context';
+import { nav } from 'motion/react-client';
 export default function Product() {
     const dispatch = useDispatch();
     const { setCartIsOpen} = useContext(CartContext);
     const { quantity, setQuantity } = useProduct(1);
     const param = useParams();
     const _id = param.id;
-    
+    const navigate = useNavigate();
     const {status, Products} = useSelector((state) => state.products);
      const SelectedProduct = Products.find(prod => prod._id === _id);
      
@@ -40,7 +41,13 @@ export default function Product() {
             <p className='text-gray-500 text-lg'>Loading...</p>
         </div>
     }
-   
+   const handleBuyNow = (SelectedProduct) => {
+    dispatch(addItemToCart({
+        product: SelectedProduct,
+        quantity: quantity
+    }));
+    navigate('/checkout');
+   }
     return (
         <QuantityContext.Provider value={{ quantity, setQuantity }}>
         <div className='max-w-7xl m-auto flex flex-col gap-4 p-4'>
@@ -102,7 +109,9 @@ export default function Product() {
 
                         </div>
                         <div className='flex items-center gap-4  w-full'>
-                            <button className='bg-blue-600 font-semibold   text-white w-full py-3 px-8 cursor-pointer rounded-lg border-2 border-blue-600 hover:bg-blue-700 hover:border-blue-700 transition '>Buy Now</button>
+                            <button
+                            onClick={()=>handleBuyNow(SelectedProduct)}
+                            className='bg-blue-600 font-semibold   text-white w-full py-3 px-8 cursor-pointer rounded-lg border-2 border-blue-600 hover:bg-blue-700 hover:border-blue-700 transition '>Buy Now</button>
                             <button className='bg-green-400 text-white font-semibold w-full py-3 px-8 border-2 cursor-pointer border-green-400 rounded-lg hover:bg-green-700 hover:text-white hover:border-green-700 transition '>Contact</button>
                         </div>
                     </div>

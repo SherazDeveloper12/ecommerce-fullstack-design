@@ -11,6 +11,8 @@ export const createOrder = createAsyncThunk(
       },
     });
     const data = await response.data;
+        console.log("Order created successfully:", data);
+
     return data;
     } catch (error) {
         console.error("Error creating order:", error);
@@ -30,8 +32,11 @@ export const orderSlice = createSlice({
     error: null,
     },
     reducers: {
-        addOrder: (state, action) => {
-            state.orders.push(action.payload);
+        fetchOrders: (state, action) => {
+            const storedOrders = localStorage.getItem("orders");
+            if (storedOrders) {
+                state.orders = JSON.parse(storedOrders);
+            } 
         },
         clearOrders: (state) => {
             state.orders = [];
@@ -49,6 +54,7 @@ export const orderSlice = createSlice({
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.orders.push(action.payload);
+                localStorage.setItem("orders", JSON.stringify(state.orders));
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.status = "failed";
@@ -56,6 +62,6 @@ export const orderSlice = createSlice({
             });
     }
 });
-export const { addOrder, clearOrders, resetOrdersStatus } = orderSlice.actions;
+export const { fetchOrders, clearOrders, resetOrdersStatus } = orderSlice.actions;
 
 export default orderSlice.reducer;

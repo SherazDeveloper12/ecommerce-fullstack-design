@@ -46,7 +46,9 @@ export default function ActionButtons() {
       <div className="flex flex-col text-sm items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out "><Bell size={18}/>
         <p>Notifications</p>
       </div>
-      <div className="flex flex-col text-sm  items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out "><Heart size={18}/>
+      <div
+      onClick={()=>navigate('/orders')}
+      className="flex flex-col text-sm  items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out "><Heart size={18}/>
         <p>Orders</p>
       </div>
       <div 
