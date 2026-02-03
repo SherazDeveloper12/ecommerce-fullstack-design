@@ -24,6 +24,21 @@ export const createOrder = createAsyncThunk(
   }
 );
 
+export const FetchAllOrders = createAsyncThunk(
+  "order/fetchAllOrders",
+  async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/orders/`);
+    const data = await response.data;
+        return data;
+    } catch (error) {
+        if (error.response) {
+        throw error.response.data; }
+        throw error;
+    }
+  }
+);
+
 export const orderSlice = createSlice({
   name: "order",
   initialState: {
@@ -57,6 +72,18 @@ export const orderSlice = createSlice({
                 localStorage.setItem("orders", JSON.stringify(state.orders));
             })
             .addCase(createOrder.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            });
+        builder
+            .addCase(FetchAllOrders.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(FetchAllOrders.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.orders = action.payload;
+            })
+            .addCase(FetchAllOrders.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
             });

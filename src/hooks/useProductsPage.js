@@ -8,7 +8,7 @@ import { addSelectedProduct, clearFilters, setFilters } from "../store/slices/pr
 export default function useProductsPage() {
     const BASE_URL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
-        const [isOpen, setIsOpen] = useState(false);
+        const [isOpen, setIsOpen] = useState(true);
         const dispatch = useDispatch();
         const products = useSelector((state) => state.products.Products);
     let DisplayProducts = products;
