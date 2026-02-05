@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { animate, AnimatePresence, motion } from 'framer-motion';
-import { Folders, Gauge, icons, Users, Package, PackagePlus } from 'lucide-react';
+import { Folders, Gauge, icons, Users, Package, PackagePlus, Settings, User } from 'lucide-react';
 export default function AdminSidebar() {
     const Links = [
         { name: "Dashboard", path: "/admin/dashboard", icon: <Gauge /> },
@@ -9,6 +9,7 @@ export default function AdminSidebar() {
         { name: "Products", path: "/admin/products", icon: <Package /> },
         { name: "Orders", path: "/admin/orders", icon: <Folders /> },
         { name: "Users", path: "/admin/users", icon: <Users /> },
+        { name: "Profile", path: "/admin/profile", icon: <User /> },
     ];
     const location = useLocation();
     const navigate =  useNavigate();

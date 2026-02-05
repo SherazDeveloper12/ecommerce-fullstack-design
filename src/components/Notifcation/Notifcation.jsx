@@ -8,7 +8,7 @@ export default function Notifcation() {
         {id: 3, message: 'New user registered: john_doe', isSeen: false, Type: 'user'},
     ]
   return (
-    <div className='absolute top-14 right-7 bg-white border border-gray-300 rounded shadow p-4'>
+    <div className='absolute top-14 right-18 bg-white border border-gray-300 rounded shadow p-4'>
         <h2 className='text-lg font-semibold mb-2'>Notifications</h2>
         <ul>
             {orders.map((order) => (

@@ -21,6 +21,9 @@ import ProtectedRoute from './ProtectedRoute.jsx';
 import PublicRoute from './PublicRoute.jsx';
 import Checkout from '../pages/Checkout.jsx';
 import Orders from '../pages/Orders.jsx';
+import AdminUsers from '../pages/Admin/AdminUsers.jsx';
+import AdminOrders from '../pages/Admin/AdminOrders.jsx';
+import AdminProfile from '../pages/Admin/AdminProfile.jsx';
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -68,9 +71,7 @@ export default function Navigation() {
                     path: "/admin",
                     element: <Admin />
                 },
-            ]
-        },
-        {
+                {
             element: <AdminLayout />,
             children: [
                 {
@@ -88,9 +89,24 @@ export default function Navigation() {
                 {
                     path: "/admin/products",
                     element: <AdminProducts />
+                },
+                {
+                    path: "/admin/users",
+                    element: <AdminUsers />
+                },
+                {
+                    path: "/admin/profile",
+                    element: <AdminProfile />
+                },
+                {
+                    path: "/admin/orders",
+                    element: <AdminOrders />
                 }
             ]
         },
+            ]
+        },
+        
         {
             element: <PublicRoute />,
             children: [

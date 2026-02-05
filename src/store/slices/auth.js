@@ -48,6 +48,21 @@ export const currentUser = createAsyncThunk(
     }
   }
 );
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async ({ token, profileData, id }) => {
+    try {
+      const response = await axios.put(`${BASE_URL}/auth/update/${id}`, profileData, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  }
+);
 
 export const AuthSlice = createSlice({
   name: "auth",
@@ -110,6 +125,19 @@ export const AuthSlice = createSlice({
     builder.addCase(currentUser.rejected, (state, action) => {
       state.error = action.error.message;
       console.log('Current user error message:', action.error.message);
+      state.status = "failed";
+    });
+    builder.addCase(updateProfile.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(updateProfile.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.user = action.payload.user;
+    }
+    );
+    builder.addCase(updateProfile.rejected, (state, action) => {
+      state.error = action.error.message;
+      console.log('Update profile error message:', action.error.message);
       state.status = "failed";
     });
   }

@@ -27,8 +27,8 @@ export default function Dashboard() {
     }
   ]
   return (
-    <div className='p-2'>
-      <h1>Admin Dashboard</h1>
+    <div className='flex flex-col p-4 w-full'>
+            <h2 className='text-xl font-semibold text-gray-400'>Dashboard</h2>
       <div className='flex gap-4 p-4'>{cardsdata.map((card, index) => (
         <Card key={index} title={card.title} value={card.value} />
       ))}</div>
@@ -38,7 +38,7 @@ export default function Dashboard() {
 
 const Card = ({title, value}) => {
   return(
-<div className='size-56 flex flex-col border bg-neutral-200 overflow-hidden border-amber-300 rounded-lg '>
+<div className='size-56 flex flex-col border bg-white overflow-hidden border-amber-300 rounded-lg '>
       <div className='w-full h-16 bg-amber-500 card flex justify-center items-center'>
        <p className='text-2xl font-semibold text-amber-800' > {title}</p>
       </div>

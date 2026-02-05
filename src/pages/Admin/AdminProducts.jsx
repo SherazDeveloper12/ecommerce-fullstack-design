@@ -6,7 +6,7 @@ export default function AdminProducts() {
   
   return (
     <div className='p-2 flex flex-col gap-2 w-full'>
-      <h2 className='text-2xl text-gray-500 font-semibold '>Products</h2>
+            <h2 className='text-xl font-semibold text-gray-400'>Products</h2>
       {status === 'loading' ? <div>Loading...</div> :       <div>
          <div className='text-gray-500 font-semibold'>
        Total Products: <span className='text-black font-semibold'>{products.length}</span>
