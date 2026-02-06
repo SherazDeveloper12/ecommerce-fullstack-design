@@ -34,7 +34,7 @@ export default function AdminSidebar() {
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
             transition={{ duration: 0.5 }}
-            className='bg-white static bottom-0  h-full'>
+            className='bg-white sticky top-0 min-h-screen h-full'>
             {
                 Links.map((link, index) => (
                     <div key={index} className={`py-2 px-4 hover:bg-gray-200 cursor-pointer flex items-center gap-2 overflow-hidden ${isActive === link.path ? "bg-gray-300" : ""}`}

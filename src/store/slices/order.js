@@ -39,6 +39,26 @@ export const FetchAllOrders = createAsyncThunk(
   }
 );
 
+export const updateOrderStatus = createAsyncThunk(
+  "order/updateOrderStatus",
+  async ({orderId, newStatus}) => {
+    try {
+        const response = await axios.put(`${BASE_URL}/orders/update-status/${orderId}`, {status: newStatus}, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.data;
+        console.log("Order status updated successfully:", data);
+    return data;
+    } catch (error) {
+        console.error("Error updating order status:", error);
+         if (error.response) {
+        throw error.response.data; }
+        throw error;
+    }
+    }
+);
 export const orderSlice = createSlice({
   name: "order",
   initialState: {
@@ -84,6 +104,21 @@ export const orderSlice = createSlice({
                 state.orders = action.payload;
             })
             .addCase(FetchAllOrders.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            });
+        builder
+            .addCase(updateOrderStatus.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(updateOrderStatus.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                const updatedOrder = action.payload;
+                const index = state.orders.findIndex(order => order._id === updatedOrder._id);
+                    state.orders[index] = updatedOrder;
+                localStorage.setItem("orders", JSON.stringify(state.orders));
+            })
+            .addCase(updateOrderStatus.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
             });
