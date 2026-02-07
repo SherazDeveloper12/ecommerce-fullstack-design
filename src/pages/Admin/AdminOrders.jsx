@@ -4,7 +4,7 @@ import { updateOrderStatus } from '../../store/slices/order';
 import { Toaster, toast } from 'sonner';
 export default function AdminOrders() {
     const {orders, status , error} = useSelector((state) => state.order);
-    console.log("orders in admin orders page", orders);
+    
     const reversedOrders = orders.toReversed();
      const [ordercancelationpopup, setOrderCancelationPopup] = useState(false);
      const [orderToCancel, setOrderToCancel] = useState("");
@@ -80,7 +80,7 @@ export default function AdminOrders() {
                     {reversedOrders.map((order) => (
                          <tr>
                         
-                        <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.userId}</td>
+                        <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.username}</td>
                         <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.fullName}</td>
                         <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.city}</td>
                         <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.country}</td>

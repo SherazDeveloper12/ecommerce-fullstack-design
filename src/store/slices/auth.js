@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { nanoid } from "nanoid";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const registerUser = createAsyncThunk(
@@ -68,9 +69,10 @@ export const AuthSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+    tempID: null,
     status: "idle",
     error: "",
-    token: null,
+    token: undefined,
   },
   reducers: {
     logout: (state) => {
@@ -83,7 +85,19 @@ export const AuthSlice = createSlice({
       const token = localStorage.getItem("authToken");
       state.token = token;
       
-    }
+    },
+    setTempID: (state) => {
+      const tempID = localStorage.getItem("tempID");
+      if (tempID) {
+        state.tempID = tempID;
+        return;
+      }
+      const _id = nanoid();
+      localStorage.setItem("tempID", _id);
+      state.tempID = _id;
+
+    },
+   
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state) => {
@@ -105,6 +119,8 @@ export const AuthSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.status = "succeeded";
+      state.tempID = null;
+      localStorage.removeItem("tempID");
       state.user = action.payload.user;
       state.token = action.payload.token;
       localStorage.setItem("authToken", action.payload.token);
@@ -144,6 +160,6 @@ export const AuthSlice = createSlice({
 
 });
 
-export const { logout, fetchToken } = AuthSlice.actions;
+export const { logout, fetchToken , setTempID,  } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

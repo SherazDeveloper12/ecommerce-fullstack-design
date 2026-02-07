@@ -4,8 +4,7 @@ import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const realtimeconnection = createAction(
-    "products/realtimeconnection");
+
 export const fetchProducts = createAsyncThunk(
     "products/fetchProducts",
     async () => {
@@ -188,10 +187,7 @@ export const ProductSlice = createSlice({
             state.status = "failed";
             state.error = action.error.message;
         });
-        builder.addCase(realtimeconnection, (state, action) => {
-            // localStorage.setItem('products', JSON.stringify([action.payload, ...state.Products]));
-            // state.Products.unshift(action.payload);
-        });
+        
         builder.addCase(createProduct.fulfilled, (state, action) => {
             localStorage.setItem('products', JSON.stringify([action.payload, ...state.Products]));
             state.Products.unshift(action.payload);

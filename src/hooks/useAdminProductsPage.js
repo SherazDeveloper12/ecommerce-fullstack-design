@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteProduct, realtimeconnection } from '../store/slices/product'
+import { deleteProduct,  } from '../store/slices/product'
 import { useNavigate } from 'react-router'
 
 export default function useAdminProductsPage() {

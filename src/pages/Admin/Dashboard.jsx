@@ -6,7 +6,7 @@ import { title } from 'motion/react-client';
 
 export default function Dashboard() {
   const {Products } = useSelector((state) => state.products)
-  const {pendingRevenue} = useSelector((state) => state.admin);
+  const {pendingRevenue, liveUsers} = useSelector((state) => state.admin);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(FetchAllOrders())
@@ -14,6 +14,10 @@ export default function Dashboard() {
   }, [])
   const {orders} = useSelector((state) => state.order);
   const cardsdata = [
+    {
+      title: 'Live Users',
+      value: liveUsers,
+    },
     {
       title: 'Total Products',
       value: Products.length,

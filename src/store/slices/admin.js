@@ -19,11 +19,15 @@ export const adminSlice = createSlice({
     name: "admin",
     initialState: {
         pendingRevenue: 0,
+        liveUsers: 0,
         users: [],
         status: "idle",
         error: null,
     },
     reducers: {
+        setLiveUsers: (state, action) => {
+            state.liveUsers = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -41,3 +45,6 @@ export const adminSlice = createSlice({
             });
     },
 });
+
+export const { setLiveUsers } = adminSlice.actions;
+export default adminSlice.reducer;

@@ -4,9 +4,7 @@ import { Star, Circle, Heart, Square, RectangleHorizontal, X } from 'lucide-reac
 import DropDown from '../components/DropDown/DropDown'
 import NewsLetterSubscription from '../components/NewsLetterSubscription/NewsLetterSubscription'
 import Stars from '../components/Stars/Stars'
-import { useDispatch, useSelector } from 'react-redux'
-import { addSelectedProduct, setFilters, clearFilters, fetchProducts, realtimeconnection } from '../store/slices/product'
-import { useNavigate } from 'react-router'
+
 import {  motion } from 'framer-motion'
 import useProductsPage from '../hooks/useProductsPage'
 
@@ -23,26 +21,6 @@ const {BASE_URL,navigate,
         handleproductclick
     } = useProductsPage();
     
-      useEffect(() => {
-            const eventsource = new EventSource(`${BASE_URL}/products/stream`);
-            
-            eventsource.onmessage = function (event) {
-                const parsedData = JSON.parse(event.data);
-                console.log('Received data from SSE:', parsedData);
-                // You can dispatch an action to update the Redux store here
-                
-           dispatch(realtimeconnection(parsedData));
-             
-            }
-            return () => {
-        eventsource.close();  // Connection band karo
-    };
-        }, []);
-    
-
-    
-  
- 
     return (
         <div className=''>
             <div className='flex max-w-7xl mx-auto gap-4 pt-4'>

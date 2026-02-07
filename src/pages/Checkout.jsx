@@ -5,6 +5,7 @@ import { toast, Toaster } from 'sonner';
 import { useNavigate } from 'react-router';
 import { createOrder } from '../store/slices/order';
 import { clearCart } from '../store/slices/cart';
+import { socket } from '../lib/socket';
 export default function Checkout() {
     const items = useSelector((state) => state.cart.items)
     const [SameBillingAddress, setSameBillingAddress] = useState(true);
@@ -25,14 +26,15 @@ export default function Checkout() {
     const [billingCountry, setBillingCountry] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('COD');
     const [popupVisible, setPopupVisible] = useState(false);
-    const user = useSelector((state) => state.auth.user);
+    const {user, tempID} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
        const { status, error } = useSelector((state) => state.order);
 
     const handlePlaceOrder = (e) => {
         e.preventDefault();
         const orderDetails = {
-            userid: user ? user._id : 'Guest',
+            username: user ? user.username : `Guest`,
+            userid: user ? user._id : tempID,
             email,
             phoneNumber,
             shippingAddress: {
@@ -63,7 +65,7 @@ export default function Checkout() {
            
         };
         dispatch(createOrder(orderDetails));
-        
+        socket.emit('newOrder', orderDetails);
         
         setEmail('');
         setPhoneNumber('');
@@ -97,6 +99,8 @@ export default function Checkout() {
                 toast.error(`${error}`);
             }
         }, [status, error]);
+
+
     return (
         <div className='flex flex-col '>
             <div

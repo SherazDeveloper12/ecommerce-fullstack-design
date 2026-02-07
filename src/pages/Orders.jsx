@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 export default function Orders() {
   const { orders, status, error } = useSelector((state) => state.order);
-  
+const reversedOrders = orders.toReversed();
   return (
     <div className='min-h-screen p-4 px-12 flex flex-col'>
       {orders.length === 0 ? (
@@ -15,7 +15,7 @@ export default function Orders() {
 
 
         <div>
-          {orders.map((order) => (
+          {reversedOrders.map((order) => (
             <div key={order._id} className="bg-white shadow-md rounded p-4 mb-4 flex flex-col gap-4">
 
               <div className='flex justify-between font-semibold '>

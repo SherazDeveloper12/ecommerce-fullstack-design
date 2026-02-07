@@ -36,7 +36,7 @@ useEffect(() => {
                 toast.dismiss();
                 toast.error(`${error}`);
             }
-        }, [status, error]);
+        }, [ error]);
     return (
         <CartContext.Provider value={{cartIsOpen, setCartIsOpen}}>
         <div>

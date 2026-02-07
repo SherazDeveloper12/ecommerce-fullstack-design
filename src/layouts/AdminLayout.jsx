@@ -7,12 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/auth';
 import { FetchAllOrders } from '../store/slices/order';
 import { fetchNotifications } from '../store/slices/notifications';
+import { socket} from '../lib/socket';
+import { setLiveUsers } from '../store/slices/admin';
 export default function AdminLayout() {
   const [NotifcationVisible, setNotifcationVisible] = useState(false);
   const [userMenuVisible, setUserMenuVisible] = useState(false);
   const {user} = useSelector((state) => state.auth);
   const navigate =  useNavigate();
   const dispatch =  useDispatch();
+  socket.on('liveUsers', (data) => {
+    dispatch(setLiveUsers(data.liveUsers.length-1));
+  });
   useEffect(() => {
     dispatch(FetchAllOrders())
     dispatch(fetchNotifications(user._id))
@@ -33,7 +38,7 @@ export default function AdminLayout() {
           onClick={()=>{setNotifcationVisible(!NotifcationVisible)}}
           size={18} className='w-8 h-8 text-gray-500  cursor-pointer border border-gray-500 p-1 rounded-full' />
           {unreadNotifications.length > 0 && (
-            <span className="absolute -top-1 -right-1 inline-flex items-center justify-center size-2 p-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+            <span className="absolute -top-2 -right-3 inline-flex items-center justify-center size-6  text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
               {unreadNotifications.length}
             </span>
           )}
