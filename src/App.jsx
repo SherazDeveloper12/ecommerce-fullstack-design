@@ -9,6 +9,7 @@ import { fetchCartFromStorage } from './store/slices/cart.js'
 import { fetchOrders, fetchOrdersbyuserid } from './store/slices/order.js'
 import { socket } from './lib/socket.js'
 import useAppSockets from './hooks/useAppSockets.js'
+import { fetchNotifications, fetchNotificationsLocally } from './store/slices/notifications.js'
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
         dispatch(fetchProducts());
         dispatch(fetchCartFromStorage());
         dispatch(fetchOrders());
+        dispatch(fetchNotificationsLocally());
+        
 
         socket.connect();
         socket.on('connect', () => {
@@ -45,6 +48,7 @@ function App() {
         if (user) {
             socket.emit('authenticate', { token })
             dispatch(fetchOrdersbyuserid(user._id));
+            dispatch(fetchNotifications(user._id));
         }
         
 

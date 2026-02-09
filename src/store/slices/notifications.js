@@ -17,6 +17,20 @@ export const fetchNotifications = createAsyncThunk(
     }
 );
 
+export const MarkNotificationsAsRead = createAsyncThunk(
+    "notifications/markAsRead",
+    async (Notifcations) => {
+        try {
+            const response = await axios.put(`${BASE_URL}/notifications/mark-notifications-as-read`, { notifications: Notifcations }, {
+                headers: {
+                    "Content-Type": "application/json",
+                },            });
+            return response.data;
+        } catch (error) {
+            
+        }
+    }
+);
 export const notificationsSlice = createSlice({
     name: "notifications",
     initialState: {
@@ -24,7 +38,21 @@ export const notificationsSlice = createSlice({
         status: "idle",
         error: null,
     },
-    reducers: {},
+    reducers: {
+        fetchNotificationsLocally: (state, action) => {
+            const notifications = JSON.parse(localStorage.getItem("notifications"));
+            if (notifications) {
+           state.notifications = notifications;
+            }
+        },
+        markAsRead: (state, action) => {
+            const notificationId = action.payload;
+            const notificationupdated = state.notifications.map(notification => notification._id === notificationId ? {...notification, isRead: true} : notification);
+           console.log("Notification marked as read:", notificationupdated);
+            localStorage.setItem("notifications", JSON.stringify(notificationupdated));
+           state.notifications = notificationupdated;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchNotifications.pending, (state) => {
@@ -32,6 +60,7 @@ export const notificationsSlice = createSlice({
             })
             .addCase(fetchNotifications.fulfilled, (state, action) => {
                 state.status = "succeeded";
+                localStorage.setItem("notifications", JSON.stringify(action.payload));
                 state.notifications = action.payload;
             })
             .addCase(fetchNotifications.rejected, (state, action) => {
@@ -40,3 +69,5 @@ export const notificationsSlice = createSlice({
             });
     },
 });
+export const { markAsRead , fetchNotificationsLocally} = notificationsSlice.actions;
+export default notificationsSlice.reducer;

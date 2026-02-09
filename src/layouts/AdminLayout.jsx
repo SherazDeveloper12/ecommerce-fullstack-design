@@ -6,7 +6,6 @@ import Notifcation from '../components/Notifcation/Notifcation';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/auth';
 import { FetchAllOrders } from '../store/slices/order';
-import { fetchNotifications } from '../store/slices/notifications';
 import { socket} from '../lib/socket';
 import { setLiveUsers } from '../store/slices/admin';
 export default function AdminLayout() {
@@ -20,11 +19,11 @@ export default function AdminLayout() {
   });
   useEffect(() => {
     dispatch(FetchAllOrders())
-    dispatch(fetchNotifications(user._id))
+   
   }, []);
   const {notifications} = useSelector((state) => state.notifications);
   const unreadNotifications = notifications.filter(notification => notification.isRead === false);
- console.log("unreadnotifca",unreadNotifications);
+ 
   return (
     
      
@@ -35,7 +34,7 @@ export default function AdminLayout() {
             <div className='flex gap-4'>
               <div className='relative'>
           <Bell 
-          onClick={()=>{setNotifcationVisible(!NotifcationVisible)}}
+          onClick={()=>{setNotifcationVisible(!NotifcationVisible); setUserMenuVisible(false);}}
           size={18} className='w-8 h-8 text-gray-500  cursor-pointer border border-gray-500 p-1 rounded-full' />
           {unreadNotifications.length > 0 && (
             <span className="absolute -top-2 -right-3 inline-flex items-center justify-center size-6  text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
@@ -48,11 +47,11 @@ export default function AdminLayout() {
               src={user.profilePic}
               alt="Profile"
               className="w-9 h-9 rounded-full object-cover cursor-pointer border border-gray-300 "
-              onClick={()=>{setUserMenuVisible(!userMenuVisible)}}
+              onClick={()=>{setUserMenuVisible(!userMenuVisible); setNotifcationVisible(false);}}
             />
           ) :
           <User 
-          onClick={()=>{setUserMenuVisible(!userMenuVisible)}}
+          onClick={()=>{setUserMenuVisible(!userMenuVisible); setNotifcationVisible(false);}}
           size={18} className='w-8 h-8 text-gray-500  cursor-pointer border border-gray-500 p-1 rounded-full' />
           }
             </div>

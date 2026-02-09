@@ -9,7 +9,7 @@ import { CartContext } from '../context/Context';
 import { useEffect, useState } from 'react';
 export default function CoreLayout() {
     const [cartIsOpen, setCartIsOpen] = useState(false);
-   
+ 
 
 useEffect(() => {
     if (cartIsOpen) {
@@ -46,7 +46,7 @@ useEffect(() => {
             
             <div className={`min-h-screen flex flex-col relative  ${cartIsOpen ? ' max-h-screen overflow-hidden ' : ''}`}>
                 
-                <header className="w-full sticky top-0 z-50"><Header /></header>
+                <header className="w-full sticky top-0 z-50 "><Header /></header>
 
                 <main className="">
                      <Toaster position="top-right" richColors />

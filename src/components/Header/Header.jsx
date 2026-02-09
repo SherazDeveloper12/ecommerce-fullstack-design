@@ -16,7 +16,7 @@ export default function Header() {
   ];
  const navigate = useNavigate();
   return (
-    <div className='bg-white text-black  sticky top-0 z-50 border-b border-gray-200'>
+    <div className='bg-white text-black relative border-b border-gray-200'>
       <div className='flex justify-between p-3 items-center max-w-7xl mx-auto '>
         <div className="absolute inset-0 backdrop-blur-[5px] -z-10"></div>
         <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-primary/30 via-primary/90 to-primary/30 -z-10"></div>
