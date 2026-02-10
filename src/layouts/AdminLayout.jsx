@@ -5,9 +5,11 @@ import { Bell, User } from 'lucide-react';
 import Notifcation from '../components/Notifcation/Notifcation';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/auth';
-import { FetchAllOrders } from '../store/slices/order';
+import { FetchAllOrders, fetchAllOrdersLocally } from '../store/slices/order';
 import { socket} from '../lib/socket';
 import { setLiveUsers } from '../store/slices/admin';
+import { OrderInvoiceContext } from '../context/Context';
+import OrderInvoice from '../components/OrderInvoice/OrderInvoice';
 export default function AdminLayout() {
   const [NotifcationVisible, setNotifcationVisible] = useState(false);
   const [userMenuVisible, setUserMenuVisible] = useState(false);
@@ -18,17 +20,17 @@ export default function AdminLayout() {
     dispatch(setLiveUsers(data.liveUsers.length-1));
   });
   useEffect(() => {
+    dispatch(fetchAllOrdersLocally());
     dispatch(FetchAllOrders())
-   
   }, []);
-  const {notifications} = useSelector((state) => state.notifications);
-  const unreadNotifications = notifications.filter(notification => notification.isRead === false);
- 
+    const unreadNotifications = useSelector((state) => state.notifications.notifications.filter(notification => !notification.isRead));
+      const [OrderInvoicePopup, setOrderInvoicePopup] = useState(false);
+
   return (
     
-     
+     <OrderInvoiceContext.Provider value={{OrderInvoicePopup, setOrderInvoicePopup}}>
     <div className='flex flex-col relative'>
-      
+      {OrderInvoicePopup && <OrderInvoice />}
         <div className='bg-white border-b border-gray-300 p-4 flex justify-between items-center'>
             <h1 className='text-3xl font-bold'>Admin Panel</h1>
             <div className='flex gap-4'>
@@ -77,7 +79,7 @@ export default function AdminLayout() {
             
         </div>
     </div>
-  
+    </OrderInvoiceContext.Provider>
   )
 }
 

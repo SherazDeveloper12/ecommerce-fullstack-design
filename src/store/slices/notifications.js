@@ -39,6 +39,10 @@ export const notificationsSlice = createSlice({
         error: null,
     },
     reducers: {
+        addNotification: (state, action) => {
+            state.notifications.unshift(action.payload);
+            localStorage.setItem("notifications", JSON.stringify(state.notifications));
+        },
         fetchNotificationsLocally: (state, action) => {
             const notifications = JSON.parse(localStorage.getItem("notifications"));
             if (notifications) {
@@ -69,5 +73,5 @@ export const notificationsSlice = createSlice({
             });
     },
 });
-export const { markAsRead , fetchNotificationsLocally} = notificationsSlice.actions;
+export const { markAsRead , fetchNotificationsLocally, addNotification } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

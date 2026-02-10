@@ -17,8 +17,8 @@ export default function ActionButtons() {
   const navigate = useNavigate();
   const {cartIsOpen, setCartIsOpen} = useContext(CartContext);
   const [NotifcationVisible, setNotifcationVisible] = useState(false);
-  const {notifications} = useSelector((state) => state.notifications);
-    const unreadNotifications = notifications.filter(notification => notification.isRead === false);
+ 
+    const unreadNotifications = useSelector((state) => state.notifications.notifications.filter(notification => !notification.isRead));
    
   return (
   

@@ -1,0 +1,1 @@
+ toast.success(`${data.notification.message}`)

@@ -1,6 +1,6 @@
 
 import { fetchProducts, fetchProductsLocally, } from '../src/store/slices/product.js'
-import { use, useEffect } from 'react'
+import { use, useEffect, useEffectEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import Navigation from './navigation/Navigation.jsx'
@@ -8,12 +8,17 @@ import { currentUser, fetchToken, setTempID } from './store/slices/auth.js'
 import { fetchCartFromStorage } from './store/slices/cart.js'
 import { fetchOrders, fetchOrdersbyuserid } from './store/slices/order.js'
 import { socket } from './lib/socket.js'
+import { Toaster, toast } from 'sonner'
 import useAppSockets from './hooks/useAppSockets.js'
 import { fetchNotifications, fetchNotificationsLocally } from './store/slices/notifications.js'
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function App() {
     const { user, status, token, tempID } = useSelector((state) => state.auth);
+    const {notifications} = useSelector((state) => state.notifications);
+   
+    
+    
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchToken());
@@ -28,9 +33,7 @@ function App() {
         socket.on('connect', () => {
             console.log('Connected to Socket.IO server');
         })
-        socket.on('newOrder', (data) => {
-            console.log('New order received from server:', data);
-        })
+        
     }, []);
 
 
@@ -68,6 +71,7 @@ function App() {
             :
 
             <>
+                <Toaster richColors position="top-right" />
                 <Navigation />
             </>
         )

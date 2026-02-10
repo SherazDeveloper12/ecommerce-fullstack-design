@@ -2,11 +2,15 @@ import { Type } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { markAsRead, MarkNotificationsAsRead } from '../../store/slices/notifications';
+import { useNavigate } from 'react-router';
 
 export default function Notifcation() {
      const {notifications} = useSelector((state) => state.notifications);
-  const unreadNotifications = notifications.filter(notification => !notification.read);
-  const dispatch = useDispatch();
+    const unreadNotifications = useSelector((state) => state.notifications.notifications.filter(notification => !notification.isRead));
+  const userrole = useSelector((state) => state.auth.user?.role);
+  console.log("role", userrole);
+    const dispatch = useDispatch();
+  const navigate = useNavigate();
  useEffect(()=>{
   
     return ()=>{
@@ -26,9 +30,33 @@ export default function Notifcation() {
         <ul className='max-h-[66vh] overflow-y-scroll'>
          
             {notifications.map((notification) => (
-                <li key={notification._id} className={`p-2 mb-2 rounded ${notification.isRead ? 'bg-gray-100' : 'bg-blue-100 font-bold'}`}>
+              <>
+                <li
+                onClick={()=>navigate(`${userrole === 'admin' ? '/admin/orders' : '/orders'}`)}
+                key={notification._id} 
+                className={`p-2 cursor-pointer  rounded ${notification.isRead ? 'bg-gray-100' : 'bg-blue-100 font-bold'}`}>
                     {notification.message}
                 </li>
+             <li
+             className={`text-neutral-500 text-right text-xs p-2 cursor-pointer mb-2 rounded ${notification.isRead ? 'bg-gray-100' : 'bg-blue-100 font-bold'}`}
+             >
+{/* hours ago day ago */}
+  { (() => {
+    const hoursAgo = Math.floor((Date.now() - new Date(notification.createdAt).getTime()) / (1000 * 60 * 60));
+    
+    if (hoursAgo < 1) {
+      const minutesAgo = Math.floor((Date.now() - new Date(notification.createdAt).getTime()) / (1000 * 60));
+      return `${minutesAgo} minutes ago`;
+    } else if (hoursAgo < 24) {
+      return `${hoursAgo} hours ago`;
+    } else {
+      const daysAgo = Math.floor(hoursAgo / 24);
+      return `${daysAgo} days ago`;
+    }
+  })()}  
+
+             </li>
+             </>
             ))}
         </ul>
     </div>

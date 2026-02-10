@@ -80,10 +80,19 @@ export const orderSlice = createSlice({
     name: "order",
     initialState: {
         orders: [],
+        selectedOrder: null,
         status: "idle",
         error: null,
     },
     reducers: {
+        setSelectedOrder: (state, action) => {
+            state.selectedOrder = action.payload;
+        },
+        addOrder: (state, action) => {
+            console.log("Adding new order to state:", action.payload);
+            state.orders.push(action.payload);
+            localStorage.setItem("orders", JSON.stringify(state.orders));
+        },
         updateOrderLocally: (state, action) => {
             const updatedOrder = action.payload;
             const updatestate = state.orders.map(order => order._id === updatedOrder._id ? updatedOrder : order);
@@ -93,6 +102,12 @@ export const orderSlice = createSlice({
         },
         fetchOrders: (state, action) => {
             const storedOrders = localStorage.getItem("orders");
+            if (storedOrders) {
+                state.orders = JSON.parse(storedOrders);
+            }
+        },
+        fetchAllOrdersLocally: (state, action) => {
+            const storedOrders = localStorage.getItem("allorders");
             if (storedOrders) {
                 state.orders = JSON.parse(storedOrders);
             }
@@ -122,10 +137,10 @@ export const orderSlice = createSlice({
             });
         builder
             .addCase(FetchAllOrders.pending, (state) => {
-                state.status = "loading";
+               
             })
             .addCase(FetchAllOrders.fulfilled, (state, action) => {
-                state.status = "succeeded";
+              localStorage.setItem("allorders", JSON.stringify(action.payload));
                 state.orders = action.payload;
             })
             .addCase(FetchAllOrders.rejected, (state, action) => {
@@ -160,6 +175,6 @@ export const orderSlice = createSlice({
             });
     }
 });
-export const { fetchOrders, clearOrders, resetOrdersStatus, updateOrderLocally } = orderSlice.actions;
+export const { fetchOrders, clearOrders, resetOrdersStatus, updateOrderLocally, addOrder , fetchAllOrdersLocally, setSelectedOrder} = orderSlice.actions;
 
 export default orderSlice.reducer;
