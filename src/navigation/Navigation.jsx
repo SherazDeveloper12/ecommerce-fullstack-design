@@ -24,6 +24,8 @@ import Orders from '../pages/Orders.jsx';
 import AdminUsers from '../pages/Admin/AdminUsers.jsx';
 import AdminOrders from '../pages/Admin/AdminOrders.jsx';
 import AdminProfile from '../pages/Admin/AdminProfile.jsx';
+import InvoicePdf from '../pages/Admin/InvoicePdf.jsx';
+
 export default function Navigation() {
     const router = createBrowserRouter([
         {
@@ -63,6 +65,10 @@ export default function Navigation() {
         {
                     path: "/checkout",
                     element: <Checkout />
+                },
+                {
+                    path: "/admin/orders/:id/invoice",
+                    element: <InvoicePdf />
                 },
         {
             element: <ProtectedRoute />,

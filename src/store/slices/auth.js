@@ -45,7 +45,9 @@ export const currentUser = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      throw error.response.data;
+      if (error.response) {
+        throw error.response.data; }
+     throw error;
     }
   }
 );
