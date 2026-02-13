@@ -69,43 +69,45 @@ export default function AdminOrders() {
 
             </div>
 
-            <div className='mt-4 bg-white shadow rounded-lg p-4'>
+            <div className='mt-4 bg-white shadow rounded-lg  md:p-4  overflow-x-scroll'>
                 <table className='w-full table-auto'>
                     <thead>
                         <tr className='bg-gray-100 rounded-t-lg overflow-hidden'>
 
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Customer</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Name</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>City</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Country</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Items</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Total</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Status</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Date</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Time</th>
-                            <th className='px-4 py-2 text-left text-sm font-medium text-gray-500'>Actions</th>
+                            <th className='hidden md:table-cell px-4 py-2 text-left text-sm font-medium text-gray-500'>Customer</th>
+                            <th className='px-1 md:px-4 py-2 text-left text-sm font-medium text-gray-500'>Name</th>
+                            <th className='hidden md:table-cell px-4 py-2 text-left text-sm font-medium text-gray-500'>City</th>
+                            <th className='hidden md:table-cell px-4 py-2 text-left text-sm font-medium text-gray-500'>Country</th>
+                            <th className='hidden md:table-cell px-4 py-2 text-left text-sm font-medium text-gray-500'>Items</th>
+                            <th className='px-1 md:px-4  py-2 text-left text-sm font-medium text-gray-500'>Total</th>
+                            <th className='px-1 md:px-4  py-2 text-left text-sm font-medium text-gray-500'>Status</th>
+                            <th className='hidden md:table-cell px-4 py-2 text-left text-sm font-medium text-gray-500'>Date</th>
+                            <th className='hidden md:table-cell px-4 py-2 text-left text-sm font-medium text-gray-500'>Time</th>
+                            <th className='px-1 md:px-4  py-2 text-left text-sm font-medium text-gray-500'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {reversedOrders.map((order) => (
                             <tr>
 
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.username}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.fullName}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.city}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.country}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.items.length}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>${order.payableAmount}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{order.status}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{new Date(order.createdAt).toLocaleDateString()}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>{new Date(order.createdAt).toLocaleTimeString()}</td>
-                                <td className='px-4 py-2 border-t text-sm text-gray-700'>
+                                <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{order.username}</td>
+                                <td className='px-1 md:px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.fullName}</td>
+                                <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.city}</td>
+                                <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.country}</td>
+                                <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{order.items.length}</td>
+                                <td className='px-1 md:px-4 py-2 border-t text-sm text-gray-700'>${order.payableAmount}</td>
+                                <td className='px-1 md:px-4 py-2 border-t text-sm text-gray-700'>{order.status}</td>
+                                <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{new Date(order.createdAt).toLocaleDateString()}</td>
+                                <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{new Date(order.createdAt).toLocaleTimeString()}</td>
+                                <td className='px-1 md:px-4  py-2 border-t text-sm text-gray-700  '>
+                                    <div className='flex flex-col md:flex-row gap-2 md:gap-4 items-center'>
                                     <button
                                         onClick={() => handleViewClick(order)}
                                         className='cursor-pointer px-3 py-1 bg-green-500 text-white rounded'>View</button>
                                     <button
                                         onClick={() => handleordercancel(order)}
-                                        className='cursor-pointer px-3 py-1 bg-red-500 text-white rounded ml-2'>Cancel</button>
+                                        className='cursor-pointer px-2 md:px-3 py-1 bg-red-500 text-white rounded ml-2'>Cancel</button>
+                                        </div>
                                 </td>
                             </tr>
                         ))}

@@ -39,15 +39,15 @@ export default function ImageUploader({value, setValue}) {
         <div>
 
             <label htmlFor="imageuploader"
-                className={`relative text-gray-400 flex flex-col  border-dashed border-2 border-gray-300 rounded cursor-pointer bg-[#F7FAFC] hover:border-black hover:text-black transition-all duration-300 w-100 h-100  overflow-hidden ${ImgUrl ? 'p-0' : 'justify-center items-center'}`}>
+                className={`relative text-gray-400 flex flex-col  border-dashed border-2 border-gray-300 rounded cursor-pointer bg-[#F7FAFC] hover:border-black hover:text-black transition-all duration-300 size-66 md:size-100  overflow-hidden ${ImgUrl ? 'p-0' : 'justify-center items-center'}`}>
                 {ImgUrl ? (<div className='relative w-full h-full'>
-                    <img src={value} alt="Uploaded" className="w-100 h-100 object-cover rounded  opacity-60" />
+                    <img src={value} alt="Uploaded" className="size-50  md:size-100  object-cover rounded  opacity-60" />
                     <div className='absolute inset-0 flex flex-col justify-center items-center text-gray-700  hover:text-black transition-all duration-300'>
                         <ImagePlusIcon className='size-24' />
                         <p className='text-xl font-bold'>Click here to change image</p>
                     </div>
                 </div>) : <>
-                    <ImagePlusIcon className='size-24' />
+                    <ImagePlusIcon className='size-12 md:size-24' />
                     <p className='text-xl'>Upload Image here</p>
                 </>
                 }

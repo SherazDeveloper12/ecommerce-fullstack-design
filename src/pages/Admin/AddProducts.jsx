@@ -42,7 +42,7 @@ export default function AddProducts() {
   return (
     <div className='p-2 flex flex-col gap-2 w-full'>
             <h2 className='text-xl font-semibold text-gray-400'>Add Products</h2>
-      <div className='bg-white border border-gray-300 rounded-lg p-4 flex gap-4 w-full'>
+      <div className='bg-white border border-gray-300 rounded-lg p-4 flex flex-col md:flex-row gap-4 w-full'>
         <div className='flex-1'>
           <ImageUploader value={images[images.length - 1]} setValue={(value) => setimages(prevImages => [...prevImages, value])} />
           <div>
