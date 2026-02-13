@@ -5,7 +5,7 @@ export default function Orders() {
   const { orders, status, error } = useSelector((state) => state.order);
 const reversedOrders = orders.toReversed();
   return (
-    <div className='min-h-screen p-4 px-12 flex flex-col'>
+    <div className='min-h-screen p-4 md:px-12 flex flex-col'>
       {orders.length === 0 ? (
         <div className='flex flex-col justify-center items-center h-[70vh] gap-4'>
           <p className='text-2xl text-gray-500'>No orders found yet. Continue shopping to place your first order.</p>
@@ -16,26 +16,26 @@ const reversedOrders = orders.toReversed();
 
         <div>
           {reversedOrders.map((order) => (
-            <div key={order._id} className="bg-white shadow-md rounded p-4 mb-4 flex flex-col gap-4">
+            <div key={order._id} className="bg-white shadow-md rounded p-2 md:p-4 mb-4 flex flex-col gap-2 md:gap-4">
 
-              <div className='flex justify-between font-semibold '>
-                <p className='text-gray-500'>#{order._id}</p>
-                <span className='py-1 px-4 border border-green-400 bg-green-300 rounded-2xl'>Status:     {order.status}</span>
+              <div className='flex flex-row justify-between items-center font-semibold '>
+                <p className='text-sm md:text-md text-gray-500'>#{order._id}</p>
+                <span className='text-sm md:py-1 px-4 border border-green-400 bg-green-300 rounded-2xl'>Status:     {order.status}</span>
               </div>
-              <div className='flex justify-between'>
+              <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-between font-semibold '>
-                  <p>Order By</p>
+                  <p className='text-sm md:text-md'>Order By</p>
 
-                  <p className='text-gray-500'>{order.shippingAddress.fullName}</p>
-                  <p className='text-gray-500'>{order.shippingAddress.addressLine1}</p>
-                  <p className='text-gray-500'>{order.shippingAddress.city}</p>
+                  <p className='text-sm md:text-md text-gray-500'>{order.shippingAddress.fullName}</p>
+                  <p className='text-sm md:text-md text-gray-500'>{order.shippingAddress.addressLine1}</p>
+                  <p className='text-sm md:text-md text-gray-500'>{order.shippingAddress.city}</p>
                 </div>
                 <div className='flex flex-col justify-start font-semibold '>
-                  <p className=''>Order Placed At:</p>
+                  <p className='text-sm md:text-md'>Order Placed At:</p>
                  
-                   <p className='text-gray-500'>{new Date(order.createdAt).toLocaleDateString()}</p>
-                  <p className=''>Expected Delivery:</p>
-                  <p className='text-gray-500'>{order.expectedDelivery ? new Date(order.expectedDelivery).toLocaleDateString() : 'In 2 to 3 days'}</p>
+                   <p className='text-sm md:text-md text-gray-500'>{new Date(order.createdAt).toLocaleDateString()}</p>
+                  <p className='text-sm md:text-md'>Expected Delivery:</p>
+                  <p className='text-sm md:text-md text-gray-500'>{order.expectedDelivery ? new Date(order.expectedDelivery).toLocaleDateString() : 'In 2 to 3 days'}</p>
                 </div>
               </div>
 

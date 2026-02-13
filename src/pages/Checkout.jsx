@@ -108,7 +108,7 @@ export default function Checkout() {
              className='text-2xl cursor-pointer text-blue-400 font-bold p-4 bg-white border-b pl-18 border-gray-300'>Brand Store</div>
           
           
-            <div className=' flex'>
+            <div className=' flex md:flex-row flex-col-reverse'>
             <Toaster position="top-right" richColors />
                 <div className='flex-1 bg-white flex flex-col gap-3 p-8'>
                     <h2 className='text-2xl font-bold mb-4'>Shipping Information</h2>
@@ -218,10 +218,10 @@ export default function Checkout() {
                                 </div>
 
                             </div>
-                            <div className='flex items-center gap-4'>
+                            {/* <div className='flex items-center gap-4'>
                                 <input type='text' placeholder='Apply Coupon' className='border border-gray-300 rounded p-2 flex-3 bg-white ' />
                                 <button className='bg-green-500 text-white px-4 py-2 rounded flex-1 cursor-pointer hover:bg-green-700'>Apply</button>
-                            </div>
+                            </div> */}
                         </div>
                     )}
                 </div>

@@ -73,7 +73,7 @@ export default function ActionButtons() {
       className="flex flex-col text-sm  items-center text-gray-600 cursor-pointer transition duration-300 ease-in-out "><ShoppingCart size={18}/>
         <p className="hidden  md:block">Cart</p>
       </div>
-      <div> {isOpen ? <X onClick={() => setIsOpen(!isOpen)} size={20} className="text-gray-600 cursor-pointer transition duration-300 ease-in-out md:hidden " /> : <List onClick={() => setIsOpen(!isOpen)} size={20} className="text-gray-600 cursor-pointer transition duration-300 ease-in-out md:hidden " />}</div>
+      <div> {isOpen ? <X onClick={() => setIsOpen(!isOpen)} size={20} className="text-gray-600 cursor-pointer transition duration-300 ease-in-out hidden " /> : <List onClick={() => setIsOpen(!isOpen)} size={20} className="text-gray-600 cursor-pointer transition duration-300 ease-in-out hidden " />}</div>
       
       {isOpen && <Sidebar />}
     </div>

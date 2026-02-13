@@ -14,7 +14,8 @@ export default function RecommendedItems() {
             {/* Example recommended items */}
             {products.map((product, index) => (
                 <div
-                onClick={()=>navigate(`/products/${product._id}`)}
+                
+                onClick={()=>window.location.href = `/products/${product._id}` }
                  key={index} className='bg-white cursor-pointer flex flex-col rounded-lg shadow hover:shadow-lg transition h-80 w-60'>
                 <div className='flex-3 flex justify-center items-center '>
                     <img src={product.img[0]} alt={product.heading} className='h-40 w-40' />

@@ -18,7 +18,7 @@ export default function HomeHero() {
         { name: 'More Categories', url: '/contact' },
     ];
     return (
-        <div className='flex bg-white gap-1 p-5  rounded-lg justify-center  border border-gray-200 shadow-md'>
+        <div className='flex bg-white gap-1 p-2 md:p-5  rounded-lg justify-center  border border-gray-200 shadow-md'>
             <div className='hidden md:flex flex-1 p-2'>
                 <ul className='flex flex-col gap-1 text-left '>
                     {links.map((link) => (
@@ -31,11 +31,11 @@ export default function HomeHero() {
             <div className='flex-1 md:flex-3 object-cover  w-full rounded-lg overflow-hidden relative '>
                 <img src={bgbanner} alt='hero image' className='w-full md:w-full md:h-full object-cover ' />
                 <div className='absolute top-2 left-3 md:top-1/5 md:left-12 text-white'>
-                    <p className='text-md md:text-2xl font-medium text-black'>Latest Trending</p>
-                    <h1 className='text-xl md:text-3xl font-bold text-black' >Electronic items</h1>
+                    <p className='text-sm md:text-2xl font-medium text-black'>Latest Trending</p>
+                    <h1 className='text-md md:text-3xl font-bold text-black' >Electronic items</h1>
                     <button
                     onClick={()=>navigate('/products')}
-                    className='mt-2 md:mt-4 cursor-pointer shadow-md bg-white text-black px-2 md:px-6 py-1 md:py-2 md:font-medium rounded-lg'>Learn More</button>
+                    className='mt-2 md:mt-4 cursor-pointer shadow-md bg-white text-black px-2 md:px-6 py-1 md:py-2 text-xs md:font-medium rounded-lg'>Learn More</button>
                 </div>
             </div>
 

@@ -10,9 +10,9 @@ export default function RelatedProducts({ category }) {
           navigate(`/products/${product._id}`);
       }
   return (
-    <div className='bg-white rounded-lg border border-gray-200 shadow-md p-4 flex flex-col gap-4'>
+    <div className='bg-white rounded-lg border border-gray-200 shadow-md p-4 flex flex-col gap-4 '>
         <h2 className='text-lg font-semibold'>Related Products</h2>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 overflow-x-scroll '>
               {DisplayProducts.slice(0, 6).map((product, index) => (
       
         <div key={index} className="flex flex-col gap-4 cursor-pointer" onClick={() => handleproductclick(product)}>
