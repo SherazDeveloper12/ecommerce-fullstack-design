@@ -7,6 +7,25 @@ export default function AdminOrders() {
     const { orders, status, error } = useSelector((state) => state.order);
     const dispatch = useDispatch();
     const reversedOrders = orders.toReversed();
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const ordersPerPage = 10;
+    const indexOfLastOrder = currentPage * ordersPerPage;
+    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+    const currentOrders = reversedOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+    // pagination controls
+    const totalPages = Math.ceil(orders.length / ordersPerPage);
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
     const [ordercancelationpopup, setOrderCancelationPopup] = useState(false);
     const [orderToCancel, setOrderToCancel] = useState("");
     const { setOrderInvoicePopup } = useContext(OrderInvoiceContext);
@@ -43,7 +62,7 @@ export default function AdminOrders() {
         <div className='flex flex-col p-4 w-full h-full'>
             <Toaster richColors position='top-right' />
             {ordercancelationpopup ?
-                <div className='absolute top-0 left-0 w-full h-full bg-black/40 flex justify-center items-center z-50'>
+                <div className='absolute -top-20 left-0 w-full h-[120%] bg-black/40 flex justify-center items-center z-50'>
                     <div className='bg-white p-4 rounded-lg shadow-lg w-96'>
                         <h2 className='text-xl font-semibold mb-4'>Cancel Order</h2>
                         <p className='mb-4'>Are you sure you want to cancel this ${orderToCancel.payableAmount} order?</p>
@@ -59,7 +78,7 @@ export default function AdminOrders() {
                 </div>
                 : null}
 
-                
+
             <div className='flex justify-between items-center'>
                 <h2 className='text-xl font-semibold text-gray-400'>Orders</h2>
                 <div className='flex justify-between items-center'>
@@ -87,7 +106,7 @@ export default function AdminOrders() {
                         </tr>
                     </thead>
                     <tbody>
-                        {reversedOrders.map((order) => (
+                        {currentOrders.map((order) => (
                             <tr>
 
                                 <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{order.username}</td>
@@ -101,19 +120,37 @@ export default function AdminOrders() {
                                 <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{new Date(order.createdAt).toLocaleTimeString()}</td>
                                 <td className='px-1 md:px-4  py-2 border-t text-sm text-gray-700  '>
                                     <div className='flex flex-col md:flex-row gap-2 md:gap-4 items-center'>
-                                    <button
-                                        onClick={() => handleViewClick(order)}
-                                        className='cursor-pointer px-3 py-1 bg-green-500 text-white rounded'>View</button>
-                                    <button
-                                        onClick={() => handleordercancel(order)}
-                                        className='cursor-pointer px-2 md:px-3 py-1 bg-red-500 text-white rounded ml-2'>Cancel</button>
-                                        </div>
+                                        <button
+                                            onClick={() => handleViewClick(order)}
+                                            className='cursor-pointer px-3 py-1 bg-green-500 text-white rounded'>View</button>
+                                        <button
+                                            onClick={() => handleordercancel(order)}
+                                            className='cursor-pointer px-2 md:px-3 py-1 bg-red-500 text-white rounded ml-2'>Cancel</button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
 
                         {/* More orders can be added here */}
                     </tbody>
+                    <tfoot >
+                        <tr className='bg-gray-100 rounded-b-lg w-full '>
+                            <td colSpan={10}>
+                                <div className='flex justify-center items-center w-full '>
+                                    <button
+                                        onClick={handlePrevPage}
+                                        disabled={currentPage === 1}
+                                        className='px-4 py-2 bg-gray-300 text-gray-700 rounded mr-2 disabled:opacity-50 cursor-pointer'>Previous</button>
+                                   <p className='mx-2 text-sm text-gray-600'>{currentPage} of {totalPages} pages</p>
+                                    <button
+                                        onClick={handleNextPage}
+                                        disabled={currentPage === totalPages}
+                                        className='px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50 cursor-pointer'>Next</button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

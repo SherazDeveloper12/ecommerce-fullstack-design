@@ -4,7 +4,7 @@ import { use, useEffect, useEffectEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import Navigation from './navigation/Navigation.jsx'
-import { currentUser, fetchToken, setTempID } from './store/slices/auth.js'
+import { clearstatus, currentUser, fetchToken, setTempID } from './store/slices/auth.js'
 import { fetchCartFromStorage } from './store/slices/cart.js'
 import { fetchOrders, fetchOrdersbyuserid } from './store/slices/order.js'
 import { socket } from './lib/socket.js'
@@ -44,7 +44,7 @@ function App() {
         else if (token === null) {
             dispatch(setTempID());
         }
-
+           
     }, [token]);
 
     useEffect(() => {
@@ -52,6 +52,7 @@ function App() {
             socket.emit('authenticate', { token })
             dispatch(fetchOrdersbyuserid(user._id));
             dispatch(fetchNotifications(user._id));
+            dispatch(clearstatus());
         }
         
 

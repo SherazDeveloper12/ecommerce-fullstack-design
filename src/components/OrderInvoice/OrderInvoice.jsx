@@ -40,57 +40,56 @@ Order Placed At: ${new Date(order.createdAt).toLocaleDateString()}
 Expected Delivery At: ${new Date(new Date(order.createdAt).getTime() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString()}`;
 
   return (
-    <div className='absolute top-0 left-0   w-full h-full flex justify-center items-center z-50'>
-      <div onClick={() => setOrderInvoicePopup(false)} className='bg-black/70 absolute top-0 left-0 w-full h-full flex justify-center items-center -z-1'>
-      </div>
+    <div className='bg-white absolute top-0 left-0   w-full h-full md:h-[140%]   flex justify-center md:items-center z-50 py-4 md:p-4'>
 
-      <div className='bg-white p-4 px-16 z-2 pt-14 pb-14 rounded-lg w-[80vw]   flex flex-col gap-4  '>
-        <div className='flex justify-end items-center flex-wrap gap-2'>
+
+      <div className='md:p-4 md:px-16 z-2 md:pt-14 md:pb-14 rounded-lg w-[90vw] md:w-[80vw]  flex flex-col gap-1 md:gap-4  '>
+        <div className='flex justify-end items-center flex-wrap   gap-2'>
           <button
             onClick={() => navigate(`/admin/orders/${order._id}/invoice`)}
-            className='bg-blue-400 p-1 px-3 rounded-full text-white font-bold text-xl hover:bg-blue-600 transition-colors duration-300 cursor-pointer mr-4'
+            className='bg-blue-400 p-1 md:px-3 rounded-full text-white font-bold md:text-xl hover:bg-blue-600 transition-colors duration-300 cursor-pointer mr-4'
           >
             Generate PDF
           </button>
-          <button
+          {/* <button
             className='bg-green-400 p-1 px-3 rounded-full text-white font-bold text-xl hover:bg-green-600 transition-colors duration-300 cursor-pointer mr-4'
           >
             Mark as Out for Delivery
-          </button>
-          <button
+          </button> */}
+          {/* <button
             className='bg-amber-400 p-1 px-3 rounded-full text-white font-bold text-xl hover:bg-yellow-600 transition-colors duration-300 cursor-pointer mr-4'
           >
             Chat with Customer
-          </button>
+          </button> */}
           <button
-            className='bg-red-500 p-1 px-3 rounded-full text-white font-bold text-xl hover:bg-red-600 transition-colors duration-300 cursor-pointer'
+            className='bg-red-500 p-1 px-2 md:px-3 rounded-full text-white md:font-bold md:text-xl hover:bg-red-600 transition-colors duration-300 cursor-pointer'
             onClick={() => setOrderInvoicePopup(false)}>
             X
           </button>
         </div>
-        <div className='flex items-center w-full justify-between flex-wrap gap-4'>
-          <div className='flex gap-2 justify-center items-center'>
-            <p className='text-neutral-700 font-semibold'>Order ID:</p>
-            <p className='text-neutral-500 '>#{order._id}</p>
+        <div className='flex md:items-center w-full justify-between flex-col  md:flex-row flex-wrap md:gap-4'>
+          <div className='flex gap-2 justify-center items-center '>
+            <p className='text-xs text-neutral-700 font-semibold'>Order ID:</p>
+            <p className='text-xs text-neutral-500 '>#{order._id}</p>
           </div>
           <div className='flex gap-2 justify-center items-center'>
-            <p className='text-neutral-700 font-semibold'>Invoice Number:</p>
-            <p className='text-neutral-500'>#124515</p>
+            <p className='text-xs text-neutral-700 font-semibold'>Invoice Number:</p>
+            <p className='text-xs text-neutral-500'>#124515</p>
           </div>
         </div>
-        <div className='flex items-center w-full justify-between flex-wrap gap-4'>
+        <div className='flex items-center w-full justify-between flex-wrap  gap-4'>
           <div className="flex items-center justify-between">
-            <img src={logo} alt="Logo" className="h-16 w-16 inline-block mr-2" />
-            <h1 className="text-[#8CB7F5] text-5xl font-bold">Brand</h1>
+            <img src={logo} alt="Logo" className="size-10 md:size-15 inline-block mr-2" />
+            <h1 className="text-[#8CB7F5] text-2xl md:text-5xl font-bold">Brand</h1>
           </div>
           <div>
-            <h1 className='text-5xl font-bold font-serif'>INVOICE</h1>
+            <h1 className=' text-2xl md:text-5xl font-bold font-serif'>INVOICE</h1>
           </div>
         </div>
         <div className='flex items-start justify-between  '>
-          <div className='flex flex-col gap-3'>
-            <div className='flex justify-start items-center gap-2'>
-              <h1 className='font-bold text-xl'>Shipping Information</h1>
+          <div className='flex flex-col gap-1  md:gap-3'>
+            <div className='flex justify-start items-center gap-2 '>
+              <h1 className='text-sm font-semibold md:font-bold md:text-xl'>Shipping Information</h1>
               <motion.div
                 whileHover={{ backgroundColor: "#E5E5E5" }}
                 whileTap={{ scale: 0.9 }}
@@ -119,20 +118,20 @@ Expected Delivery At: ${new Date(new Date(order.createdAt).getTime() + 3 * 24 * 
                   </div>}
               </motion.div>
             </div>
-            <div className='flex flex-col justify-center items-start gap-2'>
-              <p ><span className='font-semibold'>Shipping to:</span> {order.shippingAddress.fullName}</p>
-              <div className='flex gap-8 justify-start items-center'>
-                <p ><span className='font-semibold'>City:</span> {order.shippingAddress.city}</p>
-                <p ><span className='font-semibold'>Country:</span> {order.shippingAddress.country}</p>
+            <div className='flex flex-col justify-center items-start   md:gap-2 '>
+              <p className='text-xs md:text-md '><span className='text-xs md:text-md font-semibold'>Shipping to:</span> {order.shippingAddress.fullName}</p>
+              <div className='flex gap-1 md:gap-8 justify-start items-center'>
+                <p className='text-xs md:text-md ' ><span className='text-xs md:text-md  font-semibold'>City:</span> {order.shippingAddress.city}</p>
+                <p className='text-xs md:text-md '><span className='text-xs md:text-md font-semibold'>Country:</span> {order.shippingAddress.country}</p>
 
               </div>
-              <p><span className='font-semibold'>Postal Code:</span> {order.shippingAddress.postalZipCode}</p>
-              <p ><span className='font-semibold'>Shipping Address:</span> {order.shippingAddress.addressLine1}</p>
+              <p className='text-xs md:text-md '><span className='text-xs md:text-md font-semibold'>Postal Code:</span> {order.shippingAddress.postalZipCode}</p>
+              <p className='text-xs md:text-md '><span className='text-xs md:text-md font-semibold'>Shipping Address:</span> {order.shippingAddress.addressLine1}</p>
 
             </div>
 
-            <div className='flex justify-start items-center gap-2'>
-              <h1 className='font-bold text-xl'>Billing Information</h1>
+            <div className='flex justify-start items-center gap-2  '>
+              <h1 className='text-sm font-semibold md:font-bold md:text-xl'>Billing Information</h1>
               <motion.div
                 whileHover={{ backgroundColor: "#E5E5E5" }}
                 whileTap={{ scale: 0.9 }}
@@ -160,20 +159,20 @@ Expected Delivery At: ${new Date(new Date(order.createdAt).getTime() + 3 * 24 * 
                   </div>}
               </motion.div>
             </div>
-            <div className='flex flex-col justify-center items-start gap-2'>
-              <p ><span className='font-semibold'>Billing to:</span> {order.billingAddress.fullName}</p>
-              <div className=' flex gap-8 justify-start items-center'>
-                <p ><span className='font-semibold'>City:</span> {order.billingAddress.city}</p>
-                <p ><span className='font-semibold'>Country:</span> {order.billingAddress.country}</p>
+            <div className='flex flex-col justify-center items-start md:gap-2 '>
+              <p  className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Billing to:</span> {order.billingAddress.fullName}</p>
+              <div className=' flex gap-4 md:gap-8 justify-start items-center'>
+                <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>City:</span> {order.billingAddress.city}</p>
+                <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Country:</span> {order.billingAddress.country}</p>
               </div>
-              <p><span className='font-semibold'>Postal Code:</span> {order.billingAddress.postalZipCode}</p>
-              <p ><span className='font-semibold'>Billing Address:</span> {order.billingAddress.addressLine1}</p>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Postal Code:</span> {order.billingAddress.postalZipCode}</p>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Billing Address:</span> {order.billingAddress.addressLine1}</p>
             </div>
           </div>
-          <div className='flex flex-col gap-3'>
+          <div className='flex flex-col  gap-1  md:gap-3'>
 
-            <div className='flex justify-start items-center gap-2'>
-              <h1 className='font-bold text-xl'>Contact Details:</h1>
+            <div className='flex justify-start items-center  gap-2'>
+              <h1 className='text-sm font-semibold md:font-bold md:text-xl'>Contact Details:</h1>
               <motion.div
                 whileHover={{ backgroundColor: "#E5E5E5" }}
                 whileTap={{ scale: 0.9 }}
@@ -204,14 +203,14 @@ Expected Delivery At: ${new Date(new Date(order.createdAt).getTime() + 3 * 24 * 
                   </div>}
               </motion.div>
             </div>
-            <div className='flex flex-col justify-center items-start gap-2'>
-              <p ><span className='font-semibold'>Customer:</span> {order.username}</p>
-              <p ><span className='font-semibold'>Email:</span> {order.email}</p>
-              <p ><span className='font-semibold'>Phone Number:</span> {order.phoneNumber}</p>
-              <p ><span className='font-semibold'>Order ID:</span> #{order._id}</p>
+            <div className='flex flex-col justify-center items-start  md:gap-2'>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Customer:</span> {order.username}</p>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Email:</span> {order.email}</p>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Phone Number:</span> {order.phoneNumber}</p>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Order ID:</span> #{order._id}</p>
             </div>
-            <div className='flex justify-start items-center gap-2'>
-              <h1 className='font-bold text-xl'>Delivery Details:</h1>
+            <div className='flex justify-start items-center gap-2 '>
+              <h1 className='text-sm font-semibold md:font-bold md:text-xl'>Delivery Details:</h1>
               <motion.div
                 whileHover={{ backgroundColor: "#E5E5E5" }}
                 whileTap={{ scale: 0.9 }}
@@ -240,9 +239,9 @@ Expected Delivery At: ${new Date(new Date(order.createdAt).getTime() + 3 * 24 * 
                   </div>}
               </motion.div>
             </div>
-            <div className='flex flex-col justify-center items-start gap-2'>
-              <p ><span className='font-semibold'>Order Placed At:</span> {new Date(order.createdAt).toLocaleDateString()}</p>
-              <p ><span className='font-semibold'>Expected Delivery At:</span> {new Date(new Date(order.createdAt).getTime() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
+            <div className='flex flex-col justify-center items-start  md:gap-2'>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Order Placed At:</span> {new Date(order.createdAt).toLocaleDateString()}</p>
+              <p className='text-xs md:text-sm'><span className='text-xs md:text-sm font-semibold'>Expected Delivery At:</span> {new Date(new Date(order.createdAt).getTime() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
 
             </div>
           </div>

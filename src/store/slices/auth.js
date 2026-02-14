@@ -82,6 +82,9 @@ export const AuthSlice = createSlice({
       state.token = null;
       localStorage.removeItem("authToken");
     },
+    clearstatus: (state) => {
+      state.status = "idle";
+    },
     fetchToken: (state, action) => {
       
       const token = localStorage.getItem("authToken");
@@ -136,8 +139,8 @@ export const AuthSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(currentUser.fulfilled, (state, action) => {
-      state.status = "succeeded";
-      
+    
+      state.status = "loading";
       state.user = action.payload.user;
     });
     builder.addCase(currentUser.rejected, (state, action) => {
@@ -162,6 +165,6 @@ export const AuthSlice = createSlice({
 
 });
 
-export const { logout, fetchToken , setTempID,  } = AuthSlice.actions;
+export const { logout, fetchToken , setTempID,clearstatus  } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

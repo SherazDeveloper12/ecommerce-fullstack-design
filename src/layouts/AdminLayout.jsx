@@ -31,7 +31,7 @@ export default function AdminLayout() {
   return (
 
     <OrderInvoiceContext.Provider value={{ OrderInvoicePopup, setOrderInvoicePopup ,sidebarOpen, setSidebarOpen}}>
-      <div className='flex flex-col relative'>
+      <div className='flex flex-col relative h-full '>
         {OrderInvoicePopup && <OrderInvoice />}
         <div className='bg-white sticky top-0 z-2 border-b border-gray-300 p-4 flex justify-between items-center  w-full'>
           <h1 className='text-xl md:text-3xl font-bold'>Admin Panel</h1>
