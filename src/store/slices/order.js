@@ -90,8 +90,11 @@ export const orderSlice = createSlice({
         },
         addOrder: (state, action) => {
             console.log("Adding new order to state:", action.payload);
-            state.orders.push(action.payload);
-            localStorage.setItem("orders", JSON.stringify(state.orders));
+           const existingOrder = state.orders.find(order => order._id === action.payload._id);
+            if (!existingOrder) {
+                state.orders.push(action.payload);
+                localStorage.setItem("orders", JSON.stringify(state.orders));
+            }
         },
         updateOrderLocally: (state, action) => {
             const updatedOrder = action.payload;
@@ -128,8 +131,11 @@ export const orderSlice = createSlice({
             })
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.status = "succeeded";
+               const existingOrder = state.orders.find(order => order._id === action.payload._id);
+            if (!existingOrder) {
                 state.orders.push(action.payload);
                 localStorage.setItem("orders", JSON.stringify(state.orders));
+            }
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.status = "failed";

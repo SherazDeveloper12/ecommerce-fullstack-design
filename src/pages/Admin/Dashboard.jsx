@@ -10,17 +10,7 @@ export default function Dashboard() {
   const { Products } = useSelector((state) => state.products)
   const { pendingRevenue, liveUsers, liveUsersCount, liveUsersCountlast60min } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(FetchAllOrders())
-    dispatch(FetchPendingRevenue())
-    socket.on('liveUsersCount', (data) => {
-      dispatch(setLiveUsersCount(data));
-    });
-    socket.on('liveUsersCount60Min', (data) => {
-      console.log("data", data);
-      dispatch(setLiveUsersCountlast60min(data));
-    });
-  }, [])
+ 
   const { orders } = useSelector((state) => state.order);
   const cardsdata = [
     {

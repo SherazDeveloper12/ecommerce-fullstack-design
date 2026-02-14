@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../components/AdminSidebar/AdminSidebar';
 import { Bell, List, User, X } from 'lucide-react';
@@ -8,10 +8,10 @@ import { logout } from '../store/slices/auth';
 import { FetchAllOrders, fetchAllOrdersLocally } from '../store/slices/order';
 import { socket } from '../lib/socket';
 import { setLiveUsers } from '../store/slices/admin';
-import { OrderInvoiceContext } from '../context/Context';
+import { notificationContext, OrderInvoiceContext } from '../context/Context';
 import OrderInvoice from '../components/OrderInvoice/OrderInvoice';
 export default function AdminLayout() {
-  const [NotifcationVisible, setNotifcationVisible] = useState(false);
+ const {NotifcationVisible, setNotifcationVisible} = useContext(notificationContext);
   const [userMenuVisible, setUserMenuVisible] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export default function AdminLayout() {
   );
   return (
 
-    <OrderInvoiceContext.Provider value={{ OrderInvoicePopup, setOrderInvoicePopup ,sidebarOpen, setSidebarOpen}}>
+    <OrderInvoiceContext.Provider value={{ OrderInvoicePopup, setOrderInvoicePopup ,sidebarOpen, setSidebarOpen, setNotifcationVisible}}>
       <div className='flex flex-col relative h-full '>
         {OrderInvoicePopup && <OrderInvoice />}
         <div className='bg-white sticky top-0 z-2 border-b border-gray-300 p-4 flex justify-between items-center  w-full'>

@@ -112,7 +112,7 @@ export default function Product() {
                                 <button
                                     onClick={() => handleBuyNow(SelectedProduct)}
                                     className='bg-blue-600 font-semibold   text-white w-full py-3 px-8 cursor-pointer rounded-lg border-2 border-blue-600 hover:bg-blue-700 hover:border-blue-700 transition '>Buy Now</button>
-                                <button className='bg-green-400 text-white font-semibold w-full py-3 px-8 border-2 cursor-pointer border-green-400 rounded-lg hover:bg-green-700 hover:text-white hover:border-green-700 transition '>Contact</button>
+                                {/* <button className='bg-green-400 text-white font-semibold w-full py-3 px-8 border-2 cursor-pointer border-green-400 rounded-lg hover:bg-green-700 hover:text-white hover:border-green-700 transition '>Contact</button> */}
                             </div>
                         </div>
                         <div className='flex font-semibold gap-8 items-center border-b border-gray-300 pb-4'>

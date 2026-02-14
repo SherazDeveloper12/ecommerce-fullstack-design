@@ -1,14 +1,15 @@
 import { Type } from 'lucide-react'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { markAsRead, MarkNotificationsAsRead } from '../../store/slices/notifications';
 import { useNavigate } from 'react-router';
+import { notificationContext, OrderInvoiceContext } from '../../context/Context';
 
 export default function Notifcation() {
      const {notifications} = useSelector((state) => state.notifications);
     const unreadNotifications = useSelector((state) => state.notifications.notifications.filter(notification => !notification.isRead));
   const userrole = useSelector((state) => state.auth.user?.role);
-  console.log("role", userrole);
+ const {setNotifcationVisible} = useContext(notificationContext);
     const dispatch = useDispatch();
   const navigate = useNavigate();
  useEffect(()=>{
@@ -32,16 +33,15 @@ export default function Notifcation() {
             {notifications.map((notification) => (
               <>
                 <li
-                onClick={()=>navigate(`${userrole === 'admin' ? '/admin/orders' : '/orders'}`)}
+                onClick={()=>{
+                   {userrole && setNotifcationVisible(false)};
+                  navigate(`${userrole === 'admin' ? '/admin/orders' : '/orders'}`)
+                }}
                 key={notification._id} 
                 className={`p-2 cursor-pointer  rounded ${notification.isRead ? 'bg-gray-100' : 'bg-blue-100 font-bold'}`}>
                     {notification.message}
-                </li>
-             <li
-             className={`text-neutral-500 text-right text-xs p-2 cursor-pointer mb-2 rounded ${notification.isRead ? 'bg-gray-100' : 'bg-blue-100 font-bold'}`}
-             >
-{/* hours ago day ago */}
-  { (() => {
+                    <div className={`text-neutral-500 text-right text-xs p-2 cursor-pointer mb-2 rounded ${notification.isRead ? 'bg-gray-100' : 'bg-blue-100 font-bold'}`}>
+                      { (() => {
     const hoursAgo = Math.floor((Date.now() - new Date(notification.createdAt).getTime()) / (1000 * 60 * 60));
     
     if (hoursAgo < 1) {
@@ -53,9 +53,10 @@ export default function Notifcation() {
       const daysAgo = Math.floor(hoursAgo / 24);
       return `${daysAgo} days ago`;
     }
-  })()}  
-
-             </li>
+  })()} 
+                    </div>
+                </li>
+             
              </>
             ))}
         </ul>
