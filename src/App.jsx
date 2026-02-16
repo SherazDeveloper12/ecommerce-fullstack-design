@@ -12,6 +12,7 @@ import { notificationContext } from './context/Context.js'
 import { Toaster, toast } from 'sonner'
 import useAppSockets from './hooks/useAppSockets.js'
 import { fetchNotifications, fetchNotificationsLocally } from './store/slices/notifications.js'
+import { fetchMessages, fetchMessagesLocally } from './store/slices/chat.js'
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         dispatch(fetchCartFromStorage());
         dispatch(fetchOrders());
         dispatch(fetchNotificationsLocally());
+        dispatch(fetchMessagesLocally());
         
 
         socket.connect();
@@ -54,6 +56,7 @@ function App() {
             dispatch(fetchOrdersbyuserid(user._id));
             dispatch(fetchNotifications(user._id));
             dispatch(clearstatus());
+            dispatch(fetchMessages(user._id));
         }
         
 
@@ -63,6 +66,7 @@ function App() {
         if (tempID) {
             socket.emit("authenticateGuest", { userId: tempID })
             dispatch(fetchOrdersbyuserid(tempID));
+            dispatch(fetchMessages(tempID));
         }
 
     }, [tempID]);

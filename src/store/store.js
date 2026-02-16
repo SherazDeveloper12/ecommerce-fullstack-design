@@ -5,6 +5,7 @@ import { CartSlice } from "./slices/cart.js";
 import {orderSlice} from "./slices/order.js";
 import { adminSlice } from "./slices/admin.js";
 import { notificationsSlice } from "./slices/notifications.js";
+import { chatSlice } from "./slices/chat.js";
 export const store = configureStore({
   reducer: {
     products: ProductSlice.reducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
     order:  orderSlice.reducer,
     admin: adminSlice.reducer,
     notifications: notificationsSlice.reducer,
+    chat: chatSlice.reducer,
   },
 });
