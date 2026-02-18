@@ -1,7 +1,7 @@
 import React, { use, useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { animate, AnimatePresence, motion } from 'framer-motion';
-import { Folders, Gauge, icons, Users, Package, PackagePlus, Settings, User } from 'lucide-react';
+import { Folders, Gauge, icons, Users, Package, PackagePlus, Settings, User, MessageSquareIcon } from 'lucide-react';
 import { OrderInvoiceContext } from '../../context/Context';
 export default function AdminSidebar() {
     const Links = [
@@ -9,6 +9,7 @@ export default function AdminSidebar() {
         { name: "Add Products", path: "/admin/add-products", icon: <PackagePlus /> },
         { name: "Products", path: "/admin/products", icon: <Package /> },
         { name: "Orders", path: "/admin/orders", icon: <Folders /> },
+        { name: "Messenger", path: "/admin/messenger", icon: <MessageSquareIcon /> },
         { name: "Profile", path: "/admin/profile", icon: <User /> },
     ];
      

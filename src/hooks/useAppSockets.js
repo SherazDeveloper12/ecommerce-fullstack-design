@@ -24,6 +24,9 @@ export default function useAppSockets() {
         console.log("data", data);
         dispatch(setLiveUsersCountlast60min(data));
       });
+      // socket.on("newChat", (data) => {
+      //   console.log("New chat message received:", data);})
+        
     }
   }, [user])
   useEffect(() => {
@@ -37,6 +40,8 @@ export default function useAppSockets() {
 
       toast.info(`${data.notification.message}`)
     })
+    // socket.on("newChat", (data) => {
+    //     console.log("New chat message received:", data);})
   }, [])
   return {}
 }

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { X } from 'lucide-react';
+import { ReceiptCent, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, sendMessage } from '../../store/slices/chat';
 export default function Chat(props) {
     const chatMessages = useSelector((state) => state.chat.messages);
-    console.log("chats", chatMessages);
-
     const [message, setMessage] = useState('');
     const dispatch = useDispatch();
     const tempID = useSelector((state) => state.auth.tempID);
     const handlesendmessage = (e) => {
         e.preventDefault();
         const newMessage = {
+            recipientID: "69843421d30a0ace506d9172",
             message: message,
             senderID: tempID,
         };
+      
         dispatch(sendMessage(newMessage));
         setMessage('');
     }

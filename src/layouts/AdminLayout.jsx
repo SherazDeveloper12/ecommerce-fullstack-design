@@ -7,30 +7,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/auth';
 import { FetchAllOrders, fetchAllOrdersLocally } from '../store/slices/order';
 import { socket } from '../lib/socket';
-import { setLiveUsers } from '../store/slices/admin';
+import { FetchAllConversations, setLiveUsers } from '../store/slices/admin';
 import { notificationContext, OrderInvoiceContext } from '../context/Context';
 import OrderInvoice from '../components/OrderInvoice/OrderInvoice';
 export default function AdminLayout() {
- const {NotifcationVisible, setNotifcationVisible} = useContext(notificationContext);
+  const { NotifcationVisible, setNotifcationVisible } = useContext(notificationContext);
   const [userMenuVisible, setUserMenuVisible] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  socket.on('liveUsers', (data) => {
+ 
+  useEffect(() => {
+     socket.on('liveUsers', (data) => {
     dispatch(setLiveUsers(data.liveUsers.length - 1));
   });
-  useEffect(() => {
     dispatch(fetchAllOrdersLocally());
     dispatch(FetchAllOrders())
+    dispatch(FetchAllConversations())
+    return () => {      socket.off('liveUsers');
+    }
   }, []);
-  const unreadNotifications = useSelector((state) => state.notifications.notifications.filter(notification => !notification.isRead));
+  
+  const notifications = useSelector((state) => state.notifications.notifications)
+ const unreadNotifications = notifications.filter((notification) => !notification.isRead);
   const [OrderInvoicePopup, setOrderInvoicePopup] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(()=>
-  window.matchMedia("(min-width: 768px)").matches
+  const [sidebarOpen, setSidebarOpen] = useState(() =>
+    window.matchMedia("(min-width: 768px)").matches
   );
+ 
   return (
 
-    <OrderInvoiceContext.Provider value={{ OrderInvoicePopup, setOrderInvoicePopup ,sidebarOpen, setSidebarOpen, setNotifcationVisible}}>
+    <OrderInvoiceContext.Provider value={{ OrderInvoicePopup, setOrderInvoicePopup, sidebarOpen, setSidebarOpen, setNotifcationVisible }}>
       <div className='flex flex-col relative h-full '>
         {OrderInvoicePopup && <OrderInvoice />}
         <div className='bg-white sticky top-0 z-2 border-b border-gray-300 p-4 flex justify-between items-center  w-full'>
@@ -77,10 +84,10 @@ export default function AdminLayout() {
               </ul>
             </div>
           }
-        
-      
+
+
         </div>
-        
+
         <div className='flex h-full relative '>
           <div className='hidden md:block w-43   '>
             <AdminSidebar />
