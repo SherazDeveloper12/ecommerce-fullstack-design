@@ -78,7 +78,7 @@ export default function Messenger() {
             <div className='flex flex-col gap-2 h-full'>
               <div className='flex-1 overflow-y-scroll flex flex-col gap-2 p-2'>
                 {chats.map((chat) => (
-                  <div key={chat._id} className={`p-2 min-w-54 rounded ${chat.senderID === '69843421d30a0ace506d9172' ? 'bg-blue-100 self-end' : 'bg-white self-start'}`}>
+                  <div key={chat._id} className={`p-2 min-w-54 rounded  ${chat.senderID === '69843421d30a0ace506d9172' ? 'bg-green-100 self-end border border-green-200' : 'bg-white border border-neutral-200  self-start'}`}>
                     <p>{chat.message}</p>
                     <div className='text-neutral-400 text-xs text-right'>
                       {/* get time only */}

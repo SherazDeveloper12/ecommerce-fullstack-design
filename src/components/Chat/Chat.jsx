@@ -36,8 +36,8 @@ export default function Chat(props) {
                 <div className="flex-1 p-4 max-h-66 bg-neutral-100 mx-4  overflow-y-scroll  flex flex-col gap-2    ">
 
                     {chatMessages.map((msg) => (
-                        <div key={msg._id}
-                            className={`  p-2 rounded flex w-[90%] self-end flex-col gap-1 ${msg.senderID === tempID ? 'self-end bg-white' : 'self-start bg-green-100'}`}>
+                        <div key={msg._id} 
+                            className={`  p-2 rounded flex w-[90%] self-end flex-col gap-1 ${msg.senderID === tempID ? 'self-end bg-green-100 border border-green-200' : 'self-start bg-white border border-neutral-200'}`}>
                             <div><p className="text-sm">{msg.message}</p></div>
                             <div className='flex justify-end '>
 
