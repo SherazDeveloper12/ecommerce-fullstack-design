@@ -106,8 +106,8 @@ export default function AdminOrders() {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentOrders.map((order) => (
-                            <tr>
+                        {currentOrders.map((order, index) => (
+                            <tr key={index}>
 
                                 <td className='hidden md:table-cell px-4 py-2 border-t text-sm text-gray-700'>{order.username}</td>
                                 <td className='px-1 md:px-4 py-2 border-t text-sm text-gray-700'>{order.shippingAddress.fullName}</td>

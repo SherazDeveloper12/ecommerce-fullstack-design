@@ -1,5 +1,5 @@
 import { User } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getchatsbyconversationid } from '../../store/slices/admin';
 import { sendMessage } from '../../store/slices/chat';
@@ -7,6 +7,7 @@ import { sendMessage } from '../../store/slices/chat';
 export default function Messenger() {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.admin.chats);
+
   const status = useSelector((state) => state.admin.status);
   const error = useSelector((state) => state.admin.error);
   const conversations = useSelector((state) => state.admin.conversations);
@@ -27,6 +28,13 @@ export default function Messenger() {
     dispatch(sendMessage(newMessage));
     setMessage('');
   }
+    const bottomref = useRef(null);
+      const scrollToBottom = () => {
+          bottomref.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+      useEffect(() => {
+          scrollToBottom();
+      }, [chats]);
   return (
     <div className='flex flex-col h-full p-2 py-4 gap-2 w-full'>
       <h1 className='text-neutral-400 text-2xl font-semibold'>Messenger</h1>
@@ -73,22 +81,15 @@ export default function Messenger() {
                   <div key={chat._id} className={`p-2 min-w-54 rounded ${chat.senderID === '69843421d30a0ace506d9172' ? 'bg-blue-100 self-end' : 'bg-white self-start'}`}>
                     <p>{chat.message}</p>
                     <div className='text-neutral-400 text-xs text-right'>
-                      {(() => {
-                        const hoursAgo = Math.floor((Date.now() - new Date(chat.createdAt).getTime()) / (1000 * 60 * 60));
-
-                        if (hoursAgo < 1) {
-                          const minutesAgo = Math.floor((Date.now() - new Date(chat.createdAt).getTime()) / (1000 * 60));
-                          return `${minutesAgo} minutes ago`;
-                        } else if (hoursAgo < 24) {
-                          return `${hoursAgo} hours ago`;
-                        } else {
-                          const daysAgo = Math.floor(hoursAgo / 24);
-                          return `${daysAgo} days ago`;
-                        }
-                      })()}
+                      {/* get time only */}
+                   {
+                  new Date(chat.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                   }
+                      
                     </div>
                   </div>
                 ))}
+                 <div ref={bottomref}></div>
               </div>
               <div>
                 <form onSubmit={(e) => handlesendmessage(e)} className='flex gap-2 static bottom-0 w-full'>

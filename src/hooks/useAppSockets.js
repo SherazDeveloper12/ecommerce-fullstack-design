@@ -5,7 +5,8 @@ import { addOrder, FetchAllOrders, updateOrderLocally } from "../store/slices/or
 import { useEffect } from "react";
 import { addNotification } from '../store/slices/notifications';
 import { toast } from 'sonner';
-import { FetchPendingRevenue, setLiveUsersCount, setLiveUsersCountlast60min } from '../store/slices/admin';
+import { addchatinadmin, FetchPendingRevenue, setLiveUsersCount, setLiveUsersCountlast60min } from '../store/slices/admin';
+import { addMessage } from '../store/slices/chat';
 
 export default function useAppSockets() {
   const user = useSelector((state) => state.auth.user);
@@ -24,10 +25,22 @@ export default function useAppSockets() {
         console.log("data", data);
         dispatch(setLiveUsersCountlast60min(data));
       });
-      // socket.on("newChat", (data) => {
-      //   console.log("New chat message received:", data);})
-        
+      socket.on("newChat", (data) => {
+        dispatch(addchatinadmin(data));
+            console.log("New chat message received: even with user ", data);
+        })
+
     }
+    else{
+      socket.on("newChat", (data) => {
+        dispatch(addMessage(data));
+            console.log("New chat message received: even without user ", data);
+        })
+    }
+     return () => {
+      socket.off("newChat",);
+    }
+
   }, [user])
   useEffect(() => {
     socket.on("orderStatusUpdated", (data) => {
@@ -40,8 +53,12 @@ export default function useAppSockets() {
 
       toast.info(`${data.notification.message}`)
     })
-    // socket.on("newChat", (data) => {
-    //     console.log("New chat message received:", data);})
+    
+      
+   
+     
+   
+
   }, [])
   return {}
 }
