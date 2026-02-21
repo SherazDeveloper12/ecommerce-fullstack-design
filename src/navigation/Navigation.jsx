@@ -25,7 +25,7 @@ import AdminUsers from '../pages/Admin/AdminUsers.jsx';
 import AdminOrders from '../pages/Admin/AdminOrders.jsx';
 import AdminProfile from '../pages/Admin/AdminProfile.jsx';
 import InvoicePdf from '../pages/Admin/InvoicePdf.jsx';
-import Messenger from '../pages/Admin/Messenger.jsx';
+import MessengerPage from '../pages/Admin/MessengerPage.jsx';
 
 export default function Navigation() {
     const router = createBrowserRouter([
@@ -103,7 +103,7 @@ export default function Navigation() {
                 },
                 {
                     path: "/admin/messenger",
-                    element: <Messenger />
+                    element: <MessengerPage />
                 },
                 {
                     path: "/admin/profile",
